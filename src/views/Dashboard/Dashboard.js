@@ -1,0 +1,28 @@
+import React, { Component, lazy, Suspense } from 'react';
+import { Jumbotron, Button} from 'reactstrap';
+
+const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
+
+class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+
+  render() {
+
+    return (
+      <div className="animated fadeIn">
+        <Jumbotron>
+          <h1 className="display-3">Aplicación de prueba</h1>
+          <p className="lead">Esta es una aplicación de prueba utilizando el Core UI Admin Template y React JS</p>
+          <hr className="my-2" />
+          <p>Vamos a realizar consultas Get, Post, Put y Delete</p>
+        </Jumbotron>
+      </div>
+    );
+  }
+}
+
+export default Dashboard;
