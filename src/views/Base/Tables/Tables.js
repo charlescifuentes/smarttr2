@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import axios from 'axios';
 
 class Tables extends Component {
@@ -30,10 +30,15 @@ class Tables extends Component {
                 <Table responsive striped>
                   <thead>
                   <tr>
-                    <th>Username</th>
-                    <th>Date registered</th>
-                    <th>Role</th>
-                    <th>Status</th>
+                    <th>NIT</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Ciudad</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Opciones</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -49,7 +54,11 @@ class Tables extends Component {
                           <td>{customer.customer_email}</td>
                           <td>{customer.customer_status}</td>
                           <td>
-                            <Badge color="success">Ver</Badge>
+                            <ButtonGroup>
+                              <Button color="info"><i className="fa fa-eye"></i>Ver</Button>
+                              <Button color="warning"><i className="fa fa-edit"></i>Editar</Button>
+                              <Button color="danger"><i className="fa fa-eraser"></i>Borrar</Button>
+                            </ButtonGroup>
                           </td>
                         </tr>
                       ))
