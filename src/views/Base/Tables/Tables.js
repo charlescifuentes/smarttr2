@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Tables extends Component {
@@ -55,9 +56,11 @@ class Tables extends Component {
                           <td>{customer.customer_status}</td>
                           <td>
                             <ButtonGroup>
-                              <Button color="info"><i className="fa fa-eye"></i>Ver</Button>
-                              <Button color="warning"><i className="fa fa-edit"></i>Editar</Button>
-                              <Button color="danger"><i className="fa fa-eraser"></i>Borrar</Button>
+                              <Link to="/base/forms">
+                                <Button color="info" size="sm"><i className="fa fa-eye"></i>Ver</Button>
+                              </Link>
+                              <Button color="warning" size="sm"><i className="fa fa-edit"></i>Editar</Button>
+                              <Button color="danger" size="sm"><i className="fa fa-eraser"></i>Borrar</Button>
                             </ButtonGroup>
                           </td>
                         </tr>

@@ -24,8 +24,8 @@ export default {
       icon: 'icon-drop',
     },
     {
-      name: 'Typography',
-      url: '/theme/typography',
+      name: 'Usuarios',
+      url: '/base/forms',
       icon: 'icon-pencil',
     },
     {
