@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import TablesDetails from './TablesDetail';
 
 class Tables extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   state = {
     customers: []
+  }
+
+  handleClick(id) {
   }
 
   async componentDidMount() {
@@ -59,7 +64,7 @@ class Tables extends Component {
                               <Link to="/base/forms">
                                 <Button color="info" size="sm"><i className="fa fa-eye"></i>Ver</Button>
                               </Link>
-                              <Button color="warning" size="sm"><i className="fa fa-edit"></i>Editar</Button>
+                              <Button onClick={() => this.handleClick(customer.customer_id)} color="warning" size="sm"><i className="fa fa-edit"></i>Editar</Button>
                               <Button color="danger" size="sm"><i className="fa fa-eraser"></i>Borrar</Button>
                             </ButtonGroup>
                           </td>
@@ -83,7 +88,6 @@ class Tables extends Component {
           </Col>
         </Row>
       </div>
-
     );
   }
 }
