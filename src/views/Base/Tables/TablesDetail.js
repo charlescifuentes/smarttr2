@@ -9,18 +9,20 @@ class TablesDetail extends Component {
   }
 
   state = {
-    customers: []
+    on: false
   }
 
-  async componentDidMount() {
-    const res = await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers');
-    this.setState({customers: res.data});
-    console.log(this.state.customers);
+  toggle = () => {
+    this.setState({
+      on: !this.state.on
+    })
   }
 
   render() {
     return (
       <div>
+        {this.state.on && this.props.children}
+        <Button onClick={this.toggle}>Show/Hide</Button>
       </div>
     );
   }

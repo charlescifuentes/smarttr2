@@ -47,6 +47,7 @@ class Forms extends Component {
   }
 
   render() {
+
     return (
       <div className="animated fadeIn">
         <Row>

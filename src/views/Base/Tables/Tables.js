@@ -7,14 +7,10 @@ import TablesDetails from './TablesDetail';
 class Tables extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   state = {
     customers: []
-  }
-
-  handleClick(id) {
   }
 
   async componentDidMount() {
@@ -24,6 +20,7 @@ class Tables extends Component {
   }
 
   render() {
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -64,7 +61,7 @@ class Tables extends Component {
                               <Link to="/base/forms">
                                 <Button color="info" size="sm"><i className="fa fa-eye"></i>Ver</Button>
                               </Link>
-                              <Button onClick={() => this.handleClick(customer.customer_id)} color="warning" size="sm"><i className="fa fa-edit"></i>Editar</Button>
+                              <Button color="warning" size="sm"><i className="fa fa-edit"></i>Editar</Button>
                               <Button color="danger" size="sm"><i className="fa fa-eraser"></i>Borrar</Button>
                             </ButtonGroup>
                           </td>
@@ -72,6 +69,9 @@ class Tables extends Component {
                       ))
                     }
                   </tbody>
+                  <TablesDetails>
+                    <h1>Hola mundo</h1>
+                  </TablesDetails>
                 </Table>
                 <Pagination>
                   <PaginationItem disabled><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
