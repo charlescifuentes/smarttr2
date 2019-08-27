@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BrandButtons from './';
+import Customers from './Customers';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<BrandButtons />, div);
+  ReactDOM.render(<Tables />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

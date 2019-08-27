@@ -1,8 +1,6 @@
 import React, { Component, lazy, Suspense } from 'react';
 import { Jumbotron, Button} from 'reactstrap';
 
-const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);

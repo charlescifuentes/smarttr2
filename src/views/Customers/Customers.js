@@ -1,21 +1,53 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem } from 'reactstrap';
+import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import TablesDetails from './TablesDetail';
+import Axios from 'axios';
+import CustomerDetail from './CustomerDetail';
 
-class Tables extends Component {
+class Customers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customers: []
+      customers: [],
+      customer: [],
+      modal: false
     };
+
+    this.toggle = this.toggle.bind(this);
+  }
+
+  handleClick(id) {
+    // Make a request for a user with a given ID
+    Axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + id)
+    .then((response) => {
+      // handle success
+      this.setState({customer: response.data})
+      this.toggle();
+      console.log(this.state.customer);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+  }
+
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
   }
 
   async componentDidMount() {
-    const res = await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers');
-    this.setState({customers: res.data});
-    console.log(this.state.customers);
+    Axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
+    .then((response) => {
+      // handle success
+      this.setState({customers: response.data})
+      console.log(this.state.customers);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
   }
 
   render() {
@@ -55,8 +87,8 @@ class Tables extends Component {
                           <td>{customer.customer_email}</td>
                           <td>
                             <ButtonGroup>
-                            <TablesDetails id={customer.customer_id}>Ver</TablesDetails>
-                              <Link to="/base/forms">
+                              <CustomerDetail id={customer.customer_id}>Ver</CustomerDetail>
+                              <Link to="/customers/customerupdate">
                               <Button color="warning"><i className="fa fa-pencil">Editar</i></Button>
                               </Link>
                               <Button color="danger"><i className="fa fa-eraser">Borrar</i></Button>
@@ -86,4 +118,4 @@ class Tables extends Component {
   }
 }
 
-export default Tables;
+export default Customers;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
-import axios from 'axios';
+import Axios from 'axios';
 
-class TablesDetail extends Component {
+class CustomerDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +12,22 @@ class TablesDetail extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    // Make a request for a user with a given ID
+    Axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + this.state.id)
+    .then((response) => {
+      // handle success
+      this.setState({customer: response.data})
+      this.toggle();
+      console.log(this.state.customer);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
   }
 
   toggle() {
@@ -20,16 +36,10 @@ class TablesDetail extends Component {
     }));
   }
 
-  async componentDidMount() {
-    const res = await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + this.state.id);
-    this.setState({customer: res.data});
-    console.log(this.state.customer);
-  }
-
   render() {
     return (
       <div>
-        <Button color="info" onClick={this.toggle}>{this.props.children}</Button>
+        <Button color="info" onClick={this.handleClick}>{this.props.children}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Detalles Cliente</ModalHeader>
           <ModalBody>
@@ -78,4 +88,4 @@ class TablesDetail extends Component {
   }
 }
 
-export default TablesDetail;
+export default CustomerDetail;
