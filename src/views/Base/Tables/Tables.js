@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
+import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TablesDetails from './TablesDetail';
@@ -7,10 +7,9 @@ import TablesDetails from './TablesDetail';
 class Tables extends Component {
   constructor(props) {
     super(props);
-  }
-
-  state = {
-    customers: []
+    this.state = {
+      customers: []
+    };
   }
 
   async componentDidMount() {
@@ -40,7 +39,6 @@ class Tables extends Component {
                     <th>Dirección</th>
                     <th>Ciudad</th>
                     <th>Email</th>
-                    <th>Estado</th>
                     <th>Opciones</th>
                   </tr>
                   </thead>
@@ -55,23 +53,19 @@ class Tables extends Component {
                           <td>{customer.customer_address}</td>
                           <td>{customer.customer_city}</td>
                           <td>{customer.customer_email}</td>
-                          <td>{customer.customer_status}</td>
                           <td>
                             <ButtonGroup>
+                            <TablesDetails id={customer.customer_id}>Ver</TablesDetails>
                               <Link to="/base/forms">
-                                <Button color="info" size="sm"><i className="fa fa-eye"></i>Ver</Button>
+                              <Button color="warning"><i className="fa fa-pencil">Editar</i></Button>
                               </Link>
-                              <Button color="warning" size="sm"><i className="fa fa-edit"></i>Editar</Button>
-                              <Button color="danger" size="sm"><i className="fa fa-eraser"></i>Borrar</Button>
+                              <Button color="danger"><i className="fa fa-eraser">Borrar</i></Button>
                             </ButtonGroup>
                           </td>
                         </tr>
                       ))
                     }
                   </tbody>
-                  <TablesDetails>
-                    <h1>Hola mundo</h1>
-                  </TablesDetails>
                 </Table>
                 <Pagination>
                   <PaginationItem disabled><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
