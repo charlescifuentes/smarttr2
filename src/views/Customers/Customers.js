@@ -12,33 +12,10 @@ class Customers extends Component {
       customer: [],
       modal: false
     };
-
-    this.toggle = this.toggle.bind(this);
-  }
-
-  handleClick(id) {
-    // Make a request for a user with a given ID
-    Axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + id)
-    .then((response) => {
-      // handle success
-      this.setState({customer: response.data})
-      this.toggle();
-      console.log(this.state.customer);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    });
-  }
-
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
   }
 
   async componentDidMount() {
-    Axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
+    await Axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
     .then((response) => {
       // handle success
       this.setState({customers: response.data})
@@ -88,7 +65,7 @@ class Customers extends Component {
                           <td>
                             <ButtonGroup>
                               <CustomerDetail id={customer.customer_id}>Ver</CustomerDetail>
-                              <Link to="/customers/customerupdate">
+                              <Link to={`/customerupdate/${customer.customer_id}`}>
                               <Button color="warning"><i className="fa fa-pencil">Editar</i></Button>
                               </Link>
                               <Button color="danger"><i className="fa fa-eraser">Borrar</i></Button>
