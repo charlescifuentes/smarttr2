@@ -39,7 +39,7 @@ class CustomerDetail extends Component {
   render() {
     return (
       <div>
-        <Button color="info" onClick={this.handleClick}>{this.props.children}</Button>
+        <Button color="info" onClick={this.handleClick}><i className="fa fa-search">{this.props.value}</i></Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Detalles Cliente</ModalHeader>
           <ModalBody>

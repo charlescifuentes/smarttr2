@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import CustomerDetail from './CustomerDetail';
+import CustomerUpdate from './CustomerUpdate';
 
 class Customers extends Component {
   constructor(props) {
     super(props);
     this.state = {
       customers: [],
-      customer: [],
-      modal: false
     };
   }
 
@@ -28,7 +26,6 @@ class Customers extends Component {
   }
 
   render() {
-
     return (
       <div className="animated fadeIn">
         <Row>
@@ -64,10 +61,14 @@ class Customers extends Component {
                           <td>{customer.customer_email}</td>
                           <td>
                             <ButtonGroup>
-                              <CustomerDetail id={customer.customer_id}>Ver</CustomerDetail>
-                              <Link to={`/customerupdate/${customer.customer_id}`}>
-                              <Button color="warning"><i className="fa fa-pencil">Editar</i></Button>
-                              </Link>
+                              <CustomerDetail 
+                                value={'Ver'}
+                                id={customer.customer_id}
+                              />
+                              <CustomerUpdate 
+                                value={'Editar'}
+                                id={customer.customer_id}
+                              />
                               <Button color="danger"><i className="fa fa-eraser">Borrar</i></Button>
                             </ButtonGroup>
                           </td>
