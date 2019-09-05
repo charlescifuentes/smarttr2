@@ -1,99 +1,29 @@
-import React, { Component } from 'react';
-import { Button, ButtonGroup, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
-import Axios from 'axios';
-import CustomerDetail from './CustomerDetail';
-import CustomerUpdate from './CustomerUpdate';
+import react, { component } from 'react'
+import { Container, Row, Col } from 'reactstrap'
+import ModalForm from './Modals/Modal'
+import DataTable from './Tables/DataTable'
+import { CSVLink } from 'react-csv'
+import axios from 'axios'
 
-class Customers extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      customers: [],
-    };
+class Customers extends component {
+  state = {
+    items: []
   }
 
-  async componentDidMount() {
-    await Axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
-    .then((response) => {
+  getItems() {
+    // Make a request for a user with a given ID
+    axios.get('/user?ID=12345')
+    .then(function (response) {
       // handle success
-      this.setState({customers: response.data})
-      console.log(this.state.customers);
+      console.log(response);
     })
     .catch(function (error) {
       // handle error
       console.log(error);
+    })
+    .finally(function () {
+      // always executed
     });
-  }
-
-  render() {
-    return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col xs="12" lg="12">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify"></i> Clientes
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped>
-                  <thead>
-                  <tr>
-                    <th>NIT</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
-                    <th>Ciudad</th>
-                    <th>Email</th>
-                    <th>Opciones</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      this.state.customers.map(customer => (
-                        <tr key={customer.customer_id}>
-                          <td>{customer.customer_nit}</td>
-                          <td>{customer.customer_firstname}</td>
-                          <td>{customer.customer_lastname}</td>
-                          <td>{customer.customer_phone}</td>
-                          <td>{customer.customer_address}</td>
-                          <td>{customer.customer_city}</td>
-                          <td>{customer.customer_email}</td>
-                          <td>
-                            <ButtonGroup>
-                              <CustomerDetail 
-                                value={'Ver'}
-                                id={customer.customer_id}
-                              />
-                              <CustomerUpdate 
-                                value={'Editar'}
-                                id={customer.customer_id}
-                              />
-                              <Button color="danger"><i className="fa fa-eraser">Borrar</i></Button>
-                            </ButtonGroup>
-                          </td>
-                        </tr>
-                      ))
-                    }
-                  </tbody>
-                </Table>
-                <Pagination>
-                  <PaginationItem disabled><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem><PaginationLink tag="button">2</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink tag="button">3</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink tag="button">4</PaginationLink></PaginationItem>
-                  <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
-                </Pagination>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-    );
   }
 }
 
-export default Customers;
