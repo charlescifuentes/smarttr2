@@ -1,29 +1,78 @@
-import react, { component } from 'react'
-import { Container, Row, Col } from 'reactstrap'
-import ModalForm from './Modals/Modal'
-import DataTable from './Tables/DataTable'
-import { CSVLink } from 'react-csv'
+import React, { Component } from 'react'
+import { Card, CardHeader, CardBody, CardFooter, Row, Col } from 'reactstrap'
+import ModalForm from './ModalForm'
+import DataTable from './DataTable'
 import axios from 'axios'
 
-class Customers extends component {
+class Customers extends Component {
+
   state = {
     items: []
   }
 
   getItems() {
     // Make a request for a user with a given ID
-    axios.get('/user?ID=12345')
-    .then(function (response) {
-      // handle success
-      console.log(response);
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
+    .then(res => {
+      const items = res.data;
+      this.setState({ items });
+      console.log(res);
     })
-    .catch(function (error) {
-      // handle error
+    .catch(error => {
       console.log(error);
     })
-    .finally(function () {
-      // always executed
-    });
+  }
+
+  addItemToState = (item) => {
+    this.setState(prevState => ({
+      items: [...prevState.items, item]      
+    }))
+  }
+
+  updateState = (item) => {
+    const itemIndex = this.state.items.findIndex(data => data.id === item.id)
+    const newArray = [
+    // destructure all items from beginning to the indexed item
+      ...this.state.items.slice(0, itemIndex),
+    // add the updated item to the array
+      item,
+    // add the rest of the items to the array from the index after the replaced item
+      ...this.state.items.slice(itemIndex + 1)
+    ]
+    this.setState({ items: newArray })
+  }
+
+  deleteItemFromState = (id) => {
+    const updatedItems = this.state.items.filter(item => item.id !== id)
+    this.setState({ items: updatedItems })
+  }
+
+  componentDidMount(){
+    this.getItems()
+  }
+
+  render() {
+    return (
+      <div className="animated fadeIn">
+        <Row>
+          <Col>
+            <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"></i> CLIENTES
+              </CardHeader>
+              <CardBody>
+                <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
+              </CardBody>
+              <CardFooter>
+                <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState}/>
+              </CardFooter>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    )
   }
 }
+
+export default Customers
 
