@@ -20,30 +20,32 @@ class AddEditForm extends Component {
 
   submitFormAdd = e => {
     e.preventDefault()
-    axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers', {
-      nit: this.state.nit,
-      nombres : this.state.nombres ,
-      apellidos : this.state.apellidos ,
-      telefono: this.state.telefono,
-      direccion: this.state.direccion,
-      email: this.state.email,
-      ciudad: this.state.ciudad,
-      status: this.state.status
+    fetch('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nit: this.state.nit,
+        nombres: this.state.nombres,
+        apellidos: this.state.apellidos,
+        telefono: this.state.telefono,
+        direccion: this.state.direccion,
+        email: this.state.email,
+        ciudad: this.state.ciudad,
+        status: this.state.status
+      })
     })
-    .then(function (response) {
-      console.log(response);
-    })
-    .then(item => {
-      if(Array.isArray(item)) {
-        this.props.addItemToState(item[0])
-        this.props.toggle()
-      } else {
-        console.log('failure')
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(response => response.json())
+      .then(item => {
+        if(Array.isArray(item)) {
+          this.props.addItemToState(item[0])
+          this.props.toggle()
+        } else {
+          console.log('failure')
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   submitFormEdit = e => {

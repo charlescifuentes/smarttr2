@@ -10,17 +10,10 @@ class Customers extends Component {
     items: []
   }
 
-  getItems() {
-    // Make a request for a user with a given ID
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
-    .then(res => {
-      const items = res.data;
-      this.setState({ items });
-      console.log(res);
-    })
-    .catch(error => {
-      console.log(error);
-    })
+  async  getItems(){         
+    fetch('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
+    const { data: items } = await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers');
+    this.setState({ items });
   }
 
   addItemToState = (item) => {
