@@ -4,14 +4,15 @@ import axios from 'axios'
 
 class AddEditForm extends Component {
   state = {
-    nit: '',
-    nombres : '',
-    apellidos : '',
-    telefono : '',
-    direccion : '',
-    email : '',
-    ciudad : '',
-    status : ''
+    customer_id: '',
+    customer_nit: '',
+    customer_firstname : '',
+    customer_lastname : '',
+    customer_phone : '',
+    customer_address : '',
+    customer_email : '',
+    customer_city : '',
+    customer_status : ''
   }
 
   onChange = e => {
@@ -20,105 +21,97 @@ class AddEditForm extends Component {
 
   submitFormAdd = e => {
     e.preventDefault()
-    axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers', {
-      nit: this.state.nit,
-      nombres: this.state.nombres,
-      apellidos: this.state.apellidos,
-      telefono: this.state.telefono,
-      direccion: this.state.direccion,
-      email: this.state.email,
-      ciudad: this.state.ciudad,
-      status: this.state.status
+
+    const item = {
+      id: this.state.customer_id,
+      nit: this.state.customer_nit,
+      nombres: this.state.customer_firstname,
+      apellidos: this.state.customer_lastname,
+      telefono: this.state.customer_phone,
+      direccion: this.state.customer_address,
+      email: this.state.customer_email,
+      ciudad: this.state.customer_city,
+      status: this.state.customer_status
+    };
+    
+    axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers', item)
+    .then(res => {
+      console.log(res.data);
+      console.log(item);
+      this.props.addItemToState(item)
+      this.props.toggle()
     })
-    .then(function (response) {
-      console.log(response);
-    })
-    .then(item => {
-      if(Array.isArray( )) {
-        this.props.addItemToState(item[0])
-        this.props.toggle()
-      } else {
-        console.log('failure')
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   submitFormEdit = e => {
     e.preventDefault()
-    fetch('http://localhost:3000/crud', {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: this.state.id,
-        first: this.state.first,
-        last: this.state.last,
-        email: this.state.email,
-        phone: this.state.phone,
-        location: this.state.location,
-        hobby: this.state.hobby
+
+    const item = {
+      id: this.state.customer_id,
+      nit: this.state.customer_nit,
+      nombres: this.state.customer_firstname,
+      apellidos: this.state.customer_lastname,
+      telefono: this.state.customer_phone,
+      direccion: this.state.customer_address,
+      email: this.state.customer_email,
+      ciudad: this.state.customer_city,
+      status: this.state.customer_status
+    };
+
+    axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/${this.state.customer_id}`, item )
+      .then(res => {
+        console.log(item);
+        this.props.updateState(item)
+        this.props.toggle()
       })
-    })
-      .then(response => response.json())
-      .then(item => {
-        if(Array.isArray(item)) {
-          // console.log(item[0])
-          this.props.updateState(item[0])
-          this.props.toggle()
-        } else {
-          console.log('failure')
-        }
-      })
-      .catch(err => console.log(err))
   }
 
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { nit, nombres, apellidos, telefono, direccion, email, ciudad, status } = this.props.item
-      this.setState({ nit, nombres, apellidos, telefono, direccion, email, ciudad, status })
+      const { customer_id, customer_nit, customer_firstname, customer_lastname, customer_phone, customer_address, customer_email, customer_city, customer_status } = this.props.item
+      this.setState({ customer_id, customer_nit, customer_firstname, customer_lastname, customer_phone, customer_address, customer_email, customer_city, customer_status })
     }
-    console.log(this.state)
   }
 
   render() {
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <FormGroup>
+          <Label for="id">ID</Label>
+          <Input type="text" name="customer_id" id="customer_id" onChange={this.onChange} value={this.state.customer_id === null ? '' : this.state.customer_id} readOnly/>
+        </FormGroup>
+        <FormGroup>
           <Label for="nit">NIT</Label>
-          <Input type="text" name="nit" id="nit" onChange={this.onChange} value={this.state.nit === null ? '' : this.state.nit} />
+          <Input type="text" name="customer_nit" id="customer_nit" onChange={this.onChange} value={this.state.customer_nit === null ? '' : this.state.customer_nit} />
         </FormGroup>
         <FormGroup>
           <Label for="nombres">Nombres</Label>
-          <Input type="text" name="nombres" id="nombres" onChange={this.onChange} value={this.state.nombres === null ? '' : this.state.nombres} />
+          <Input type="text" name="customer_firstname" id="customer_firstname" onChange={this.onChange} value={this.state.customer_firstname === null ? '' : this.state.customer_firstname} />
         </FormGroup>
         <FormGroup>
           <Label for="apellidos">Apellidos</Label>
-          <Input type="text" name="apellidos" id="apellidos" onChange={this.onChange} value={this.state.apellidos === null ? '' : this.state.apellidos}  />
+          <Input type="text" name="customer_lastname" id="customer_lastname" onChange={this.onChange} value={this.state.customer_lastname === null ? '' : this.state.customer_lastname} />
         </FormGroup>
         <FormGroup>
           <Label for="telefono">Teléfono</Label>
-          <Input type="text" name="telefono" id="telefono" onChange={this.onChange} value={this.state.telefono === null ? '' : this.state.telefono}  />
+          <Input type="text" name="customer_phone" id="customer_phone" onChange={this.onChange} value={this.state.customer_phone === null ? '' : this.state.customer_phone} />
         </FormGroup>
         <FormGroup>
           <Label for="direccion">Dirección</Label>
-          <Input type="text" name="direccion" id="direccion" onChange={this.onChange} value={this.state.direccion === null ? '' : this.state.direccion} />
+          <Input type="text" name="customer_address" id="customer_address" onChange={this.onChange} value={this.state.customer_address === null ? '' : this.state.customer_address} />
         </FormGroup>
         <FormGroup>
           <Label for="email">Email</Label>
-          <Input type="email" name="email" id="email" onChange={this.onChange} value={this.state.email === null ? '' : this.state.email}  />
+          <Input type="email" name="customer_email" id="customer_email" onChange={this.onChange} value={this.state.customer_email === null ? '' : this.state.customer_email} />
         </FormGroup>
         <FormGroup>
           <Label for="ciudad">Ciudad</Label>
-          <Input type="text" name="ciudad" id="ciudad" onChange={this.onChange} value={this.state.ciudad === null ? '' : this.state.ciudad}  placeholder="City, State" />
+          <Input type="text" name="customer_city" id="customer_city" onChange={this.onChange} value={this.state.customer_city === null ? '' : this.state.customer_city}  />
         </FormGroup>
         <FormGroup>
-          <Label for="status">Hobby</Label>
-          <Input type="text" name="status" id="status" onChange={this.onChange} value={this.state.status}  />
+          <Label for="status">Estado</Label>
+          <Input type="text" name="customer_status" id="customer_status" onChange={this.onChange} value={this.state.customer_status}  />
         </FormGroup>
         <Button>Enviar</Button>
       </Form>

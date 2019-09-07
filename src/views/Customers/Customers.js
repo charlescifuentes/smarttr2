@@ -12,10 +12,9 @@ class Customers extends Component {
 
   getItems(){
     axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
-      .then(response => response.data)
-      .then((data) => {
-        this.setState({ items : data })
-        console.log(this.state.items)
+      .then(res => {
+        const items = res.data;
+        this.setState({ items });
       })
   }
 
@@ -26,7 +25,7 @@ class Customers extends Component {
   }
 
   updateState = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.id === item.id)
+    const itemIndex = this.state.items.findIndex(data => data.id === item.customer_id)
     const newArray = [
     // destructure all items from beginning to the indexed item
       ...this.state.items.slice(0, itemIndex),
@@ -39,7 +38,7 @@ class Customers extends Component {
   }
 
   deleteItemFromState = (id) => {
-    const updatedItems = this.state.items.filter(item => item.id !== id)
+    const updatedItems = this.state.items.filter(item => item.customer_id !== id)
     this.setState({ items: updatedItems })
   }
 
