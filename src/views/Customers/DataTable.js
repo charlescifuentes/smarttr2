@@ -8,20 +8,11 @@ class DataTable extends Component {
   deleteItem = id => {
     let confirmDelete = window.confirm('Delete item forever?' + id)
     if(confirmDelete){
-      fetch('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + id, {
-      method: 'delete',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id
-      })
-    })
-      .then(response => response.json())
-      .then(item => {
+      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + id)
+      .then( response => {
+        console.log(response)
         this.props.deleteItemFromState(id)
       })
-      .catch(err => console.log(err))
     }
   }
 
