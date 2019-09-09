@@ -17,7 +17,6 @@ class ModalForm extends Component {
   }
 
   render() {
-    
     const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>
 
     const label = this.props.buttonLabel
@@ -49,6 +48,7 @@ class ModalForm extends Component {
           <ModalBody>
             <AddEditForm
               addItemToState={this.props.addItemToState}
+              addTask={this.props.addTask}
               updateState={this.props.updateState}
               toggle={this.toggle}
               item={this.props.item} 

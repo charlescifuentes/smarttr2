@@ -23,20 +23,20 @@ class AddEditForm extends Component {
     e.preventDefault()
 
     const item = {
-      id: this.state.customer_id,
-      nit: this.state.customer_nit,
-      nombres: this.state.customer_firstname,
-      apellidos: this.state.customer_lastname,
-      telefono: this.state.customer_phone,
-      direccion: this.state.customer_address,
-      email: this.state.customer_email,
-      ciudad: this.state.customer_city,
-      status: this.state.customer_status
+      customer_nit: this.state.customer_nit,
+      customer_firstname: this.state.customer_firstname,
+      customer_lastname: this.state.customer_lastname,
+      customer_phone: this.state.customer_phone,
+      customer_address: this.state.customer_address,
+      customer_email: this.state.customer_email,
+      customer_city: this.state.customer_city,
+      customer_status: this.state.customer_status
     };
     
     axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers', item)
     .then(res => {
       console.log(res.data);
+      console.log(res);
       console.log(item);
       this.props.addItemToState(item)
       this.props.toggle()

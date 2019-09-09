@@ -24,6 +24,13 @@ class Customers extends Component {
     }))
   }
 
+  addTask = (item) => {
+    this.setState({
+      items: [...this.state.items, item]
+    })
+    console.log("Nueva tarea");
+  }
+
   updateState = (item) => {
     const itemIndex = this.state.items.findIndex(data => data.id === item.customer_id)
     const newArray = [
@@ -59,7 +66,7 @@ class Customers extends Component {
                 <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
               </CardBody>
               <CardFooter>
-                <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState}/>
+                <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState} addTask={this.addTask} />
               </CardFooter>
             </Card>
           </Col>

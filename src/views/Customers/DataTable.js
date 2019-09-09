@@ -11,18 +11,18 @@ class DataTable extends Component {
       axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + id)
         .then(res => {
           console.log(res.data);
+          this.props.deleteItemFromState(id)
         })
-      this.props.deleteItemFromState(id)
     }
   }                     
 
   render() {
 
+    console.log(this.props.items);
     
     const items = this.props.items.map(item => {
       return (
         <tr key={item.customer_id}>
-          <th scope="row">{item.customer_id}</th>
           <th>{item.customer_nit}</th>
           <td>{item.customer_firstname}</td>
           <td>{item.customer_lastname}</td>
