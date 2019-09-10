@@ -36,9 +36,9 @@ class AddEditForm extends Component {
     axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers', item)
     .then(res => {
       console.log(res.data);
-      console.log(res);
-      console.log(item);
-      this.props.addItemToState(item)
+      const newItem = res.data;
+      console.log(newItem);
+      this.props.addItemToState(newItem)
       this.props.toggle()
     })
   }
