@@ -14,7 +14,11 @@ class DataTable extends Component {
           this.props.deleteItemFromState(id)
         })
     }
-  }                     
+  }
+  
+  alert = (item) => {
+    console.log(item);
+  }
 
   render() {
 
@@ -30,7 +34,7 @@ class DataTable extends Component {
           <td>{item.customer_city}</td>
           <td>
             <div style={{width:"110px"}}>
-              <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
+              <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
               {' '}
               <Button color="danger" onClick={() => this.deleteItem(item.customer_id)}>Borrar</Button>
             </div>

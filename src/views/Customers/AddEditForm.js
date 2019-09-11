@@ -110,7 +110,7 @@ class AddEditForm extends Component {
           <Label for="customer_status">Estado</Label>
           <Input type="text" name="customer_status" id="customer_status" onChange={this.onChange} value={this.state.customer_status}  />
         </FormGroup>
-        <Button>Enviar</Button>
+        <Button color="primary">Enviar</Button>
       </Form>
     );
   }

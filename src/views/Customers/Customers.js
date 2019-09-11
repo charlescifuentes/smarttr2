@@ -59,7 +59,7 @@ class Customers extends Component {
                 <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
               </CardBody>
               <CardFooter>
-                <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState} />
+                <ModalForm buttonLabel="Añadir Registro" addItemToState={this.addItemToState} />
               </CardFooter>
             </Card>
           </Col>

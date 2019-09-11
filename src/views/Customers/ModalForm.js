@@ -24,20 +24,20 @@ class ModalForm extends Component {
     let button = ''
     let title = ''
 
-    if(label === 'Edit') {
+    if(label === 'Editar') {
       button = <Button
                 color="warning"
                 onClick={this.toggle}
                 style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
-      title = 'Edit Item'
+      title = 'Editar Registro'
     } else {
       button = <Button
                 color="success"
                 onClick={this.toggle}
                 style={{float: "left"}}>{label}
                 </Button>
-      title = 'Add New Item'
+      title = 'Añadir Nuevo Registro'
     }
 
     return (
