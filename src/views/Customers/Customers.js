@@ -25,7 +25,7 @@ class Customers extends Component {
   }
 
   updateState = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.id === item.customer_id)
+    const itemIndex = this.state.items.findIndex(data => data.customer_id === item.customer_id)
     const newArray = [
     // destructure all items from beginning to the indexed item
       ...this.state.items.slice(0, itemIndex),

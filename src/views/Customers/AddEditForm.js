@@ -35,10 +35,8 @@ class AddEditForm extends Component {
     
     axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers', item)
     .then(res => {
-      console.log(res.data);
-      const newItem = res.data;
-      console.log(newItem);
-      this.props.addItemToState(newItem)
+      this.setState({ customer_id: res.data })
+      this.props.addItemToState(this.state)
       this.props.toggle()
     })
   }
@@ -47,21 +45,20 @@ class AddEditForm extends Component {
     e.preventDefault()
 
     const item = {
-      id: this.state.customer_id,
-      nit: this.state.customer_nit,
-      nombres: this.state.customer_firstname,
-      apellidos: this.state.customer_lastname,
-      telefono: this.state.customer_phone,
-      direccion: this.state.customer_address,
-      email: this.state.customer_email,
-      ciudad: this.state.customer_city,
-      status: this.state.customer_status
+      customer_nit: this.state.customer_nit,
+      customer_firstname: this.state.customer_firstname,
+      customer_lastname: this.state.customer_lastname,
+      customer_phone: this.state.customer_phone,
+      customer_address: this.state.customer_address,
+      customer_email: this.state.customer_email,
+      customer_city: this.state.customer_city,
+      customer_status: this.state.customer_status
     };
 
     axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/${this.state.customer_id}`, item )
       .then(res => {
-        console.log(item);
-        this.props.updateState(item)
+        console.log(res.data);
+        this.props.updateState(this.state)
         this.props.toggle()
       })
   }
@@ -78,39 +75,39 @@ class AddEditForm extends Component {
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <FormGroup>
-          <Label for="id">ID</Label>
+          <Label for="customer_id">ID</Label>
           <Input type="text" name="customer_id" id="customer_id" onChange={this.onChange} value={this.state.customer_id === null ? '' : this.state.customer_id} readOnly/>
         </FormGroup>
         <FormGroup>
-          <Label for="nit">NIT</Label>
+          <Label for="customer_nit">NIT</Label>
           <Input type="text" name="customer_nit" id="customer_nit" onChange={this.onChange} value={this.state.customer_nit === null ? '' : this.state.customer_nit} />
         </FormGroup>
         <FormGroup>
-          <Label for="nombres">Nombres</Label>
+          <Label for="customer_firstname">Nombres</Label>
           <Input type="text" name="customer_firstname" id="customer_firstname" onChange={this.onChange} value={this.state.customer_firstname === null ? '' : this.state.customer_firstname} />
         </FormGroup>
         <FormGroup>
-          <Label for="apellidos">Apellidos</Label>
+          <Label for="customer_lastname">Apellidos</Label>
           <Input type="text" name="customer_lastname" id="customer_lastname" onChange={this.onChange} value={this.state.customer_lastname === null ? '' : this.state.customer_lastname} />
         </FormGroup>
         <FormGroup>
-          <Label for="telefono">Teléfono</Label>
+          <Label for="customer_phone">Teléfono</Label>
           <Input type="text" name="customer_phone" id="customer_phone" onChange={this.onChange} value={this.state.customer_phone === null ? '' : this.state.customer_phone} />
         </FormGroup>
         <FormGroup>
-          <Label for="direccion">Dirección</Label>
+          <Label for="customer_address">Dirección</Label>
           <Input type="text" name="customer_address" id="customer_address" onChange={this.onChange} value={this.state.customer_address === null ? '' : this.state.customer_address} />
         </FormGroup>
         <FormGroup>
-          <Label for="email">Email</Label>
+          <Label for="customer_email">Email</Label>
           <Input type="email" name="customer_email" id="customer_email" onChange={this.onChange} value={this.state.customer_email === null ? '' : this.state.customer_email} />
         </FormGroup>
         <FormGroup>
-          <Label for="ciudad">Ciudad</Label>
+          <Label for="customer_city">Ciudad</Label>
           <Input type="text" name="customer_city" id="customer_city" onChange={this.onChange} value={this.state.customer_city === null ? '' : this.state.customer_city}  />
         </FormGroup>
         <FormGroup>
-          <Label for="status">Estado</Label>
+          <Label for="customer_status">Estado</Label>
           <Input type="text" name="customer_status" id="customer_status" onChange={this.onChange} value={this.state.customer_status}  />
         </FormGroup>
         <Button>Enviar</Button>
