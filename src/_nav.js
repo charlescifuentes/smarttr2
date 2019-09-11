@@ -21,12 +21,12 @@ export default {
     {
       name: 'Clientes',
       url: '/customers',
-      icon: 'icon-user',
+      icon: 'icon-people',
     },
     {
       name: 'Usuarios',
       url: '/users',
-      icon: 'icon-eyeglass',
+      icon: 'icon-user-following',
     },
     {
       name: 'Servicio Técnico',

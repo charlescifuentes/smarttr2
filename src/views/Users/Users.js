@@ -1,39 +1,70 @@
 import React, { Component } from 'react'
-import { Table } from 'reactstrap';
+import { Card, CardHeader, CardBody, CardFooter, Row, Col } from 'reactstrap'
+import ModalForm from './ModalForm'
+import DataTable from './DataTable'
+import axios from 'axios'
 
 class Users extends Component {
+
+  state = {
+    items: []
+  }
+
+  getItems(){
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/users')
+      .then(res => {
+        const items = res.data;
+        this.setState({ items });
+      })
+  }
+
+  addItemToState = (item) => {
+    this.setState(prevState => ({
+      items: [...prevState.items, item]      
+    }))
+  }
+
+  updateState = (item) => {
+    const itemIndex = this.state.items.findIndex(data => data.user_id === item.user_id)
+    const newArray = [
+    // destructure all items from beginning to the indexed item
+      ...this.state.items.slice(0, itemIndex),
+    // add the updated item to the array
+      item,
+    // add the rest of the items to the array from the index after the replaced item
+      ...this.state.items.slice(itemIndex + 1)
+    ]
+    this.setState({ items: newArray })
+  }
+
+  deleteItemFromState = (id) => {
+    const updatedItems = this.state.items.filter(item => item.user_id !== id)
+    this.setState({ items: updatedItems })
+  }
+
+  componentDidMount(){
+    this.getItems()
+  }
+
   render() {
     return (
-      <Table hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </Table>
+      <div className="animated fadeIn">
+        <Row>
+          <Col>
+            <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"></i> USUARIOS
+              </CardHeader>
+              <CardBody>
+                <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
+              </CardBody>
+              <CardFooter>
+                <ModalForm buttonLabel="Añadir Registro" addItemToState={this.addItemToState} />
+              </CardFooter>
+            </Card>
+          </Col>
+        </Row>
+      </div>
     )
   }
 }

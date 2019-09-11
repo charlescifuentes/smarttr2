@@ -104,11 +104,11 @@ class AddEditForm extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="customer_city">Ciudad</Label>
-          <Input type="text" name="customer_city" id="customer_city" onChange={this.onChange} value={this.state.customer_city === null ? '' : this.state.customer_city}  />
+          <Input type="text" name="customer_city" id="customer_city" onChange={this.onChange} value={this.state.customer_city === null ? '' : this.state.customer_city} />
         </FormGroup>
         <FormGroup>
           <Label for="customer_status">Estado</Label>
-          <Input type="text" name="customer_status" id="customer_status" onChange={this.onChange} value={this.state.customer_status}  />
+          <Input type="text" name="customer_status" id="customer_status" onChange={this.onChange} value={this.state.customer_status === null ? '' : this.state.customer_status} />
         </FormGroup>
         <Button color="primary">Enviar</Button>
       </Form>

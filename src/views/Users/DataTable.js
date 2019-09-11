@@ -8,7 +8,7 @@ class DataTable extends Component {
   deleteItem = id => {
     let confirmDelete = window.confirm('Desea borrar este item?')
     if(confirmDelete){
-      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + id)
+      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/users/' + id)
         .then(res => {
           console.log(res.data);
           this.props.deleteItemFromState(id)
@@ -22,17 +22,17 @@ class DataTable extends Component {
     
     const items = this.props.items.map(item => {
       return (
-        <tr key={item.customer_id}>
-          <th>{item.customer_nit}</th>
-          <td>{item.customer_firstname}</td>
-          <td>{item.customer_lastname}</td>
-          <td>{item.customer_phone}</td>
-          <td>{item.customer_city}</td>
+        <tr key={item.user_id}>
+          <td>{item.user_name}</td>
+          <td>{item.user_firstname}</td>
+          <td>{item.user_lastname}</td>
+          <td>{item.user_phone}</td>
+          <td>{item.user_email}</td>
           <td>
             <div style={{width:"110px"}}>
               <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
               {' '}
-              <Button color="danger" onClick={() => this.deleteItem(item.customer_id)}>Borrar</Button>
+              <Button color="danger" onClick={() => this.deleteItem(item.user_id)}>Borrar</Button>
             </div>
           </td>
         </tr>
@@ -43,11 +43,11 @@ class DataTable extends Component {
       <Table responsive hover>
         <thead>
           <tr>
-            <th>NIT</th>
+            <th>Usuario</th>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Teléfono</th>
-            <th>Ciudad</th>
+            <th>Email</th>
             <th>Acciones</th>
           </tr>
         </thead>
