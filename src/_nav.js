@@ -29,6 +29,11 @@ export default {
       icon: 'icon-user-following',
     },
     {
+      name: 'Estados Servicio',
+      url: '/status',
+      icon: 'icon-user-following',
+    },
+    {
       name: 'Servicio Técnico',
       url: '/techservices',
       icon: 'icon-wrench',
@@ -51,7 +56,7 @@ export default {
     },
     {
       name: 'Configuración',
-      url: '/configuration',
+      url: '/config',
       icon: 'icon-star',
     },
     {
