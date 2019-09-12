@@ -3,7 +3,7 @@ import { Table, Button } from 'reactstrap'
 import ModalForm from './ModalForm'
 import axios from 'axios'
 
-class Status extends Component {
+class DataTable extends Component {
 
   deleteItem = id => {
     let confirmDelete = window.confirm('Desea borrar este item?')
@@ -17,8 +17,6 @@ class Status extends Component {
   }
 
   render() {
-
-    console.log(this.props.items);
     
     const items = this.props.items.map(item => {
       return (
@@ -53,4 +51,4 @@ class Status extends Component {
   }
 }
 
-export default Status
+export default DataTable
