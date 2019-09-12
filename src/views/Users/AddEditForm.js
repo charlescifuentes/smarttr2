@@ -76,7 +76,7 @@ class AddEditForm extends Component {
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <FormGroup>
           <Label for="user_id">ID</Label>
-          <Input type="text" name="user_id" id="user_id" onChange={this.onChange} value={this.state.user_id === null ? '' : this.state.user_id} readOnly/>
+          <Input type="text" name="user_id" id="user_id" onChange={this.onChange} value={this.state.user_id === null ? '' : this.state.user_id} readOnly />
         </FormGroup>
         <FormGroup>
           <Label for="user_name">Usuario</Label>
