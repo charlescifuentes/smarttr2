@@ -1,0 +1,6 @@
+{
+  "name": "Techservices",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Techservices.js"
+}

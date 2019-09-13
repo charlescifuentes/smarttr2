@@ -8,7 +8,7 @@ class DataTable extends Component {
   deleteItem = id => {
     let confirmDelete = window.confirm('Desea borrar este item?')
     if(confirmDelete){
-      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/status/' + id)
+      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/roles/' + id)
         .then(res => {
           console.log(res.data);
           this.props.deleteItemFromState(id)
@@ -20,14 +20,14 @@ class DataTable extends Component {
     
     const items = this.props.items.map(item => {
       return (
-        <tr key={item.status_id}>
-          <td>{item.status_id}</td>
-          <td>{item.status_name}</td>
+        <tr key={item.rol_id}>
+          <td>{item.rol_id}</td>
+          <td>{item.rol_name}</td>
           <td>
             <div style={{width:"110px"}}>
               <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
               {' '}
-              <Button color="danger" onClick={() => this.deleteItem(item.status_id)}>Borrar</Button>
+              <Button color="danger" onClick={() => this.deleteItem(item.rol_id)}>Borrar</Button>
             </div>
           </td>
         </tr>

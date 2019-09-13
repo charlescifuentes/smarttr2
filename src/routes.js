@@ -5,6 +5,8 @@ const Customers = React.lazy(() => import('./views/Customers'));
 const Users = React.lazy(() => import('./views/Users'));
 const Status = React.lazy(() => import('./views/Status'));
 const Config = React.lazy(() => import('./views/Configuration'));
+const Roles = React.lazy(() => import('./views/Roles'));
+const Techservices = React.lazy(() => import('./views/Techservices'));
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -15,6 +17,8 @@ const routes = [
   { path: '/users', name: 'Users', component: Users },
   { path: '/status', name: 'Status', component: Status },
   { path: '/config', name: 'Status', component: Config },
+  { path: '/roles', name: 'Roles', component: Roles },
+  { path: '/techservices', name: 'Techservices', component: Techservices },
 ];
 
 export default routes;

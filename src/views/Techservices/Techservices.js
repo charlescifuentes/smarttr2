@@ -1,24 +1,31 @@
 import React, { Component } from 'react'
 import { Card, CardHeader, CardBody, CardFooter, Row, Col } from 'reactstrap'
+import ModalForm from './ModalForm'
+import DataTable from './DataTable'
 import axios from 'axios'
-import EditForm from './EditForm'
 
-class Config extends Component {
+class Techservices extends Component {
 
   state = {
     items: []
   }
 
-  async getItems(){
-    await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/config')
+  getItems(){
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts')
       .then(res => {
         const items = res.data;
         this.setState({ items });
       })
   }
 
+  addItemToState = (item) => {
+    this.setState(prevState => ({
+      items: [...prevState.items, item]      
+    }))
+  }
+
   updateState = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.config_id === item.config_id)
+    const itemIndex = this.state.items.findIndex(data => data.ts_id === item.ts_id)
     const newArray = [
     // destructure all items from beginning to the indexed item
       ...this.state.items.slice(0, itemIndex),
@@ -35,23 +42,20 @@ class Config extends Component {
   }
 
   render() {
-    const items = this.state.items.map(item => {
-      return (
-        <EditForm key={item.config_id} item={item} updateState={this.updateState} />
-      )
-    })
-
     return (
       <div className="animated fadeIn">
         <Row>
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> CONFIGURACIÓN NEGOCIO
+                <i className="fa fa-align-justify"></i> SERVICIO TÉCNICO
               </CardHeader>
               <CardBody>
-                {items}
+                <DataTable items={this.state.items} updateState={this.updateState} />
               </CardBody>
+              <CardFooter>
+                <ModalForm buttonLabel="Añadir Registro" addItemToState={this.addItemToState} />
+              </CardFooter>
             </Card>
           </Col>
         </Row>
@@ -60,4 +64,4 @@ class Config extends Component {
   }
 }
 
-export default Config
+export default Techservices

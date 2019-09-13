@@ -24,20 +24,10 @@ export default {
       icon: 'icon-people',
     },
     {
-      name: 'Usuarios',
-      url: '/users',
-      icon: 'icon-user-following',
-    },
-    {
-      name: 'Estados Servicio',
-      url: '/status',
-      icon: 'icon-user-following',
-    },
-    {
       name: 'Servicio Técnico',
       url: '/techservices',
       icon: 'icon-wrench',
-    },      
+    },
     {
       name: 'Reportes',
       icon: 'icon-puzzle',
@@ -53,6 +43,21 @@ export default {
           icon: 'icon-puzzle',
         },
       ],
+    },
+    {
+      name: 'Estados Servicio',
+      url: '/status',
+      icon: 'icon-user-following',
+    },
+    {
+      name: 'Roles',
+      url: '/roles',
+      icon: 'icon-user-following',
+    },
+    {
+      name: 'Usuarios',
+      url: '/users',
+      icon: 'icon-user-following',
     },
     {
       name: 'Configuración',

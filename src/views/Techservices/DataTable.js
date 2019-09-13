@@ -5,29 +5,20 @@ import axios from 'axios'
 
 class DataTable extends Component {
 
-  deleteItem = id => {
-    let confirmDelete = window.confirm('Desea borrar este item?')
-    if(confirmDelete){
-      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/status/' + id)
-        .then(res => {
-          console.log(res.data);
-          this.props.deleteItemFromState(id)
-        })
-    }
-  }
-
   render() {
     
     const items = this.props.items.map(item => {
       return (
-        <tr key={item.status_id}>
-          <td>{item.status_id}</td>
-          <td>{item.status_name}</td>
+        <tr key={item.ts_id}>
+          <td>{item.ts_id}</td>
+          <td>{item.ts_date_start}</td>
+          <td>{item.customer_id}</td>
+          <td>{item.ts_watch_brand}</td>
+          <td>{item.ts_store_sender}</td>
+          <td>{item.ts_status}</td>
           <td>
             <div style={{width:"110px"}}>
               <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
-              {' '}
-              <Button color="danger" onClick={() => this.deleteItem(item.status_id)}>Borrar</Button>
             </div>
           </td>
         </tr>
@@ -39,7 +30,11 @@ class DataTable extends Component {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Marca</th>
+            <th>Taller</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
