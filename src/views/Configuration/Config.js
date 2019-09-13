@@ -17,14 +17,8 @@ class Config extends Component {
       })
   }
 
-  addItemToState = (item) => {
-    this.setState(prevState => ({
-      items: [...prevState.items, item]      
-    }))
-  }
-
   updateState = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.status_id === item.status_id)
+    const itemIndex = this.state.items.findIndex(data => data.config_id === item.config_id)
     const newArray = [
     // destructure all items from beginning to the indexed item
       ...this.state.items.slice(0, itemIndex),
@@ -36,16 +30,19 @@ class Config extends Component {
     this.setState({ items: newArray })
   }
 
-  deleteItemFromState = (id) => {
-    const updatedItems = this.state.items.filter(item => item.status_id !== id)
-    this.setState({ items: updatedItems })
-  }
-
   componentDidMount(){
     this.getItems()
   }
 
   render() {
+    console.log(this.state.items);
+    
+    const items = this.state.items.map(item => {
+      return (
+        <EditForm key={item.config_id} item={item} updateState={this.updateState} />
+      )
+    })
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -55,7 +52,7 @@ class Config extends Component {
                 <i className="fa fa-align-justify"></i> CONFIGURACIÓN NEGOCIO
               </CardHeader>
               <CardBody>
-                <EditForm items={this.state.items} updateState={this.updateState} />
+                {items}
               </CardBody>
             </Card>
           </Col>
