@@ -30,20 +30,20 @@ class ModalForm extends Component {
                 onClick={this.toggle}
                 style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
-      title = 'Editar Registro'
+      title = 'Actualizar Orden de Servicio'
     } else {
       button = <Button
                 color="success"
                 onClick={this.toggle}
                 style={{float: "left"}}>{label}
                 </Button>
-      title = 'Añadir Nuevo Registro'
+      title = 'Crear una Orden de Servicio'
     }
 
     return (
       <div>
         {button}
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal size="lg" isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle} close={closeBtn}>{title}</ModalHeader>
           <ModalBody>
             <AddEditForm

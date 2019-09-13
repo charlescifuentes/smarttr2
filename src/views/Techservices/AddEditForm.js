@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, CardBody, CardFooter } from 'reactstrap';
 import axios from 'axios'
 
 class AddEditForm extends Component {
@@ -62,17 +62,37 @@ class AddEditForm extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
-        <FormGroup>
-          <Label for="ts_id">ID</Label>
-          <Input type="text" name="ts_id" id="ts_id" onChange={this.onChange} value={this.state.ts_id === null ? '' : this.state.ts_id} readOnly />
-        </FormGroup>
-        <FormGroup>
-          <Label for="status_name">Nombre</Label>
-          <Input type="text" name="status_name" id="status_name" onChange={this.onChange} value={this.state.status_name === null ? '' : this.state.status_name} />
-        </FormGroup>
-        <Button color="primary">Enviar</Button>
-      </Form>
+      <Card>
+        <CardHeader>Header</CardHeader>
+        <CardBody>
+          <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
+            <Row form>
+              <Col md={6}>
+                <FormGroup>
+                  <Label for="exampleEmail">Email</Label>
+                  <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                </FormGroup>
+              </Col>
+              <Col md={6}>
+                <FormGroup>
+                  <Label for="examplePassword">Password</Label>
+                  <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                </FormGroup>
+              </Col>
+            </Row>
+            <FormGroup>
+              <Label for="ts_id">ID</Label>
+              <Input type="text" name="ts_id" id="ts_id" onChange={this.onChange} value={this.state.ts_id === null ? '' : this.state.ts_id} readOnly />
+            </FormGroup>
+            <FormGroup>
+              <Label for="status_name">Nombre</Label>
+              <Input type="text" name="status_name" id="status_name" onChange={this.onChange} value={this.state.status_name === null ? '' : this.state.status_name} />
+            </FormGroup>
+            <Button color="primary">Enviar</Button>
+          </Form>
+        </CardBody>
+        <CardFooter>Footer</CardFooter>
+      </Card>
     );
   }
 }
