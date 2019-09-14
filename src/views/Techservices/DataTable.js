@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Table, Button } from 'reactstrap'
+import { Table } from 'reactstrap'
 import ModalForm from './ModalForm'
-import axios from 'axios'
 
 class DataTable extends Component {
 

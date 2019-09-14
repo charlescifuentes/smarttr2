@@ -43,7 +43,7 @@ class ModalForm extends Component {
     return (
       <div>
         {button}
-        <Modal size="lg" isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal size="lg" isOpen={this.state.modal} className={this.props.className}>
           <ModalHeader toggle={this.toggle} close={closeBtn}>{title}</ModalHeader>
           <ModalBody>
             <AddEditForm
