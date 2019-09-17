@@ -38,7 +38,10 @@ class ModalForm extends Component {
     if(label === 'Editar') {
       button = <Button
                 color="warning"
-                onClick={this.toggle}
+                onClick={() => {
+                  this.toggle();
+                  this.getCustomers();
+                }}
                 style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
       title = 'Actualizar Orden de Servicio'

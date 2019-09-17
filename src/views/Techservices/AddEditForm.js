@@ -15,7 +15,9 @@ class AddEditForm extends Component {
     ts_diagnosis: '',
     ts_observation: '',
     ts_date_end: '',
-    ts_status: ''
+    ts_status: '',
+    customer_firstname: '',
+    customer_lastname: ''
   }
 
   onChange = e => {
@@ -28,7 +30,7 @@ class AddEditForm extends Component {
 
     const item = {
       ts_date_start: this.state.ts_date_start,
-      customer_id: "1",
+      customer_id: this.state.customer_id,
       user_id: "2",
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
@@ -45,7 +47,7 @@ class AddEditForm extends Component {
       const newItem = {
         ts_id: res.data, 
         ts_date_start: this.state.ts_date_start,
-        customer_id: "1",
+        customer_id: this.state.customer_id,
         user_id: "2",
         ts_watch_brand: this.state.ts_watch_brand,
         ts_watch_model: this.state.ts_watch_model,
@@ -96,14 +98,18 @@ class AddEditForm extends Component {
     // if item exists, populate the state with proper data
     if(this.props.item){
       const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status })
-    }
-    if(this.props.customers){
-      const { customer_id, customer_firstname } = this.props.customers
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname })
     }
   }
 
   render() {
+    console.log(this.state);
+    const customers = this.props.customers.map(customer => {
+      return (
+        <option key={customer.customer_id} value={customer.customer_id}>{customer.customer_firstname + " " + customer.customer_lastname}</option>
+      )
+    })
+    
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <Card>
@@ -128,8 +134,9 @@ class AddEditForm extends Component {
               <Row form className="d-flex align-items-center">
                 <Col md={6}>
                   <FormGroup>
-                    <Input type="select" name="customer_id" id="customer_id" onChange={this.onChange}>
-                      <option value={this.state.customer_id}>{this.state.customer_id}</option>
+                    <Input type="select" name="customer_id" id="customer_id" onChange={this.onChange} >
+                      <option value={this.state.customer_id}>{this.state.customer_firstname +" " + this.state.customer_lastname}</option>
+                      {customers}
                     </Input>
                   </FormGroup>
                 </Col>

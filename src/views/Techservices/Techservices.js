@@ -7,8 +7,7 @@ import axios from 'axios'
 class Techservices extends Component {
 
   state = {
-    items: [],
-    customers: []
+    items: []
   }
 
   getItems(){
@@ -43,8 +42,6 @@ class Techservices extends Component {
   }
 
   render() {
-    console.log(this.state.items);
-    
     return (
       <div className="animated fadeIn">
         <Row>
