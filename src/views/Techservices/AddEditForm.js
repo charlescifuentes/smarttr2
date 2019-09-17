@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, CardBody, CardFooter } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 import axios from 'axios'
 
 class AddEditForm extends Component {
@@ -15,24 +15,21 @@ class AddEditForm extends Component {
     ts_diagnosis: '',
     ts_observation: '',
     ts_date_end: '',
-    ts_status: '',
-    customer_firstname: '',
-    customer_lastname: ''          
+    ts_status: ''
   }
 
   onChange = e => {
     this.setState({[e.target.name]: e.target.value})
+    console.log({[e.target.name]: e.target.value});
   }
 
   submitFormAdd = e => {
     e.preventDefault()
 
-    console.log(this.state);
-
     const item = {
       ts_date_start: this.state.ts_date_start,
-      customer_id: this.state.customer_id,
-      user_id: this.state.user_id,
+      customer_id: "1",
+      user_id: "2",
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
       ts_store_sender: this.state.ts_store_sender,
@@ -45,8 +42,25 @@ class AddEditForm extends Component {
     
     axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts', item)
     .then(res => {
-      this.setState({ ts_id: res.data })
-      this.props.addItemToState(this.state)
+      const newItem = {
+        ts_id: res.data, 
+        ts_date_start: this.state.ts_date_start,
+        customer_id: "1",
+        user_id: "2",
+        ts_watch_brand: this.state.ts_watch_brand,
+        ts_watch_model: this.state.ts_watch_model,
+        ts_store_sender: this.state.ts_store_sender,
+        ts_issue_desc: this.state.ts_issue_desc,
+        ts_diagnosis: this.state.ts_diagnosis,
+        ts_observation: this.state.ts_observation,
+        ts_date_end: this.state.ts_date_end,
+        ts_status: this.state.ts_status 
+      };
+
+      console.log(newItem);
+      console.log(res.data);
+      
+      this.props.addItemToState(newItem)
       this.props.toggle()
     })
   }
@@ -82,7 +96,10 @@ class AddEditForm extends Component {
     // if item exists, populate the state with proper data
     if(this.props.item){
       const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname })
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status })
+    }
+    if(this.props.customers){
+      const { customer_id, customer_firstname } = this.props.customers
     }
   }
 
@@ -112,7 +129,7 @@ class AddEditForm extends Component {
                 <Col md={6}>
                   <FormGroup>
                     <Input type="select" name="customer_id" id="customer_id" onChange={this.onChange}>
-                      <option value={this.state.customer_id}>{this.state.customer_firstname + " " + this.state.customer_lastname}</option>
+                      <option value={this.state.customer_id}>{this.state.customer_id}</option>
                     </Input>
                   </FormGroup>
                 </Col>

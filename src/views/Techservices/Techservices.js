@@ -7,14 +7,15 @@ import axios from 'axios'
 class Techservices extends Component {
 
   state = {
-    items: []
+    items: [],
+    customers: []
   }
 
   getItems(){
     axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts')
       .then(res => {
-        const items = res.data;
-        this.setState({ items });
+        const items = res.data
+        this.setState({ items })
       })
   }
 

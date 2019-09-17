@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 import AddEditForm from './AddEditForm'
+import axios from 'axios'
 
 class ModalForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      customers: []
     }
-  }
+  } 
 
   toggle = () => {
     this.setState(prevState => ({
@@ -16,7 +18,16 @@ class ModalForm extends Component {
     }))
   }
 
+  getCustomers = () => {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
+      .then(res => {
+        const customers = res.data
+        this.setState({ customers })
+      })
+  }
+
   render() {
+    
     const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>
 
     const label = this.props.buttonLabel
@@ -34,13 +45,17 @@ class ModalForm extends Component {
     } else {
       button = <Button
                 color="success"
-                onClick={this.toggle}
+                //onClick={this.toggle}
+                onClick={() => {
+                  this.toggle();
+                  this.getCustomers();
+                }}
                 style={{float: "left"}}>{label}
                 </Button>
       title = 'Crear una Orden de Servicio'
     }
 
-    return (
+    return (      
       <div>
         {button}
         <Modal size="lg" isOpen={this.state.modal} className={this.props.className}>
@@ -50,7 +65,8 @@ class ModalForm extends Component {
               addItemToState={this.props.addItemToState}
               updateState={this.props.updateState}
               toggle={this.toggle}
-              item={this.props.item} 
+              item={this.props.item}
+              customers={this.state.customers}
             />
           </ModalBody>
         </Modal>
