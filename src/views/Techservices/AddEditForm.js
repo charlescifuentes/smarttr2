@@ -15,7 +15,9 @@ class AddEditForm extends Component {
     ts_diagnosis: '',
     ts_observation: '',
     ts_date_end: '',
-    ts_status: ''          
+    ts_status: '',
+    customer_firstname: '',
+    customer_lastname: ''          
   }
 
   onChange = e => {
@@ -79,8 +81,8 @@ class AddEditForm extends Component {
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status })
+      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname } = this.props.item
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname })
     }
   }
 
@@ -108,12 +110,18 @@ class AddEditForm extends Component {
               </Row>
               <Row form className="d-flex align-items-center">
                 <Col md={6}>
-                  <Input type="search" name="customer_id" id="customer_id" onChange={this.onChange} value={this.state.customer_id === null ? '' : this.state.customer_id} placeholder="Seleccione un cliente" />
+                  <FormGroup>
+                    <Input type="select" name="customer_id" id="customer_id" onChange={this.onChange}>
+                      <option value={this.state.customer_id}>{this.state.customer_firstname + " " + this.state.customer_lastname}</option>
+                    </Input>
+                  </FormGroup>
                 </Col>
                 <Col md={6}>
-                  <Button color="primary">Editar</Button>
-                  {' '}
-                  <Button color="primary">Crear</Button>
+                  <FormGroup>
+                    <Button color="primary">Editar</Button>
+                    {' '}
+                    <Button color="primary">Crear</Button>
+                  </FormGroup>
                 </Col>
               </Row>
           </CardBody>

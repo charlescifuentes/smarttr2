@@ -11,10 +11,10 @@ class DataTable extends Component {
         <tr key={item.ts_id}>
           <td>{item.ts_id}</td>
           <td>{item.ts_date_start}</td>
-          <td>{item.customer_id}</td>
+          <td>{item.customer_firstname + " " + item.customer_lastname}</td>
           <td>{item.ts_watch_brand}</td>
           <td>{item.ts_store_sender}</td>
-          <td>{item.ts_status}</td>
+          <td>{item.status_name}</td>
           <td>
             <div style={{width:"110px"}}>
               <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
