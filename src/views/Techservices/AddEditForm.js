@@ -56,7 +56,9 @@ class AddEditForm extends Component {
         ts_diagnosis: this.state.ts_diagnosis,
         ts_observation: this.state.ts_observation,
         ts_date_end: this.state.ts_date_end,
-        ts_status: this.state.ts_status 
+        ts_status: this.state.ts_status,
+        customer_firstname: this.state.customer_firstname,
+        customer_lastname: this.state.customer_lastname
       };
 
       console.log(newItem);
