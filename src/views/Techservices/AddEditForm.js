@@ -106,6 +106,7 @@ class AddEditForm extends Component {
 
   render() {
     console.log(this.state);
+    
     const customers = this.props.customers.map(customer => {
       return (
         <option key={customer.customer_id} value={customer.customer_id}>{customer.customer_firstname + " " + customer.customer_lastname}</option>
