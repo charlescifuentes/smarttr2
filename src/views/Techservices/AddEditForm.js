@@ -25,9 +25,16 @@ class AddEditForm extends Component {
     console.log({[e.target.name]: e.target.value})
   }
 
+  getCustomer = () => {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + this.state.customer_id)
+        .then(res => {
+          const customer = res.data
+          this.setState({ customer_firstname: customer })
+        })
+  }
+
   submitFormAdd = e => {
     e.preventDefault()
-
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
@@ -44,6 +51,7 @@ class AddEditForm extends Component {
     
     axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts', item)
     .then(res => {
+      this.getCustomer()
       const newItem = {
         ts_id: res.data, 
         ts_date_start: this.state.ts_date_start,
@@ -60,9 +68,7 @@ class AddEditForm extends Component {
         customer_firstname: this.state.customer_firstname,
         customer_lastname: this.state.customer_lastname
       };
-
       console.log(newItem);
-      console.log(res.data);
       
       this.props.addItemToState(newItem)
       this.props.toggle()
@@ -137,7 +143,7 @@ class AddEditForm extends Component {
               <Row form className="d-flex align-items-center">
                 <Col md={6}>
                   <FormGroup>
-                    <Input type="select" name="customer_id" id="customer_id" onChange={this.onChange} >
+                    <Input type="select" name="customer_id" id="customer_id" onChange={this.onChange}>
                       <option value={this.state.customer_id}>{this.state.customer_firstname +" " + this.state.customer_lastname}</option>
                       {customers}
                     </Input>
