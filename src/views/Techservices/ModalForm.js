@@ -8,7 +8,8 @@ class ModalForm extends Component {
     super(props);
     this.state = {
       modal: false,
-      customers: []
+      customers: [],
+      status: []
     }
   } 
 
@@ -23,6 +24,14 @@ class ModalForm extends Component {
       .then(res => {
         const customers = res.data
         this.setState({ customers })
+      })
+  }
+
+  getStatus = () => {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/status')
+      .then(res => {
+        const status = res.data
+        this.setState({ status })
       })
   }
 
@@ -41,6 +50,7 @@ class ModalForm extends Component {
                 onClick={() => {
                   this.toggle();
                   this.getCustomers();
+                  this.getStatus();
                 }}
                 style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
@@ -52,6 +62,7 @@ class ModalForm extends Component {
                 onClick={() => {
                   this.toggle();
                   this.getCustomers();
+                  this.getStatus();
                 }}
                 style={{float: "left"}}>{label}
                 </Button>
@@ -70,6 +81,7 @@ class ModalForm extends Component {
               toggle={this.toggle}
               item={this.props.item}
               customers={this.state.customers}
+              status={this.state.status}
             />
           </ModalBody>
         </Modal>

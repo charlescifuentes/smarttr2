@@ -17,12 +17,12 @@ class AddEditForm extends Component {
     ts_date_end: '',
     ts_status: '',
     customer_firstname: '',
-    customer_lastname: ''
+    customer_lastname: '',
+    status_name: ''
   }
 
   onChange = e => {
     this.setState({[e.target.name]: e.target.value})
-    console.log({[e.target.name]: e.target.value})
   }
 
   getCustomer = () => {
@@ -33,8 +33,18 @@ class AddEditForm extends Component {
         })
   }
 
+  getStatus = () => {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/status/' + this.state.ts_status)
+        .then(res => {
+          const status = res.data
+          this.setState({ status_name: status })
+        })
+  }
+
   submitFormAdd = e => {
     e.preventDefault()
+    this.getCustomer()
+    this.getStatus()
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
@@ -51,7 +61,6 @@ class AddEditForm extends Component {
     
     axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts', item)
     .then(res => {
-      this.getCustomer()
       const newItem = {
         ts_id: res.data, 
         ts_date_start: this.state.ts_date_start,
@@ -66,10 +75,10 @@ class AddEditForm extends Component {
         ts_date_end: this.state.ts_date_end,
         ts_status: this.state.ts_status,
         customer_firstname: this.state.customer_firstname,
-        customer_lastname: this.state.customer_lastname
+        customer_lastname: this.state.customer_lastname,
+        status_name: this.state.status_name
       };
       console.log(newItem);
-      
       this.props.addItemToState(newItem)
       this.props.toggle()
     })
@@ -77,9 +86,8 @@ class AddEditForm extends Component {
 
   submitFormEdit = e => {
     e.preventDefault()
-
-    console.log(this.state);
-
+    this.getCustomer()
+    this.getStatus()
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
@@ -97,6 +105,8 @@ class AddEditForm extends Component {
     axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/${this.state.ts_id}`, item )
       .then(res => {
         console.log(res.data);
+        console.log(this.state);
+        
         this.props.updateState(this.state)
         this.props.toggle()
       })
@@ -105,17 +115,23 @@ class AddEditForm extends Component {
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname })
+      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname, status_name } = this.props.item
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname, status_name })
     }
   }
 
   render() {
     console.log(this.state);
-    
+            
     const customers = this.props.customers.map(customer => {
       return (
         <option key={customer.customer_id} value={customer.customer_id}>{customer.customer_firstname + " " + customer.customer_lastname}</option>
+      )
+    })
+
+    const status = this.props.status.map(st => {
+      return (
+        <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
       )
     })
     
@@ -208,7 +224,10 @@ class AddEditForm extends Component {
               <Col md={4}>
                 <FormGroup>
                   <Label for="ts_status">Estado</Label>
-                  <Input type="text" name="ts_status" id="ts_status" onChange={this.onChange} value={this.state.ts_status === null ? '' : this.state.ts_status} />
+                  <Input type="select" name="ts_status" id="ts_status" onChange={this.onChange}>
+                      <option value={this.state.status_id}>{this.state.status_name}</option>
+                      {status}
+                    </Input>
                 </FormGroup>
               </Col>
               <Col md={4}>
