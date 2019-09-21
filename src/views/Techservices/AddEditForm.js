@@ -104,10 +104,27 @@ class AddEditForm extends Component {
 
     axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/${this.state.ts_id}`, item )
       .then(res => {
+        const newItem = {
+          ts_id: this.state.ts_id, 
+          ts_date_start: this.state.ts_date_start,
+          customer_id: this.state.customer_id,
+          user_id: this.state.user_id,
+          ts_watch_brand: this.state.ts_watch_brand,
+          ts_watch_model: this.state.ts_watch_model,
+          ts_store_sender: this.state.ts_store_sender,
+          ts_issue_desc: this.state.ts_issue_desc,
+          ts_diagnosis: this.state.ts_diagnosis,
+          ts_observation: this.state.ts_observation,
+          ts_date_end: this.state.ts_date_end,
+          ts_status: this.state.ts_status,
+          customer_firstname: this.state.customer_firstname,
+          customer_lastname: "",
+          status_name: this.state.status_name
+        };
         console.log(res.data);
-        console.log(this.state);
+        console.log(newItem);
         
-        this.props.updateState(this.state)
+        this.props.updateState(newItem)
         this.props.toggle()
       })
   }

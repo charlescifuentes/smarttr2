@@ -17,9 +17,6 @@ class DataTable extends Component {
   }
 
   render() {
-
-    console.log(this.props.items);
-    
     const items = this.props.items.map(item => {
       return (
         <tr key={item.user_id}>

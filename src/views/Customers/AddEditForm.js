@@ -108,7 +108,10 @@ class AddEditForm extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="customer_status">Estado</Label>
-          <Input type="text" name="customer_status" id="customer_status" onChange={this.onChange} value={this.state.customer_status === null ? '' : this.state.customer_status} />
+          <Input type="select" name="customer_status" id="customer_status" onChange={this.onChange} value={this.state.customer_status === null ? '' : this.state.customer_status} >
+            <option value="1">Activo</option>
+            <option value="2">Inactivo</option>
+          </Input>
         </FormGroup>
         <Button color="primary">Enviar</Button>
       </Form>

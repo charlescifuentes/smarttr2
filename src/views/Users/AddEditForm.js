@@ -57,7 +57,6 @@ class AddEditForm extends Component {
 
     axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/users/${this.state.user_id}`, item )
       .then(res => {
-        console.log(res.data);
         this.props.updateState(this.state)
         this.props.toggle()
       })
@@ -108,7 +107,10 @@ class AddEditForm extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="user_status">Estado</Label>
-          <Input type="text" name="user_status" id="user_status" onChange={this.onChange} value={this.state.user_status === null ? '' : this.state.user_status}  />
+          <Input type="select" name="user_status" id="user_status" onChange={this.onChange} value={this.state.user_status === null ? '' : this.state.user_status} >
+            <option value="1">Activo</option>
+            <option value="2">Inactivo</option>
+          </Input>
         </FormGroup>
         <Button color="primary">Enviar</Button>
       </Form>
