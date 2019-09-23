@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 import axios from 'axios'
+import Select from 'react-select'
 
 class AddEditForm extends Component {
   state = {
@@ -18,12 +19,17 @@ class AddEditForm extends Component {
     ts_status: '',
     customer_firstname: '',
     customer_lastname: '',
-    status_name: ''
+    status_name: '',
   }
 
   onChange = e => {
     this.setState({[e.target.name]: e.target.value})
   }
+
+  handleChange = e => {
+    this.setState({ customer_id: e.value });
+    console.log(`Option selected:`, e.value);
+  };
 
   getCustomer = () => {
     axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + this.state.customer_id)
@@ -151,6 +157,12 @@ class AddEditForm extends Component {
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
       )
     })
+
+    const options = [
+      { value: '1', label: 'Charles' },
+      { value: '2', label: 'Leidy' },
+      { value: '3', label: 'Valeria' }
+    ]
     
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
@@ -184,9 +196,11 @@ class AddEditForm extends Component {
                 </Col>
                 <Col md={6}>
                   <FormGroup>
-                    <Button color="primary">Editar</Button>
-                    {' '}
-                    <Button color="primary">Crear</Button>
+                    <Select
+                      value={this.state.customer_id}
+                      onChange={this.handleChange}
+                      options={options}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
