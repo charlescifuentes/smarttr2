@@ -20,15 +20,17 @@ class AddEditForm extends Component {
     customer_firstname: '',
     customer_lastname: '',
     status_name: '',
+    selectedOption: null
   }
 
   onChange = e => {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  handleChange = e => {
-    this.setState({ customer_id: e.value });
-    console.log(`Option selected:`, e.value);
+  handleChange = selectedOption => {
+    this.setState({ selectedOption });
+    this.setState({ customer_id: selectedOption.value })
+    console.log(`Option selected:`, selectedOption);
   };
 
   getCustomer = () => {
@@ -145,25 +147,13 @@ class AddEditForm extends Component {
 
   render() {
     console.log(this.state);
-            
-    const customers = this.props.customers.map(customer => {
-      return (
-        <option key={customer.customer_id} value={customer.customer_id}>{customer.customer_firstname + " " + customer.customer_lastname}</option>
-      )
-    })
 
     const status = this.props.status.map(st => {
       return (
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
       )
     })
-
-    const options = [
-      { value: '1', label: 'Charles' },
-      { value: '2', label: 'Leidy' },
-      { value: '3', label: 'Valeria' }
-    ]
-    
+ 
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <Card>
@@ -186,21 +176,15 @@ class AddEditForm extends Component {
                 </Col>
               </Row>
               <Row form className="d-flex align-items-center">
-                <Col md={6}>
+                <Col md={12}>
                   <FormGroup>
-                    <Input type="select" name="customer_id" id="customer_id" onChange={this.onChange}>
-                      <option value={this.state.customer_id}>{this.state.customer_firstname +" " + this.state.customer_lastname}</option>
-                      {customers}
-                    </Input>
-                  </FormGroup>
-                </Col>
-                <Col md={6}>
-                  <FormGroup>
-                    <Select
-                      value={this.state.customer_id}
-                      onChange={this.handleChange}
-                      options={options}
-                    />
+                  <Select
+                    value={this.state.selectedOption}
+                    onChange={this.handleChange}
+                    placeholder="Seleccione un cliente"
+                    key={this.props.customers}
+                    options={this.props.customers}
+                  />
                   </FormGroup>
                 </Col>
               </Row>

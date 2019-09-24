@@ -20,7 +20,7 @@ class ModalForm extends Component {
   }
 
   getCustomers = () => {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers')
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/select')
       .then(res => {
         const customers = res.data
         this.setState({ customers })
@@ -36,7 +36,6 @@ class ModalForm extends Component {
   }
 
   render() {
-    
     const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>
 
     const label = this.props.buttonLabel
