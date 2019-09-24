@@ -81,6 +81,7 @@ class ModalForm extends Component {
               item={this.props.item}
               customers={this.state.customers}
               status={this.state.status}
+              getCustomers={this.getCustomers}
             />
           </ModalBody>
         </Modal>

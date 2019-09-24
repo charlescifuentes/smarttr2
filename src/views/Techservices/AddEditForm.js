@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 import axios from 'axios'
 import Select from 'react-select'
+import CustomerAdd from './CustomerAdd';
 
 class AddEditForm extends Component {
   state = {
@@ -20,7 +21,8 @@ class AddEditForm extends Component {
     customer_firstname: '',
     customer_lastname: '',
     status_name: '',
-    selectedOption: null
+    selectedOption: null,
+    isDisabled: false
   }
 
   onChange = e => {
@@ -28,8 +30,11 @@ class AddEditForm extends Component {
   }
 
   handleChange = selectedOption => {
-    this.setState({ selectedOption });
-    this.setState({ customer_id: selectedOption.value })
+    this.setState({ 
+      selectedOption,
+      customer_id: selectedOption.value,
+      isDisabled: true
+     });      
     console.log(`Option selected:`, selectedOption);
   };
 
@@ -47,6 +52,15 @@ class AddEditForm extends Component {
           const status = res.data
           this.setState({ status_name: status })
         })
+  }
+
+  onEdit = () => {
+    this.setState({ isDisabled: false })
+  }
+
+  addNewCustomer = (newItem) => {
+    this.setState({ selectedOption: { value: newItem.customer_id, label: newItem.customer_firstname +" "+ newItem.customer_lastname } })
+    this.props.getCustomers()
   }
 
   submitFormAdd = e => {
@@ -141,7 +155,7 @@ class AddEditForm extends Component {
     // if item exists, populate the state with proper data
     if(this.props.item){
       const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname, status_name } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname, status_name })
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname, status_name, selectedOption: { value: customer_id, label: customer_firstname +" "+ customer_lastname }, isDisabled: true })
     }
   }
 
@@ -176,15 +190,21 @@ class AddEditForm extends Component {
                 </Col>
               </Row>
               <Row form className="d-flex align-items-center">
-                <Col md={12}>
+                <Col md={6}>
                   <FormGroup>
                   <Select
                     value={this.state.selectedOption}
+                    isDisabled={this.state.isDisabled}
                     onChange={this.handleChange}
                     placeholder="Seleccione un cliente"
                     key={this.props.customers}
                     options={this.props.customers}
                   />
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup>
+                    <CustomerAdd onEdit={this.onEdit} addNewCustomer={this.addNewCustomer} />
                   </FormGroup>
                 </Col>
               </Row>
