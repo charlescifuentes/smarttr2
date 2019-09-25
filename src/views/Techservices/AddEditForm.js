@@ -58,6 +58,16 @@ class AddEditForm extends Component {
     this.setState({ isDisabled: false })
   }
 
+  printOrder = () => {
+    let answer = window.confirm("Imprimir Orden de Servicio?");
+    if (answer === true) {
+      console.log("Se va a imprimir");
+      this.props.history.push(`/Invoice`)
+    } else {
+      console.log("No se va a imprimir")
+    }
+  }
+
   addNewCustomer = (newItem) => {
     this.setState({ selectedOption: { value: newItem.customer_id, label: newItem.customer_firstname +" "+ newItem.customer_lastname } })
     this.props.getCustomers()
@@ -103,6 +113,7 @@ class AddEditForm extends Component {
       console.log(newItem);
       this.props.addItemToState(newItem)
       this.props.toggle()
+      this.printOrder()
     })
   }
 
@@ -148,6 +159,7 @@ class AddEditForm extends Component {
         
         this.props.updateState(newItem)
         this.props.toggle()
+        this.printOrder()
       })
   }
 
