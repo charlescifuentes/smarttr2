@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, Card
 import axios from 'axios'
 import Select from 'react-select'
 import CustomerAdd from './CustomerAdd';
+import { withRouter } from 'react-router-dom';
 
 class AddEditForm extends Component {
   state = {
@@ -62,7 +63,11 @@ class AddEditForm extends Component {
     let answer = window.confirm("Imprimir Orden de Servicio?");
     if (answer === true) {
       console.log("Se va a imprimir");
-      this.props.history.push(`/Invoice`)
+      this.props.history.push({
+        pathname : '/Invoice',
+        state :{ items: this.state }
+        } 
+      );
     } else {
       console.log("No se va a imprimir")
     }
@@ -294,4 +299,4 @@ class AddEditForm extends Component {
   }
 }
 
-export default AddEditForm
+export default withRouter(AddEditForm)
