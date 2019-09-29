@@ -6,3 +6,10 @@ table th, table td { white-space: nowrap; }
     background-color: darkblue;
     color: white;
 }
+
+@media print {
+    .hidden-print {
+        visibility: hidden;
+    }
+}
+

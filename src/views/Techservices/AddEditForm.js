@@ -4,6 +4,8 @@ import axios from 'axios'
 import Select from 'react-select'
 import CustomerAdd from './CustomerAdd';
 import { withRouter } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 class AddEditForm extends Component {
   state = {
@@ -35,8 +37,7 @@ class AddEditForm extends Component {
       selectedOption,
       customer_id: selectedOption.value,
       isDisabled: true
-     });      
-    console.log(`Option selected:`, selectedOption);
+     });
   };
 
   getCustomer = () => {
@@ -60,17 +61,24 @@ class AddEditForm extends Component {
   }
 
   printOrder = () => {
-    let answer = window.confirm("Imprimir Orden de Servicio?");
-    if (answer === true) {
-      console.log("Se va a imprimir");
-      this.props.history.push({
-        pathname : '/Invoice',
-        state :{ items: this.state }
-        } 
-      );
-    } else {
-      console.log("No se va a imprimir")
-    }
+    confirmAlert({
+      title: 'Imprimir Orden',
+      message: 'Desea imprimir?.',
+      buttons: [
+        {
+          label: 'Si',
+          onClick: () => {this.props.history.push({
+            pathname : '/Invoice',
+            state :{ items: this.state }
+            } 
+          );
+        }},
+        {
+          label: 'No',
+          onClick: () => console.log("No se va a imprimir")
+        }
+      ]
+    });
   }
 
   addNewCustomer = (newItem) => {
@@ -115,7 +123,6 @@ class AddEditForm extends Component {
         customer_lastname: this.state.customer_lastname,
         status_name: this.state.status_name
       };
-      console.log(newItem);
       this.props.addItemToState(newItem)
       this.props.toggle()
       this.printOrder()
@@ -159,8 +166,6 @@ class AddEditForm extends Component {
           customer_lastname: "",
           status_name: this.state.status_name
         };
-        console.log(res.data);
-        console.log(newItem);
         
         this.props.updateState(newItem)
         this.props.toggle()
@@ -177,8 +182,6 @@ class AddEditForm extends Component {
   }
 
   render() {
-    console.log(this.state);
-
     const status = this.props.status.map(st => {
       return (
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
@@ -289,7 +292,7 @@ class AddEditForm extends Component {
                 </FormGroup>
               </Col>
               <Col md={4}>
-                <Button color="primary float-right">Enviar</Button>
+                <Button color="primary float-right">Guardar</Button>
               </Col>
             </Row>
           </CardBody>
