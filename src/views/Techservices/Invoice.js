@@ -21,10 +21,11 @@ class Invoice extends Component {
         return (
             <div className="animated fadeIn">
                 <Container>
-                    <div className="invoice-header py-3 hidden-print">
+                    <div className="invoice-header p-3 my-3 hidden-print shadow rounded">
                         <Row>
                             <Col>
-                                <Button color="primary" onClick={this.handlePrint}>Imprimir</Button>
+                                <Button color="primary" className="float-right" onClick={this.handleComeback}>Nuevo</Button>
+                                <Button color="primary" className="float-right" onClick={this.handlePrint}>Imprimir</Button>
                             </Col>
                         </Row>
                     </div>
