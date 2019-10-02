@@ -15,6 +15,14 @@ class Config extends Component {
         const items = res.data;
         this.setState({ items });
       })
+      .then(response =>
+        response.data.map(user => ({
+          name: `${user.name.first} ${user.name.last}`,
+          username: `${user.login.username}`,
+          email: `${user.email}`,
+          image: `${user.picture.thumbnail}`
+        }))
+      )
   }
 
   updateState = (item) => {

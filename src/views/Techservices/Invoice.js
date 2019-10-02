@@ -1,8 +1,21 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Card, CardHeader, CardBody, Button, Input, FormGroup, Label } from 'reactstrap'
+import axios from 'axios'
 import logo from '../../assets/img/logo_time.jpg'
 
 class Invoice extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {company: []};
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            window.print();
+          }, 1000)
+
+          this.getCompanyInfo()
+    }
 
     handlePrint = () => {
         window.print();
@@ -12,15 +25,18 @@ class Invoice extends Component {
         this.props.history.goBack();
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            window.print();
-          }, 1000)
+    async getCompanyInfo() { 
+        await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/config')
+            .then(res => {
+            const company = res.data;
+            this.setState({ company });
+            })
     }
 
     render() {
         const { ts_id, ts_date_start, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, status_name, ts_date_end, user_id, customer } = this.props.location.state.items
         console.log(this.props.location.state.items);
+        console.log(this.state);
         
         return (
             <div className="animated fadeIn">
