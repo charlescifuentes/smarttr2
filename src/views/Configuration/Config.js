@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, CardHeader, CardBody, CardFooter, Row, Col } from 'reactstrap'
+import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap'
 import axios from 'axios'
 import EditForm from './EditForm'
 

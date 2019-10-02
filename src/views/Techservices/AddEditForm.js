@@ -25,7 +25,8 @@ class AddEditForm extends Component {
     customer_lastname: '',
     status_name: '',
     selectedOption: null,
-    isDisabled: false
+    isDisabled: false,
+    customer: []
   }
 
   onChange = e => {
@@ -44,7 +45,7 @@ class AddEditForm extends Component {
     axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + this.state.customer_id)
         .then(res => {
           const customer = res.data
-          this.setState({ customer_firstname: customer })
+          this.setState({ customer_firstname: customer.customer_firstname +' '+ customer.customer_lastname, customer: customer })
         })
   }
 

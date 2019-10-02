@@ -1,10 +1,7 @@
-import React, { Component, lazy, Suspense } from 'react';
-import { Jumbotron, Button} from 'reactstrap';
+import React, { Component } from 'react';
+import { Jumbotron} from 'reactstrap';
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
