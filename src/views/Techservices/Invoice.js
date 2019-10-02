@@ -58,7 +58,7 @@ class Invoice extends Component {
                                         <img src={logo} alt="Logo" width="60%" />
                                     </Col>
                                     <Col xs="12" sm="6" md="6" className="text-right">
-                                        <h2>TALLER TIME</h2>
+                                        <h2>{this.state.company.company_name}</h2>
                                         <div>NIT: 79.234.435-6</div>
                                         <div>Carrera 25 # 31-32 - 321 345 4565</div>
                                         <div>Tuluá, Valle</div>
