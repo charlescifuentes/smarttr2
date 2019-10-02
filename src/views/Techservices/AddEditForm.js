@@ -83,7 +83,7 @@ class AddEditForm extends Component {
   }
 
   addNewCustomer = (newItem) => {
-    this.setState({ selectedOption: { value: newItem.customer_id, label: newItem.customer_firstname +" "+ newItem.customer_lastname } })
+    this.setState({ selectedOption: { value: newItem.customer_id, label: newItem.customer_firstname +" "+ newItem.customer_lastname }, customer_id: newItem.customer_id })
     this.props.getCustomers()
   }
 
@@ -167,7 +167,7 @@ class AddEditForm extends Component {
           customer_lastname: "",
           status_name: this.state.status_name
         };
-        
+        console.log(res.data);
         this.props.updateState(newItem)
         this.props.toggle()
         this.printOrder()
@@ -188,7 +188,9 @@ class AddEditForm extends Component {
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
       )
     })
- 
+
+    console.log(this.state);
+
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <Card>

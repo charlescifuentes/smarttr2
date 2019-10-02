@@ -19,7 +19,7 @@ class Invoice extends Component {
     }
 
     render() {
-        const { ts_id, customer_firstname, customer_id, ts_date_start, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, status_name, ts_date_end, user_id } = this.props.location.state.items
+        const { ts_id, ts_date_start, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, status_name, ts_date_end, user_id, customer } = this.props.location.state.items
         console.log(this.props.location.state.items);
         
         return (
@@ -44,8 +44,7 @@ class Invoice extends Component {
                                     <Col xs="12" sm="6" md="6" className="text-right">
                                         <h2>TALLER TIME</h2>
                                         <div>NIT: 79.234.435-6</div>
-                                        <div>Carrera 25 # 31-32</div>
-                                        <div>321 345 4565</div>
+                                        <div>Carrera 25 # 31-32 - 321 345 4565</div>
                                         <div>Tuluá, Valle</div>
                                         <div>tallertime@gmail.com</div>
                                     </Col>
@@ -55,11 +54,11 @@ class Invoice extends Component {
                                 <Row>
                                     <Col xs="12" sm="6" md="6">
                                         <h1>CLIENTE</h1>
-                                        <div>Nombres: {customer_firstname}</div>
-                                        <div>Documento: {customer_id}</div>
-                                        <div>Dirección: Carrera 98 # 43-32</div>
-                                        <div>Teléfono: 3171562545</div>
-                                        <div>Ciudad: Tuluá, Valle</div>
+                                        <div>Nombres: {customer.customer_firstname + " " + customer.customer_lastname}</div>
+                                        <div>Documento: {customer.customer_nit}</div>
+                                        <div>Dirección: {customer.customer_address}</div>
+                                        <div>Teléfono: {customer.customer_phone}</div>
+                                        <div>Ciudad: {customer.customer_city}</div>
                                     </Col>
                                     <Col xs="12" sm="6" md="6" className="text-right">
                                         <h2>ORDEN DE SERVICIO # {ts_id}</h2>
