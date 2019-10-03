@@ -124,6 +124,7 @@ class AddEditForm extends Component {
         customer_lastname: this.state.customer_lastname,
         status_name: this.state.status_name
       };
+      this.setState({ ts_id: res.data })
       this.props.addItemToState(newItem)
       this.props.toggle()
       this.printOrder()
@@ -188,9 +189,7 @@ class AddEditForm extends Component {
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
       )
     })
-
-    console.log(this.state);
-
+    
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <Card>
@@ -208,7 +207,7 @@ class AddEditForm extends Component {
                 <Col md={3}>
                   <FormGroup>
                     <Label for="ts_date_start">Fecha Creación</Label>
-                    <Input type="date" name="ts_date_start" id="ts_date_start" onChange={this.onChange} value={this.state.ts_date_start === null ? '' : this.state.ts_date_start} />
+                    <Input type="date" name="ts_date_start" id="ts_date_start" onChange={this.onChange} value={this.state.ts_date_start === null ? '' : this.state.ts_date_start} required/>
                   </FormGroup>
                 </Col>
               </Row>

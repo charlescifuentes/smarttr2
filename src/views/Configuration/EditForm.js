@@ -58,10 +58,7 @@ class EditForm extends Component {
     }
   }
 
-  render() {
-    console.log(this.props.item);
-    console.log(this.state);
-    
+  render() {    
     return (
       <Form onSubmit={this.submitFormEdit}>
         <FormGroup>

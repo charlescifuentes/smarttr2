@@ -9,7 +9,6 @@ table th, table td { white-space: nowrap; }
 
 @media print {
     .hidden-print {
-        //visibility: hidden;
         display: none;
     }
 }

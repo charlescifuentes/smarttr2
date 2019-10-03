@@ -6,15 +6,14 @@ import EditForm from './EditForm'
 class Config extends Component {
 
   state = {
-    item: []
+    items: []
   }
 
   async getItems(){
     await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/config')
       .then(res => {
-        const item = res.data;
-        console.log(res.data);
-        this.setState({ item });
+        const items = res.data;
+        this.setState({ items });
       })
   }
 
@@ -36,14 +35,12 @@ class Config extends Component {
   }
 
   render() {
-    /*const items = this.state.items.map(item => {
+    const items = this.state.items.map(item => {
       return (
         <EditForm key={item.config_id} item={item} updateState={this.updateState} />
       )
-    })*/
-
-    console.log(this.state);
-  
+    })
+    
     return (
       <div className="animated fadeIn">
         <Row>
@@ -53,7 +50,7 @@ class Config extends Component {
                 <i className="fa fa-align-justify"></i> CONFIGURACIÓN NEGOCIO
               </CardHeader>
               <CardBody>
-                <EditForm item={this.state.item} updateState={this.updateState} /> 
+                {items}
               </CardBody>
             </Card>
           </Col>

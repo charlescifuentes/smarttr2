@@ -35,8 +35,16 @@ class Invoice extends Component {
 
     render() {
         const { ts_id, ts_date_start, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, status_name, ts_date_end, user_id, customer } = this.props.location.state.items
-        console.log(this.props.location.state.items);
-        console.log(this.state);
+
+        const company = this.state.company.map((item) =>
+            <div key={item.config_id}>
+                <h3>{item.company_name}</h3>
+                <div>NIT: {item.company_nit}</div>
+                <div>{item.company_address} - {item.company_phone}</div>
+                <div>Tuluá - Valle</div>
+                <div>{item.company_email}</div>
+            </div>
+        );
         
         return (
             <div className="animated fadeIn">
@@ -58,11 +66,7 @@ class Invoice extends Component {
                                         <img src={logo} alt="Logo" width="60%" />
                                     </Col>
                                     <Col xs="12" sm="6" md="6" className="text-right">
-                                        <h2>{this.state.company.company_name}</h2>
-                                        <div>NIT: 79.234.435-6</div>
-                                        <div>Carrera 25 # 31-32 - 321 345 4565</div>
-                                        <div>Tuluá, Valle</div>
-                                        <div>tallertime@gmail.com</div>
+                                        {company}
                                     </Col>
                                 </Row>
                             </CardHeader>
