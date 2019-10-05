@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 
 class Login extends Component {
+
+  handleLoginSubmmit = e => {
+    e.preventDefault()
+    this.props.history.push('/')
+  }
+
   render() {
     return (
       <div className="app flex-row align-items-center">
@@ -33,7 +39,7 @@ class Login extends Component {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4">Login</Button>
+                          <Button color="primary" className="px-4" onClick={this.handleLoginSubmmit}>Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>
