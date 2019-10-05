@@ -34,65 +34,58 @@ class DefaultLayout extends Component {
   }
 
   render() {
-
-    let userIsLogged = true
-
-    if(userIsLogged) {
-      return (
-        <div className="app">
-          <AppHeader fixed>
-            <Suspense  fallback={this.loading()}>
-              <DefaultHeader onLogout={e=>this.signOut(e)}/>
+    return (
+      <div className="app">
+        <AppHeader fixed>
+          <Suspense  fallback={this.loading()}>
+            <DefaultHeader onLogout={e=>this.signOut(e)}/>
+          </Suspense>
+        </AppHeader>
+        <div className="app-body">
+          <AppSidebar fixed display="lg">
+            <AppSidebarHeader />
+            <AppSidebarForm />
+            <Suspense>
+            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
             </Suspense>
-          </AppHeader>
-          <div className="app-body">
-            <AppSidebar fixed display="lg">
-              <AppSidebarHeader />
-              <AppSidebarForm />
-              <Suspense>
-              <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
-              </Suspense>
-              <AppSidebarFooter />
-              <AppSidebarMinimizer />
-            </AppSidebar>
-            <main className="main">
-              <AppBreadcrumb appRoutes={routes} router={router} />
-              <Container fluid>
-                <Suspense fallback={this.loading()}>
-                  <Switch>
-                    {routes.map((route, idx) => {
-                      return route.component ? (
-                        <Route
-                          key={idx}
-                          path={route.path}
-                          exact={route.exact}
-                          name={route.name}
-                          render={props => (
-                            <route.component {...props} />
-                          )} />
-                      ) : (null);
-                    })}
-                    <Redirect from="/" to="/dashboard" />
-                  </Switch>
-                </Suspense>
-              </Container>
-            </main>
-            <AppAside fixed>
+            <AppSidebarFooter />
+            <AppSidebarMinimizer />
+          </AppSidebar>
+          <main className="main">
+            <AppBreadcrumb appRoutes={routes} router={router} />
+            <Container fluid>
               <Suspense fallback={this.loading()}>
-                <DefaultAside />
+                <Switch>
+                  {routes.map((route, idx) => {
+                    return route.component ? (
+                      <Route
+                        key={idx}
+                        path={route.path}
+                        exact={route.exact}
+                        name={route.name}
+                        render={props => (
+                          <route.component {...props} />
+                        )} />
+                    ) : (null);
+                  })}
+                  <Redirect from="/" to="/dashboard" />
+                </Switch>
               </Suspense>
-            </AppAside>
-          </div>
-          <AppFooter>
+            </Container>
+          </main>
+          <AppAside fixed>
             <Suspense fallback={this.loading()}>
-              <DefaultFooter />
+              <DefaultAside />
             </Suspense>
-          </AppFooter>
+          </AppAside>
         </div>
-      );
-    }else {
-      this.props.history.push('/login')
-    }
+        <AppFooter>
+          <Suspense fallback={this.loading()}>
+            <DefaultFooter />
+          </Suspense>
+        </AppFooter>
+      </div>
+    );
   }
 }
 
