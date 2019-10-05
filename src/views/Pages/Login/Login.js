@@ -6,10 +6,18 @@ class Login extends Component {
 
   handleLoginSubmmit = e => {
     e.preventDefault()
-    this.props.history.push('/home')
+    sessionStorage.setItem('userlogged', true);
+    this.props.history.push('/')
   }
 
   render() {
+
+    let session = sessionStorage.getItem('userlogged');
+
+    if(session) {
+      this.props.history.push('/')
+    }
+
     return (
       <div className="app flex-row align-items-center">
         <Container>
