@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import Axios from 'axios';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+
+  onChange = e => {
+    this.setState({[e.target.name]: e.target.value})
+  }
 
   handleLoginSubmmit = e => {
     e.preventDefault()
-    sessionStorage.setItem('userlogged', true);
-    this.props.history.push('/')
+    const item = {
+      username: this.state.username,
+      password: this.state.password
+    }
+
+    Axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/login', item)
+    .then(res => {
+
+      sessionStorage.setItem('userlogged', true);
+      this.props.history.push('/')
+
+    })
   }
 
   render() {
-
     let session = sessionStorage.getItem('userlogged');
 
     if(session) {

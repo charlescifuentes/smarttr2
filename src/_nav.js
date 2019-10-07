@@ -3,11 +3,7 @@ export default {
     {
       name: 'Panel de control',
       url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
+      icon: 'icon-layers',
     },
     {
       title: true,
@@ -30,7 +26,7 @@ export default {
     },
     {
       name: 'Reportes',
-      icon: 'icon-puzzle',
+      icon: 'icon-chart',
       children: [
         {
           name: 'Clientes',
@@ -47,22 +43,22 @@ export default {
     {
       name: 'Estados Servicio',
       url: '/status',
-      icon: 'icon-user-following',
+      icon: 'icon-graph',
     },
     {
       name: 'Roles',
       url: '/roles',
-      icon: 'icon-user-following',
+      icon: 'icon-user-unfollow',
     },
     {
       name: 'Usuarios',
       url: '/users',
-      icon: 'icon-user-following',
+      icon: 'icon-user',
     },
     {
       name: 'Configuración',
       url: '/config',
-      icon: 'icon-star',
+      icon: 'icon-wrench',
     },
     {
       name: 'Pages',
@@ -95,6 +91,11 @@ export default {
       name: 'Cerrar Sesión',
       url: '/logout',
       icon: 'icon-logout',
+      attributes: {
+        onClick: () => {
+          sessionStorage.clear();
+        }
+      }
     },
   ],
 };
