@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Alert } from 'reactstrap';
 import Axios from 'axios';
 
 class Login extends Component {
@@ -32,7 +32,8 @@ class Login extends Component {
        this.setState({ isValid: false })
       } else {
         sessionStorage.setItem('userData', JSON.stringify(data))
-        //this.props.history.push('/')
+        sessionStorage.setItem('isLogged', 'ok')
+        this.setState({ isValid: 'ok' })
       }
     })
   }
@@ -42,14 +43,16 @@ class Login extends Component {
   }
 
   render() {
+    const error = <Alert color="danger">Usuario o Contraseña incorrectos!</Alert>
 
-    if(this.state.isValid === false) {
-      const error = <p>Usuario o contraseña invalidos</p>
+    let session = JSON.parse(sessionStorage.getItem("userData"))
+    let isLogged = sessionStorage.getItem("isLogged") 
+    console.log(session);
+    console.log(isLogged);
+    
+    if(isLogged === 'ok') {
+      this.props.history.push('/')
     }
-
-    console.log(this.state)
-    let userData = JSON.parse(sessionStorage.getItem("userData"));
-    console.log(userData)
     
     return (
       <div className="app flex-row align-items-center">
@@ -61,14 +64,15 @@ class Login extends Component {
                   <CardBody>
                     <Form>
                       <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
+                      <p className="text-muted">Ingresa con tu cuenta</p>
+                      {this.state.isValid === false && error}
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" name="username" id="username" onChange={this.onChange} value={this.state.username} placeholder="Username" autoComplete="username" />
+                        <Input type="text" name="username" id="username" onChange={this.onChange} value={this.state.username} placeholder="Usuario" autoComplete="username" />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -76,14 +80,14 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" name="password" id="password" onChange={this.onChange} value={this.state.password} placeholder="Password" autoComplete="current-password" />
+                        <Input type="password" name="password" id="password" onChange={this.onChange} value={this.state.password} placeholder="Contraseña" autoComplete="current-password" />
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4" onClick={this.handleLoginSubmmit}>Login</Button>
+                          <Button type="submmit" color="primary" className="px-4" onClick={this.handleLoginSubmmit}>Ingresar</Button>
                         </Col>
                         <Col xs="6" className="text-right">
-                          <Button onClick={this.clearSession} color="link" className="px-0">Forgot password?</Button>
+                          <Button color="link" className="px-0">Olvidó la contraseña?</Button>
                         </Col>
                       </Row>
                     </Form>
@@ -92,12 +96,8 @@ class Login extends Component {
                 <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
                   <CardBody className="text-center">
                     <div>
-                      <h2>Sign up</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                      <Link to="/register">
-                        <Button color="primary" className="mt-3" active tabIndex={-1}>Register Now!</Button>
-                      </Link>
+                      <h2>SMART TR</h2>
+                      <p>Sistema administrativo para Taller de Relojes, inventarios y ventas</p>
                     </div>
                   </CardBody>
                 </Card>
