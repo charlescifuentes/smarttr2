@@ -8,7 +8,8 @@ class Login extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      isValid: ''
     }
   }
 
@@ -22,23 +23,34 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     }
-
-    Axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/login', item)
+    Axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/users/login', item)
     .then(res => {
+      console.log(res.data)
+      let data = res.data
 
-      sessionStorage.setItem('userlogged', true);
-      this.props.history.push('/')
-
+      if(data === "error") {
+       this.setState({ isValid: false })
+      } else {
+        sessionStorage.setItem('userData', JSON.stringify(data))
+        //this.props.history.push('/')
+      }
     })
   }
 
-  render() {
-    let session = sessionStorage.getItem('userlogged');
+  clearSession = () => {
+    sessionStorage.clear();
+  }
 
-    if(session) {
-      this.props.history.push('/')
+  render() {
+
+    if(this.state.isValid === false) {
+      const error = <p>Usuario o contraseña invalidos</p>
     }
 
+    console.log(this.state)
+    let userData = JSON.parse(sessionStorage.getItem("userData"));
+    console.log(userData)
+    
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -56,7 +68,7 @@ class Login extends Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username" />
+                        <Input type="text" name="username" id="username" onChange={this.onChange} value={this.state.username} placeholder="Username" autoComplete="username" />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -64,14 +76,14 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" />
+                        <Input type="password" name="password" id="password" onChange={this.onChange} value={this.state.password} placeholder="Password" autoComplete="current-password" />
                       </InputGroup>
                       <Row>
                         <Col xs="6">
                           <Button color="primary" className="px-4" onClick={this.handleLoginSubmmit}>Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0">Forgot password?</Button>
+                          <Button onClick={this.clearSession} color="link" className="px-0">Forgot password?</Button>
                         </Col>
                       </Row>
                     </Form>
