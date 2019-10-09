@@ -16,7 +16,7 @@ const defaultProps = {};
 class DefaultHeader extends Component {
   render() {
 
-    const {user_firstname, user_lastname} = this.props.session
+    let session = JSON.parse(sessionStorage.getItem("userData"));
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
     
@@ -37,7 +37,7 @@ class DefaultHeader extends Component {
               <img src={'../../assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem header tag="div" className="text-center"><strong>{user_firstname && user_firstname +" "+user_lastname}</strong></DropdownItem>
+              <DropdownItem header tag="div" className="text-center"><strong>{session && session.user_firstname +" "+session.user_lastname}</strong></DropdownItem>
               <DropdownItem><i className="fa fa-user"></i> Perfíl</DropdownItem>
               <DropdownItem><i className="fa fa-wrench"></i> Contraseña</DropdownItem>
               <DropdownItem divider />

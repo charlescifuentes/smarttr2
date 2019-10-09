@@ -35,20 +35,17 @@ class DefaultLayout extends Component {
   }
 
   render() {
-    let session = JSON.parse(sessionStorage.getItem("userData"));
     let isLogged = sessionStorage.getItem("isLogged") 
-    console.log(session)
-    console.log(isLogged)
 
     if(!isLogged) {
-      this.props.history.push('/login')
+      this.props.history.push('/login')                 
     }
     
     return (
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)} session={session} />
+            <DefaultHeader onLogout={e=>this.signOut(e)} />
           </Suspense>
         </AppHeader>
         <div className="app-body">

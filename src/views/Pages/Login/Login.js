@@ -25,7 +25,6 @@ class Login extends Component {
     }
     Axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/users/login', item)
     .then(res => {
-      console.log(res.data)
       let data = res.data
 
       if(data === "error") {
@@ -44,11 +43,7 @@ class Login extends Component {
 
   render() {
     const error = <Alert color="danger">Usuario o Contraseña incorrectos!</Alert>
-
-    let session = JSON.parse(sessionStorage.getItem("userData"))
     let isLogged = sessionStorage.getItem("isLogged") 
-    console.log(session);
-    console.log(isLogged);
     
     if(isLogged === 'ok') {
       this.props.history.push('/')
