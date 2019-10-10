@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Alert } from 'reactstrap';
 import Axios from 'axios';
+import logo from '../../../assets/img/logo_watch.png'
 
 class Login extends Component {
   constructor(props) {
@@ -37,12 +37,16 @@ class Login extends Component {
     })
   }
 
+  restorePassword = () => {
+    
+  }
+
   clearSession = () => {
     sessionStorage.clear();
   }
 
   render() {
-    const error = <Alert color="danger">Usuario o Contraseña incorrectos!</Alert>
+    const error = <Alert color="danger">Usuario o Contraseña incorrectos!!!</Alert>
     let isLogged = sessionStorage.getItem("isLogged") 
     
     if(isLogged === 'ok') {
@@ -58,7 +62,7 @@ class Login extends Component {
                 <Card className="p-4">
                   <CardBody>
                     <Form>
-                      <h1>Login</h1>
+                      <h1>Datos de acceso</h1>
                       <p className="text-muted">Ingresa con tu cuenta</p>
                       {this.state.isValid === false && error}
                       <InputGroup className="mb-3">
@@ -82,7 +86,7 @@ class Login extends Component {
                           <Button type="submmit" color="primary" className="px-4" onClick={this.handleLoginSubmmit}>Ingresar</Button>
                         </Col>
                         <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0">Olvidó la contraseña?</Button>
+                          <Button onClick={this.restorePassword} color="link" className="px-0">Olvidó la contraseña?</Button>
                         </Col>
                       </Row>
                     </Form>
@@ -91,8 +95,9 @@ class Login extends Component {
                 <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
                   <CardBody className="text-center">
                     <div>
-                      <h2>SMART TR</h2>
-                      <p>Sistema administrativo para Taller de Relojes, inventarios y ventas</p>
+                      <h1>SMART TR</h1>
+                      <p>Sistema administrativo para Taller de Relojes</p>
+                      <img src={logo} alt="Logo" width="70%" />
                     </div>
                   </CardBody>
                 </Card>
