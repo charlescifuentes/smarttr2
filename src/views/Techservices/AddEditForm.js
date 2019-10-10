@@ -282,9 +282,9 @@ class AddEditForm extends Component {
                 <FormGroup>
                   <Label for="ts_status">Estado</Label>
                   <Input type="select" name="ts_status" id="ts_status" onChange={this.onChange}>
-                      <option value={this.state.status_id}>{this.state.status_name}</option>
-                      {status}
-                    </Input>
+                    <option value={this.state.status_id}>{this.state.status_name}</option>
+                    {status}
+                  </Input>
                 </FormGroup>
               </Col>
               <Col md={4}>

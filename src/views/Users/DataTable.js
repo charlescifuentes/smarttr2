@@ -25,6 +25,7 @@ class DataTable extends Component {
           <td>{item.user_lastname}</td>
           <td>{item.user_phone}</td>
           <td>{item.user_email}</td>
+          <td>{item.rol_name}</td>
           <td>
             <div style={{width:"110px"}}>
               <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
@@ -45,6 +46,7 @@ class DataTable extends Component {
             <th>Apellidos</th>
             <th>Teléfono</th>
             <th>Email</th>
+            <th>Rol</th>
             <th>Acciones</th>
           </tr>
         </thead>

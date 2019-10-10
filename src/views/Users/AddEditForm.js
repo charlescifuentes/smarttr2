@@ -12,6 +12,7 @@ class AddEditForm extends Component {
     user_phone : '',
     user_email : '',
     rol_id : '',
+    rol_name: '', 
     user_status : ''            
   }
 
@@ -19,9 +20,17 @@ class AddEditForm extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
+  getRol = () => {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/roles/' + this.state.rol_id)
+        .then(res => {
+          const rol = res.data
+          this.setState({ rol_name: rol })
+        })
+  }
+
   submitFormAdd = e => {
     e.preventDefault()
-
+    this.getRol()
     const item = {
       username: this.state.user_name,
       password: this.state.user_password,
@@ -43,10 +52,9 @@ class AddEditForm extends Component {
 
   submitFormEdit = e => {
     e.preventDefault()
-
+    this.getRol()
     const item = {
       username: this.state.user_name,
-      password: this.state.user_password,
       firstname: this.state.user_firstname,
       lastname: this.state.user_lastname,
       email: this.state.user_email,
@@ -65,12 +73,26 @@ class AddEditForm extends Component {
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { user_id, user_name, user_password, user_firstname, user_lastname, user_phone, user_email, rol_id, user_status } = this.props.item
-      this.setState({ user_id, user_name, user_password, user_firstname, user_lastname, user_phone, user_email, rol_id, user_status })
+      const { user_id, user_name, user_password, user_firstname, user_lastname, user_phone, user_email, rol_id, rol_name, user_status } = this.props.item
+      this.setState({ user_id, user_name, user_password, user_firstname, user_lastname, user_phone, user_email, rol_id, rol_name, user_status })
     }
   }
 
   render() {
+    const roles = this.props.roles.map(rol => {
+      return (
+        <option key={rol.rol_id} value={rol.rol_id}>{rol.rol_name}</option>
+      )
+    })
+
+    let inputPassword
+
+    if(this.props.label === "Editar") {
+      inputPassword = <Input type="text" name="user_password" id="user_password" onChange={this.onChange} value={this.state.user_password === null ? '' : ''} readOnly/>
+    }else {
+      inputPassword = <Input type="text" name="user_password" id="user_password" onChange={this.onChange} value={this.state.user_password === null ? '' : this.state.user_password} />
+    }
+
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <FormGroup>
@@ -83,7 +105,7 @@ class AddEditForm extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="user_password">Contraseña</Label>
-          <Input type="text" name="user_password" id="user_password" onChange={this.onChange} value={this.state.user_password === null ? '' : this.state.user_password} />
+          {inputPassword}
         </FormGroup>
         <FormGroup>
           <Label for="user_firstname">Nombres</Label>
@@ -103,7 +125,10 @@ class AddEditForm extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="rol_id">Rol</Label>
-          <Input type="text" name="rol_id" id="rol_id" onChange={this.onChange} value={this.state.rol_id === null ? '' : this.state.rol_id}  />
+          <Input type="select" name="rol_id" id="rol_id" onChange={this.onChange}>
+            <option value={this.state.rol_id}>{this.state.rol_name}</option>
+            {roles}
+          </Input>
         </FormGroup>
         <FormGroup>
           <Label for="user_status">Estado</Label>

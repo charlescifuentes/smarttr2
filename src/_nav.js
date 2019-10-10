@@ -25,35 +25,30 @@ export default {
       icon: 'icon-wrench',
     },
     {
-      name: 'Reportes',
-      icon: 'icon-chart',
-      children: [
-        {
-          name: 'Clientes',
-          url: '/reports/customers',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Servicio Técnico',
-          url: '/reports/techservices',
-          icon: 'icon-puzzle',
-        },
-      ],
-    },
-    {
       name: 'Estados Servicio',
       url: '/status',
       icon: 'icon-graph',
     },
     {
-      name: 'Roles',
+      name: 'Usuarios',
+      url: '/users',
+      icon: 'icon-user',
+    },
+    {
+      name: 'Roles de usuario',
       url: '/roles',
       icon: 'icon-user-unfollow',
     },
     {
-      name: 'Usuarios',
-      url: '/users',
-      icon: 'icon-user',
+      name: 'Reportes',
+      icon: 'icon-chart',
+      children: [
+        {
+          name: 'Servicio Técnico',
+          url: '/reports/techservices',
+          icon: 'icon-chart',
+        },
+      ],
     },
     {
       name: 'Configuración',

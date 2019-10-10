@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 import AddEditForm from './AddEditForm'
+import axios from 'axios'
 
 class ModalForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      roles: []
     }
   }
 
@@ -14,6 +16,14 @@ class ModalForm extends Component {
     this.setState(prevState => ({
       modal: !prevState.modal
     }))
+  }
+
+  getRoles = () => {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/roles')
+      .then(res => {
+        const roles = res.data
+        this.setState({ roles })
+      })
   }
 
   render() {
@@ -27,14 +37,20 @@ class ModalForm extends Component {
     if(label === 'Editar') {
       button = <Button
                 color="warning"
-                onClick={this.toggle}
+                onClick={() => {
+                  this.toggle();
+                  this.getRoles();
+                }}
                 style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
       title = 'Editar Registro'
     } else {
       button = <Button
                 color="success"
-                onClick={this.toggle}
+                onClick={() => {
+                  this.toggle();
+                  this.getRoles();
+                }}
                 style={{float: "left"}}>{label}
                 </Button>
       title = 'Añadir Nuevo Registro'
@@ -50,7 +66,9 @@ class ModalForm extends Component {
               addItemToState={this.props.addItemToState}
               updateState={this.props.updateState}
               toggle={this.toggle}
-              item={this.props.item} 
+              item={this.props.item}
+              roles={this.state.roles}
+              label={label} 
             />
           </ModalBody>
         </Modal>
