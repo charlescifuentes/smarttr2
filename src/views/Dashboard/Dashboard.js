@@ -26,7 +26,7 @@ class Dashboard extends Component {
           <h1 className="display-3">SMART TR</h1>
           <p className="lead">Sistema administrativo para Taller de Relojes</p>
           <hr className="my-2" />
-      </Jumbotron>
+        </Jumbotron>
       </div>
     );
   }

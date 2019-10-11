@@ -3,7 +3,6 @@ import { Card, CardHeader, CardBody, CardFooter, Row, Col } from 'reactstrap'
 import ModalForm from './ModalForm'
 import DataTable from './DataTable'
 import axios from 'axios'
-import DTable from 'react-data-table-component';
 
 class Customers extends Component {
 
@@ -48,54 +47,6 @@ class Customers extends Component {
   }
 
   render() {
-    const data = this.state.items
-    const columns = [
-      {
-        name: 'NIT',
-        selector: 'customer_nit',
-        sortable: true,
-      },
-      {
-        name: 'Year',
-        selector: 'year',
-        sortable: true,
-        right: true,
-      },
-      {
-        name: 'Year',
-        selector: 'year',
-        sortable: true,
-        right: true,
-      },
-      {
-        name: 'Year',
-        selector: 'year',
-        sortable: true,
-        right: true,
-      },
-      {
-        name: 'Year',
-        selector: 'year',
-        sortable: true,
-        right: true,
-      },
-      {
-        name: 'Year',
-        selector: 'year',
-        sortable: true,
-        right: true,
-      },
-      {
-        name: 'Year',
-        selector: 'year',
-        sortable: true,
-        right: true,
-      },
-    ];
-
-    console.log(data);
-    console.log(columns);
-    
     return (
       <div className="animated fadeIn">
         <Row>
@@ -105,11 +56,6 @@ class Customers extends Component {
                 <i className="fa fa-align-justify"></i> CLIENTES
               </CardHeader>
               <CardBody>
-              <DTable
-                title="Arnold Movies"
-                columns={columns}
-                data={data}
-              />
                 <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
               </CardBody>
               <CardFooter>
@@ -119,7 +65,7 @@ class Customers extends Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 
