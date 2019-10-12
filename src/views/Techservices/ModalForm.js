@@ -57,7 +57,6 @@ class ModalForm extends Component {
     } else {
       button = <Button
                 color="success"
-                //onClick={this.toggle}
                 onClick={() => {
                   this.toggle();
                   this.getCustomers();

@@ -21,8 +21,7 @@ class AddEditForm extends Component {
     ts_observation: '',
     ts_date_end: '',
     ts_status: '',
-    customer_firstname: '',
-    customer_lastname: '',
+    customer_name: '',
     status_name: '',
     selectedOption: null,
     isDisabled: false,
@@ -37,6 +36,7 @@ class AddEditForm extends Component {
     this.setState({ 
       selectedOption,
       customer_id: selectedOption.value,
+      customer_name: selectedOption.label,
       isDisabled: true
      });
   };
@@ -45,7 +45,7 @@ class AddEditForm extends Component {
     axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + this.state.customer_id)
         .then(res => {
           const customer = res.data
-          this.setState({ customer_firstname: customer.customer_firstname +' '+ customer.customer_lastname, customer: customer })
+          this.setState({ customer_name: customer.customer_firstname +' '+ customer.customer_lastname, customer: customer })
         })
   }
 
@@ -91,10 +91,13 @@ class AddEditForm extends Component {
     e.preventDefault()
     this.getCustomer()
     this.getStatus()
+    let session = JSON.parse(sessionStorage.getItem("userData"));
+    this.setState({ user_id: session.user_id })
+
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
-      user_id: "2",
+      user_id: this.state.user_id,
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
       ts_store_sender: this.state.ts_store_sender,
@@ -111,7 +114,7 @@ class AddEditForm extends Component {
         ts_id: res.data, 
         ts_date_start: this.state.ts_date_start,
         customer_id: this.state.customer_id,
-        user_id: "2",
+        user_id: this.state.user_id,
         ts_watch_brand: this.state.ts_watch_brand,
         ts_watch_model: this.state.ts_watch_model,
         ts_store_sender: this.state.ts_store_sender,
@@ -120,8 +123,7 @@ class AddEditForm extends Component {
         ts_observation: this.state.ts_observation,
         ts_date_end: this.state.ts_date_end,
         ts_status: this.state.ts_status,
-        customer_firstname: this.state.customer_firstname,
-        customer_lastname: this.state.customer_lastname,
+        customer_name: this.state.customer_name,
         status_name: this.state.status_name
       };
       this.setState({ ts_id: res.data })
@@ -135,6 +137,8 @@ class AddEditForm extends Component {
     e.preventDefault()
     this.getCustomer()
     this.getStatus()
+    let session = JSON.parse(sessionStorage.getItem("userData"));
+    this.setState({ user_id: session.user_id })
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
@@ -164,8 +168,7 @@ class AddEditForm extends Component {
           ts_observation: this.state.ts_observation,
           ts_date_end: this.state.ts_date_end,
           ts_status: this.state.ts_status,
-          customer_firstname: this.state.customer_firstname,
-          customer_lastname: "",
+          customer_name: this.state.customer_name,
           status_name: this.state.status_name
         };
         console.log(res.data);
@@ -178,12 +181,14 @@ class AddEditForm extends Component {
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname, status_name } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_firstname, customer_lastname, status_name, selectedOption: { value: customer_id, label: customer_firstname +" "+ customer_lastname }, isDisabled: true })
+      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name } = this.props.item
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name, selectedOption: { value: customer_id, label: customer_name }, isDisabled: true })
     }
   }
 
   render() {
+    console.log(this.state);
+    
     const status = this.props.status.map(st => {
       return (
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>

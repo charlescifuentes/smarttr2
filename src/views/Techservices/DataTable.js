@@ -18,7 +18,7 @@ class DataTable extends Component {
         dataField: 'ts_date_start',
         text: 'Fecha'
       }, {
-        dataField: 'customer',
+        dataField: 'customer_name',
         text: 'Cliente'
       }, {
         dataField: 'ts_watch_brand',

@@ -4,19 +4,19 @@ import axios from 'axios'
 
 class CustomerAdd extends Component {
     constructor(props) {
-        super(props);
-        this.state = {
-          customer_id: '',
-          customer_nit: '',
-          customer_firstname : '',
-          customer_lastname : '',
-          customer_phone : '',
-          customer_address : '',
-          customer_email : '',
-          customer_city : '',
-          customer_status : '',
-          modal: false
-        }
+      super(props);
+      this.state = {
+        customer_id: '',
+        customer_nit: '',
+        customer_firstname : '',
+        customer_lastname : '',
+        customer_phone : '',
+        customer_address : '',
+        customer_email : '',
+        customer_city : '',
+        customer_status : '',
+        modal: false
+      }
     }
 
     onChange = e => {
