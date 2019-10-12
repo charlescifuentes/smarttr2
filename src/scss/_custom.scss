@@ -20,3 +20,7 @@ table th, table td { white-space: nowrap; }
         font-size: 1.2rem !important;
     }
 }
+
+.react-bootstrap-table table {
+    table-layout: auto !important;
+}

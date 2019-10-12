@@ -1,12 +1,49 @@
 import React, { Component } from 'react'
-import { Table } from 'reactstrap'
 import ModalForm from './ModalForm'
+import BootstrapTable from 'react-bootstrap-table-next';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
 class DataTable extends Component {
 
   render() {
+    const items = this.props.items;
+
+    const columns = [
+      {
+        dataField: 'ts_id',
+        text: 'ID'
+      }, {
+        dataField: 'ts_date_start',
+        text: 'Fecha'
+      }, {
+        dataField: 'customer',
+        text: 'Cliente'
+      }, {
+        dataField: 'ts_watch_brand',
+        text: 'Marca'
+      }, {
+        dataField: 'ts_store_sender',
+        text: 'Taller'
+      }, {
+        dataField: 'status_name',
+        text: 'Estado'
+      }, {
+        dataField: 'actions',
+        isDummyField: true,
+        text: 'Acciones',
+        formatter: (cellContent, row) => {
+          return (
+            <div style={{width:"110px"}}>
+              <ModalForm buttonLabel="Editar" item={row} updateState={this.props.updateState}/>
+            </div>
+          );
+        }
+      }
+    ];
     
-    const items = this.props.items.map(item => {
+    /*const items = this.props.items.map(item => {
       return (
         <tr key={item.ts_id}>
           <td>{item.ts_id}</td>
@@ -22,10 +59,22 @@ class DataTable extends Component {
           </td>
         </tr>
       )
-    })
+    })*/
 
     return (
-      <Table responsive hover>
+      <div>
+        <BootstrapTable 
+          keyField='ts_id' 
+          data={ items } 
+          columns={ columns } 
+          pagination={ paginationFactory() }
+          bootstrap4 
+          striped
+          bordered={false}
+          wrapperClasses="table-responsive"
+        />
+      </div>
+      /*<Table responsive hover>
         <thead>
           <tr>
             <th>ID</th>
@@ -40,7 +89,7 @@ class DataTable extends Component {
         <tbody>
           {items}
         </tbody>
-      </Table>
+      </Table>*/
     )
   }
 }

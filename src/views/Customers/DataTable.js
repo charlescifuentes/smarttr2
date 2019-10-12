@@ -20,28 +20,24 @@ class DataTable extends Component {
         })
     }
   }
-  showItem = (item) => {
-    console.log(item)
-  }
 
   render() {
-    const products = this.props.items;
-    console.log(products);
+    const items = this.props.items;
 
     const columns = [
       {
-      dataField: 'customer_nit',
-      text: 'NIT'
+        dataField: 'customer_nit',
+        text: 'NIT'
       }, {
-      dataField: 'customer_firstname',
-      text: 'Nombres'
+        dataField: 'customer_firstname',
+        text: 'Nombres'
       }, {
-      dataField: 'customer_lastname',
-      text: 'Apellidos'
+        dataField: 'customer_lastname',
+        text: 'Apellidos'
       }, {
-      dataField: 'df2',
-      isDummyField: true,
-      text: 'Action 2',
+        dataField: 'df2',
+        isDummyField: true,
+        text: 'Acciones',
         formatter: (cellContent, row) => {
           return (
             <div style={{width:"110px"}}>
@@ -54,7 +50,7 @@ class DataTable extends Component {
       }
     ];
 
-    const items = this.props.items.map(item => {
+    /*const items = this.props.items.map(item => {
       return (
         <tr key={item.customer_id}>
           <th>{item.customer_nit}</th>
@@ -64,18 +60,27 @@ class DataTable extends Component {
           <td>{item.customer_city}</td>
           <td>
             <div style={{width:"110px"}}>
-              <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
+              <ModalForm buttonLabel="Editar" item={rowIndex} updateState={this.props.updateState}/>
               {' '}
-              <Button color="danger" onClick={() => this.deleteItem(item.customer_id)}>Borrar</Button>
+              <Button color="danger" onClick={() => this.deleteItem(rowIndex.customer_id)}>Borrar</Button>
             </div>
           </td>
         </tr>
       )
-    })
+    })*/
 
     return (
       <div>
-        <BootstrapTable keyField='customer_id' data={ products } columns={ columns } pagination={ paginationFactory() } bootstrap4 hover />
+        <BootstrapTable 
+          keyField='customer_id' 
+          data={ items } 
+          columns={ columns } 
+          pagination={ paginationFactory() }
+          bootstrap4 
+          striped
+          bordered={false}
+          wrapperClasses="table-responsive"
+        />
       {/*<Table responsive hover>
         <thead>
           <tr>
