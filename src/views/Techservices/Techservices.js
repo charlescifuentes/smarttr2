@@ -42,8 +42,6 @@ class Techservices extends Component {
   }
 
   render() {
-    console.log(this.state);
-    
     return (
       <div className="animated fadeIn">
         <Row>

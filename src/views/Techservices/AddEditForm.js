@@ -13,6 +13,7 @@ class AddEditForm extends Component {
     ts_date_start: '',
     customer_id: '',
     user_id: '',
+    user_name: '',
     ts_watch_brand: '',
     ts_watch_model: '',
     ts_store_sender: '',
@@ -57,6 +58,11 @@ class AddEditForm extends Component {
         })
   }
 
+  getCurrentUser = () => {
+    let session = JSON.parse(sessionStorage.getItem("userData"));
+    this.setState({ user_id: session.user_id, user_name: session.user_firstname +' '+session.user_lastname })
+  }
+
   onEdit = () => {
     this.setState({ isDisabled: false })
   }
@@ -91,9 +97,7 @@ class AddEditForm extends Component {
     e.preventDefault()
     this.getCustomer()
     this.getStatus()
-    let session = JSON.parse(sessionStorage.getItem("userData"));
-    this.setState({ user_id: session.user_id })
-
+    this.getCurrentUser()
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
@@ -107,6 +111,7 @@ class AddEditForm extends Component {
       ts_date_end: this.state.ts_date_end,
       ts_status: this.state.ts_status 
     };
+    console.log(item);
     
     axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts', item)
     .then(res => {
@@ -126,6 +131,7 @@ class AddEditForm extends Component {
         customer_name: this.state.customer_name,
         status_name: this.state.status_name
       };
+      console.log(res.data);
       this.setState({ ts_id: res.data })
       this.props.addItemToState(newItem)
       this.props.toggle()
@@ -137,8 +143,7 @@ class AddEditForm extends Component {
     e.preventDefault()
     this.getCustomer()
     this.getStatus()
-    let session = JSON.parse(sessionStorage.getItem("userData"));
-    this.setState({ user_id: session.user_id })
+    this.getCurrentUser()
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
@@ -152,7 +157,8 @@ class AddEditForm extends Component {
       ts_date_end: this.state.ts_date_end,
       ts_status: this.state.ts_status
     };
-
+    console.log(item);
+    
     axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/${this.state.ts_id}`, item )
       .then(res => {
         const newItem = {
@@ -171,7 +177,6 @@ class AddEditForm extends Component {
           customer_name: this.state.customer_name,
           status_name: this.state.status_name
         };
-        console.log(res.data);
         this.props.updateState(newItem)
         this.props.toggle()
         this.printOrder()

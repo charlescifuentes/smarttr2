@@ -34,7 +34,7 @@ class Invoice extends Component {
     }
 
     render() {
-        const { ts_id, ts_date_start, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, status_name, ts_date_end, user_id, customer } = this.props.location.state.items
+        const { ts_id, ts_date_start, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, status_name, ts_date_end, user_name, customer } = this.props.location.state.items
 
         const company = this.state.company.map((item) =>
             <div key={item.config_id}>
@@ -83,7 +83,7 @@ class Invoice extends Component {
                                     <Col xs="12" sm="6" md="6" className="text-right">
                                         <h2>ORDEN DE SERVICIO # {ts_id}</h2>
                                         <div>Fecha: {ts_date_start}</div>
-                                        <div>Atendido por: {user_id}</div>
+                                        <small>Atendido por: {user_name}</small>
                                     </Col>
                                 </Row>
                             </CardBody>
