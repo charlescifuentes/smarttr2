@@ -95,13 +95,14 @@ class AddEditForm extends Component {
 
   submitFormAdd = e => {
     e.preventDefault()
+    const session = JSON.parse(sessionStorage.getItem("userData"));
     this.getCustomer()
     this.getStatus()
     this.getCurrentUser()
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
-      user_id: this.state.user_id,
+      user_id: session.user_id,
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
       ts_store_sender: this.state.ts_store_sender,
@@ -141,13 +142,14 @@ class AddEditForm extends Component {
 
   submitFormEdit = e => {
     e.preventDefault()
+    const session = JSON.parse(sessionStorage.getItem("userData"));
     this.getCustomer()
     this.getStatus()
     this.getCurrentUser()
     const item = {
       ts_date_start: this.state.ts_date_start,
       customer_id: this.state.customer_id,
-      user_id: this.state.user_id,
+      user_id: session.user_id,
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
       ts_store_sender: this.state.ts_store_sender,
