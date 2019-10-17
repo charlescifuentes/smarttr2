@@ -15,7 +15,7 @@ class Dashboard extends Component {
   }
 
   getItems(){
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts')
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/latest')
       .then(res => {
         const items = res.data
         this.setState({ items })
