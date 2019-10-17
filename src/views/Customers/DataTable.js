@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
 import ModalForm from './ModalForm'
 import axios from 'axios'
 import BootstrapTable from 'react-bootstrap-table-next';

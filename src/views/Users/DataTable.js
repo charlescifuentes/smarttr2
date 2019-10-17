@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { Table, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
 import ModalForm from './ModalForm'
 import axios from 'axios'
+import BootstrapTable from 'react-bootstrap-table-next';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
 class DataTable extends Component {
 
@@ -17,43 +21,56 @@ class DataTable extends Component {
   }
 
   render() {
-    const items = this.props.items.map(item => {
-      return (
-        <tr key={item.user_id}>
-          <td>{item.user_name}</td>
-          <td>{item.user_firstname}</td>
-          <td>{item.user_lastname}</td>
-          <td>{item.user_phone}</td>
-          <td>{item.user_email}</td>
-          <td>{item.rol_name}</td>
-          <td>
+    const items = this.props.items;
+
+    const columns = [
+      {
+        dataField: 'user_id',
+        text: 'ID'
+      }, {
+        dataField: 'user_name',
+        text: 'usuario'
+      }, {
+        dataField: 'user_firstname',
+        text: 'Nombres'
+      }, {
+        dataField: 'user_lastname',
+        text: 'Apellidos'
+      }, {
+        dataField: 'user_phone',
+        text: 'Teléfono'
+      }, {
+        dataField: 'rol_name',
+        text: 'Rol'
+      }, {
+        dataField: 'actions',
+        isDummyField: true,
+        text: 'Acciones',
+        formatter: (cellContent, row) => {
+          return (
             <div style={{width:"110px"}}>
-              <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
+              <ModalForm buttonLabel="Editar" item={row} updateState={this.props.updateState}/>
               {' '}
-              <Button color="danger" onClick={() => this.deleteItem(item.user_id)}>Borrar</Button>
+              <Button color="danger" onClick={() => this.deleteItem(row.user_id)}>Borrar</Button>
             </div>
-          </td>
-        </tr>
-      )
-    })
+          );
+        }
+      }
+    ];
 
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>
-            <th>Usuario</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Teléfono</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items}
-        </tbody>
-      </Table>
+      <div>
+        <BootstrapTable 
+          keyField='user_id' 
+          data={ items } 
+          columns={ columns } 
+          pagination={ paginationFactory() }
+          bootstrap4 
+          striped
+          bordered={false}
+          wrapperClasses="table-responsive"
+        />
+      </div>
     )
   }
 }

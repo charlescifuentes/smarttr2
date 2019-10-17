@@ -1,13 +1,30 @@
 import React, { Component } from 'react';
-import { Col, Row, Jumbotron } from 'reactstrap';
+import { Col, Row, Jumbotron, Card, CardHeader, CardBody } from 'reactstrap';
 import Widget from './Widget'
+import DataTable from './Datatable'
+import axios from 'axios'
 
 class Dashboard extends Component {
+  
+  state = {
+    items: []
+  }
+
+  componentDidMount(){
+    this.getItems()
+  }
+
+  getItems(){
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts')
+      .then(res => {
+        const items = res.data
+        this.setState({ items })
+      })
+  }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-
     return (
       <div className="animated fadeIn">
         <h1><i className="fa fa-tasks"> ORDENES POR ESTADO</i></h1>
@@ -20,6 +37,18 @@ class Dashboard extends Component {
           </Col>
           <Col sm="12" md="4">
             <Widget icon="icon-flag" color="primary" header="1238" value="25" invert>Finalizado</Widget>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"></i> ORDENES RECIENTES
+              </CardHeader>
+              <CardBody>
+                <DataTable items={this.state.items} />
+              </CardBody>
+            </Card>
           </Col>
         </Row>
         <Jumbotron>

@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { Table, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
 import ModalForm from './ModalForm'
 import axios from 'axios'
+import BootstrapTable from 'react-bootstrap-table-next';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
 class DataTable extends Component {
 
@@ -17,36 +21,44 @@ class DataTable extends Component {
   }
 
   render() {
-    
-    const items = this.props.items.map(item => {
-      return (
-        <tr key={item.status_id}>
-          <td>{item.status_id}</td>
-          <td>{item.status_name}</td>
-          <td>
-            <div style={{width:"110px"}}>
-              <ModalForm buttonLabel="Editar" item={item} updateState={this.props.updateState}/>
-              {' '}
-              <Button color="danger" onClick={() => this.deleteItem(item.status_id)}>Borrar</Button>
-            </div>
-          </td>
-        </tr>
-      )
-    })
+    const items = this.props.items;
 
+    const columns = [
+      {
+        dataField: 'status_id',
+        text: 'ID'
+      }, {
+        dataField: 'status_name',
+        text: 'Nombre'
+      }, {
+        dataField: 'actions',
+        isDummyField: true,
+        text: 'Acciones',
+        formatter: (cellContent, row) => {
+          return (
+            <div style={{width:"110px"}}>
+              <ModalForm buttonLabel="Editar" item={row} updateState={this.props.updateState}/>
+              {' '}
+              <Button color="danger" onClick={() => this.deleteItem(row.status_id)}>Borrar</Button>
+            </div>
+          );
+        }
+      }
+    ];
+    
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items}
-        </tbody>
-      </Table>
+      <div>
+        <BootstrapTable 
+          keyField='status_id' 
+          data={ items } 
+          columns={ columns } 
+          pagination={ paginationFactory() }
+          bootstrap4 
+          striped
+          bordered={false}
+          wrapperClasses="table-responsive"
+        />
+      </div>
     )
   }
 }
