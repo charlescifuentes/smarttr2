@@ -1,11 +1,29 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap'
+import axios from 'axios'
 
 class LatestTs extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {latestTs: []};
+  }
+
+  componentDidMount() {
+    this.getLatestTs()
+  }
+
+  getLatestTs() {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/latest')
+      .then(res => {
+        const latestTs = res.data
+        this.setState({ latestTs })
+      })
+  }
 
   render() {
+    console.log(this.state);
     
-    const latestTs = this.props.latestTs.map(item => {
+    const latestTs = this.state.latestTs.map(item => {
       return (
         <tr key={item.ts_id}>
           <td>{item.ts_id}</td>
