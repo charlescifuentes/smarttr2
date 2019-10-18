@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap'
 
-class DataTable extends Component {
+class LatestTs extends Component {
 
   render() {
     
-    const items = this.props.items.map(item => {
+    const latestTs = this.props.latestTs.map(item => {
       return (
         <tr key={item.ts_id}>
           <td>{item.ts_id}</td>
@@ -31,11 +31,11 @@ class DataTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {items}
+          {latestTs}
         </tbody>
       </Table>
     )
   }
 }
 
-export default DataTable
+export default LatestTs

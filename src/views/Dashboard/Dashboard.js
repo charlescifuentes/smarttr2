@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
-import { Col, Row, Jumbotron, Card, CardHeader, CardBody } from 'reactstrap';
-import Widget from './Widget'
-import DataTable from './Datatable'
+import { Col, Row, Jumbotron, Card, CardHeader, CardBody, ListGroup, ListGroupItem, Badge } from 'reactstrap';
+import LatestTs from './LatestTs'
+import TsByStatus from './TsByStatus'
 import axios from 'axios'
 
 class Dashboard extends Component {
   
   state = {
-    items: []
+    latestTs: [],
+    tsByStatus: []
   }
 
   componentDidMount(){
-    this.getItems()
+    this.getLatestTs()
+    this.getTsByStatus()
   }
 
-  getItems(){
+  getLatestTs() {
     axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/latest')
       .then(res => {
-        const items = res.data
-        this.setState({ items })
+        const latestTs = res.data
+        this.setState({ latestTs })
+      })
+  }
+
+  getTsByStatus() {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/bystatus')
+      .then(res => {
+        const tsByStatus = res.data
+        this.setState({ tsByStatus })
       })
   }
 
@@ -27,26 +37,41 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <h1><i className="fa fa-tasks"> ORDENES POR ESTADO</i></h1>
         <Row>
-          <Col sm="12" md="4">
-            <Widget icon="icon-speedometer" color="info" header="87.500" value="25" invert>En Revisión</Widget>
+          <Col sm="12" xl="6">
+            <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"></i><strong>ORDENES POR ESTADO</strong>
+              </CardHeader>
+              <CardBody>
+                <TsByStatus TsByStatus={this.state.TsByStatus} />
+              </CardBody>
+            </Card>
           </Col>
-          <Col sm="12" md="4">
-            <Widget icon="icon-wrench" color="success" header="385" value="25" invert>En Reparación</Widget>
-          </Col>
-          <Col sm="12" md="4">
-            <Widget icon="icon-flag" color="primary" header="1238" value="25" invert>Finalizado</Widget>
+          <Col sm="12" xl="6">
+            <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify"></i><strong>CLIENTES RECIENTES</strong>
+              </CardHeader>
+              <CardBody>
+                <ListGroup>
+                  <ListGroupItem className="justify-content-between">Cras justo odio <Badge className="float-right" pill>14</Badge></ListGroupItem>
+                  <ListGroupItem className="justify-content-between">Dapibus ac facilisis in <Badge className="float-right" pill>2</Badge></ListGroupItem>
+                  <ListGroupItem className="justify-content-between">Morbi leo risus <Badge className="float-right" pill
+                                                                                            color="warning">1</Badge></ListGroupItem>
+                </ListGroup>
+              </CardBody>
+            </Card>
           </Col>
         </Row>
         <Row>
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> ORDENES RECIENTES
+                <i className="fa fa-align-justify"></i><strong>ÚLTIMAS RECIENTES</strong>
               </CardHeader>
               <CardBody>
-                <DataTable items={this.state.items} />
+                <LatestTs latestTs={this.state.latestTs} />
               </CardBody>
             </Card>
           </Col>
