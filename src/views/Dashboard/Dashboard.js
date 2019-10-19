@@ -9,7 +9,8 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       latestTs: [],
-      tsByStatus: []
+      tsByStatus: [],
+      test: 'hola'
     };
   }
 
@@ -37,7 +38,8 @@ class Dashboard extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    console.log(this.state);
+    const latestTs = this.state.latestTs   
+    console.log(latestTs);
     
     return (
       <div className="animated fadeIn">
@@ -75,7 +77,11 @@ class Dashboard extends Component {
                 <i className="fa fa-align-justify"></i><strong>ÚLTIMAS RECIENTES</strong>
               </CardHeader>
               <CardBody>
-                <LatestTs latestTs={this.state.latestTs} />
+                {latestTs ? (
+                  <LatestTs latestTs={this.state.latestTs} />
+                ) : (
+                  <p>Sin datos</p>
+                )}
               </CardBody>
             </Card>
           </Col>
