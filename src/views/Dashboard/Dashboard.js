@@ -38,8 +38,8 @@ class Dashboard extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
-    const latestTs = this.state.latestTs   
-    console.log(latestTs);
+    const latestTs = this.state.latestTs 
+    const tsByStatus = this.state.tsByStatus  
     
     return (
       <div className="animated fadeIn">
@@ -50,7 +50,11 @@ class Dashboard extends Component {
                 <i className="fa fa-align-justify"></i><strong>ORDENES POR ESTADO</strong>
               </CardHeader>
               <CardBody>
-                <TsByStatus tsByStatus={this.state.tsByStatus} />
+                {tsByStatus ? (
+                  <TsByStatus tsByStatus={this.state.tsByStatus} />
+                ) : (
+                  <p>Sin datos</p>
+                )}
               </CardBody>
             </Card>
           </Col>

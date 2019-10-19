@@ -4,17 +4,19 @@ import { Badge, ListGroup, ListGroupItem } from 'reactstrap'
 class TsByStatus extends Component {
 
   render() {
-    /*const tsbystatus = this.props.TsByStatus.map(item => {
+    console.log(this.props.tsByStatus);
+    
+    const tsByStatus = this.props.tsByStatus.map((item, index) => {
       return (
-        <Fragment>
-            <ListGroupItem className="justify-content-between">{item.status_name} <Badge className="float-right" pill>{item.quantity}</Badge></ListGroupItem>      
+        <Fragment key={index}>
+            <ListGroupItem className="justify-content-between">{item.status_name}<Badge className="float-right" pill color="primary">{item.quantity}</Badge></ListGroupItem>      
         </Fragment>
       )
-    })*/
+    })
 
     return (
         <ListGroup>
-            asdas
+          {tsByStatus}
         </ListGroup>
     )   
   }
