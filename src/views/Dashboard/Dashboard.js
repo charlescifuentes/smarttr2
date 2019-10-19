@@ -2,8 +2,37 @@ import React, { Component } from 'react';
 import { Col, Row, Jumbotron, Card, CardHeader, CardBody, ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import TsByStatus from './TsByStatus'
 import LatestTs from './LatestTs'
+import axios from 'axios'
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      latestTs: [],
+      tsByStatus: []
+    };
+  }
+
+  componentDidMount() {
+    this.getLatestTs()
+    this.getTsByStatus()
+  }
+
+  getLatestTs() {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/latest')
+      .then(res => {
+        const latestTs = res.data
+        this.setState({ latestTs })
+      })
+  }
+
+  getTsByStatus() {
+    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/bystatus')
+      .then(res => {
+        const tsByStatus = res.data
+        this.setState({ tsByStatus })
+      })
+  }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
@@ -19,7 +48,7 @@ class Dashboard extends Component {
                 <i className="fa fa-align-justify"></i><strong>ORDENES POR ESTADO</strong>
               </CardHeader>
               <CardBody>
-                <TsByStatus />
+                <TsByStatus tsByStatus={this.state.tsByStatus} />
               </CardBody>
             </Card>
           </Col>
@@ -46,7 +75,7 @@ class Dashboard extends Component {
                 <i className="fa fa-align-justify"></i><strong>ÚLTIMAS RECIENTES</strong>
               </CardHeader>
               <CardBody>
-                <LatestTs />
+                <LatestTs latestTs={this.state.latestTs} />
               </CardBody>
             </Card>
           </Col>
