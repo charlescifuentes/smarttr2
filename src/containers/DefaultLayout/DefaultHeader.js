@@ -4,7 +4,7 @@ import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/logo.svg'
+import logo from '../../assets/img/smarttr.png'
 import avatar from '../../assets/img/avatar.png'
 import sygnet from '../../assets/img/brand/sygnet.svg'
 
@@ -16,7 +16,6 @@ const defaultProps = {};
 
 class DefaultHeader extends Component {
   render() {
-
     let session = JSON.parse(sessionStorage.getItem("userData"));
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
@@ -24,9 +23,9 @@ class DefaultHeader extends Component {
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        <AppNavbarBrand
-          full={{ src: logo, width: 89, height: 25, alt: 'CoreUI Logo' }}
-          minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
+        <AppNavbarBrand 
+          full={{ src: logo, width: 188, height: 57, alt: 'SMART TR' }}
+          minimized={{ src: sygnet, width: 30, height: 30, alt: 'SMART TR' }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <Nav className="ml-auto" navbar>

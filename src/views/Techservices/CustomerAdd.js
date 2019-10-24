@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from 'reactstrap'
-import axios from 'axios'
+import API from '../../API'
 
 class CustomerAdd extends Component {
     constructor(props) {
@@ -37,7 +37,7 @@ class CustomerAdd extends Component {
         customer_status: this.state.customer_status
       };
       
-      axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers', item)
+      API.post('customers', item)
       .then(res => {
         const newItem = {
           customer_id: res.data, 

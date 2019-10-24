@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import axios from 'axios'
+import API from '../../API'
 
 class AddEditForm extends Component {
   state = {
@@ -19,7 +19,7 @@ class AddEditForm extends Component {
       statusname: this.state.status_name
     };
     
-    axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/status', item)
+    API.post('status', item)
     .then(res => {
       this.setState({ status_id: res.data })
       this.props.addItemToState(this.state)
@@ -34,7 +34,7 @@ class AddEditForm extends Component {
       statusname: this.state.status_name
     };
 
-    axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/status/${this.state.status_id}`, item )
+    API.put(`status/${this.state.status_id}`, item )
       .then(res => {
         console.log(res.data);
         this.props.updateState(this.state)

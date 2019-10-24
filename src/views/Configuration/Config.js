@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, CardHeader, CardBody, Row, Col } from 'reactstrap'
-import axios from 'axios'
+import API from '../../API'
 import EditForm from './EditForm'
 
 class Config extends Component {
@@ -10,7 +10,7 @@ class Config extends Component {
   }
 
   async getItems(){
-    await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/config')
+    await API.get('config')
       .then(res => {
         const items = res.data;
         this.setState({ items });

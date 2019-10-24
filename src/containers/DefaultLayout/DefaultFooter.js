@@ -15,7 +15,7 @@ class DefaultFooter extends Component {
 
     return (
       <React.Fragment>
-        <span><a href="http://localhost:3000">SmartTR</a> &copy; 2019.</span>
+        <span><b>SmartTR</b> Versión 1.0.0 &copy; 2019.</span>
         <span className="ml-auto">Developed by <a href="https://colombiaweb.co">Colombia Web</a></span>
       </React.Fragment>
     );

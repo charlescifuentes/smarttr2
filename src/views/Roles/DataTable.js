@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap'
 import ModalForm from './ModalForm'
-import axios from 'axios'
+import API from '../../API'
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -12,7 +12,7 @@ class DataTable extends Component {
   deleteItem = id => {
     let confirmDelete = window.confirm('Desea borrar este item?')
     if(confirmDelete){
-      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/roles/' + id)
+      API.delete('roles/' + id)
         .then(res => {
           console.log(res.data);
           this.props.deleteItemFromState(id)

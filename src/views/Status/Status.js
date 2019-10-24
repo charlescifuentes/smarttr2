@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardHeader, CardBody, CardFooter, Row, Col } from 'reactstrap'
 import ModalForm from './ModalForm'
 import DataTable from './DataTable'
-import axios from 'axios'
+import API from '../../API'
 
 class Status extends Component {
 
@@ -11,7 +11,7 @@ class Status extends Component {
   }
 
   getItems(){
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/status')
+    API.get('status')
       .then(res => {
         const items = res.data;
         this.setState({ items });
@@ -47,6 +47,7 @@ class Status extends Component {
   }
 
   render() {
+    const { items } = this.state
     return (
       <div className="animated fadeIn">
         <Row>
@@ -56,7 +57,11 @@ class Status extends Component {
                 <i className="fa fa-align-justify"></i> ESTADOS DE REPARACIÓN
               </CardHeader>
               <CardBody>
-                <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
+                {Array.isArray(items) ? (
+                  <DataTable items={items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
+                ) : (
+                  <p>{items}</p>
+                )}
               </CardBody>
               <CardFooter>
                 <ModalForm buttonLabel="Añadir Registro" addItemToState={this.addItemToState} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 import AddEditForm from './AddEditForm'
-import axios from 'axios'
+import API from '../../API'
 
 class ModalForm extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class ModalForm extends Component {
   }
 
   getRoles = () => {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/roles')
+    API.get('roles')
       .then(res => {
         const roles = res.data
         this.setState({ roles })

@@ -4,8 +4,6 @@ import { Badge, ListGroup, ListGroupItem } from 'reactstrap'
 class TsByStatus extends Component {
 
   render() {
-    console.log(this.props.tsByStatus);
-    
     const tsByStatus = this.props.tsByStatus.map((item, index) => {
       return (
         <Fragment key={index}>

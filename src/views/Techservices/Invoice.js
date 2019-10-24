@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Card, CardHeader, CardBody, Button, Input, FormGroup, Label } from 'reactstrap'
-import axios from 'axios'
+import API from '../../API'
 import logo from '../../assets/img/logo_time.jpg'
 
 class Invoice extends Component {
@@ -26,7 +26,7 @@ class Invoice extends Component {
     }
 
     async getCompanyInfo() { 
-        await axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/config')
+        await API.get('config')
             .then(res => {
             const company = res.data;
             this.setState({ company });

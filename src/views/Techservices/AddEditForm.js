@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
-import axios from 'axios'
+import API from '../../API'
 import Select from 'react-select'
 import CustomerAdd from './CustomerAdd';
 import { withRouter } from 'react-router-dom';
@@ -43,7 +43,7 @@ class AddEditForm extends Component {
   };
 
   getCustomer = () => {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + this.state.customer_id)
+    API.get('customers/' + this.state.customer_id)
         .then(res => {
           const customer = res.data
           this.setState({ customer_name: customer.customer_firstname +' '+ customer.customer_lastname, customer: customer })
@@ -51,7 +51,7 @@ class AddEditForm extends Component {
   }
 
   getStatus = () => {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/status/' + this.state.ts_status)
+    API.get('status/' + this.state.ts_status)
         .then(res => {
           const status = res.data
           this.setState({ status_name: status })
@@ -114,7 +114,7 @@ class AddEditForm extends Component {
     };
     console.log(item);
     
-    axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts', item)
+    API.post('ts', item)
     .then(res => {
       const newItem = {
         ts_id: res.data, 
@@ -161,7 +161,7 @@ class AddEditForm extends Component {
     };
     console.log(item);
     
-    axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/${this.state.ts_id}`, item )
+    API.put(`ts/${this.state.ts_id}`, item)
       .then(res => {
         const newItem = {
           ts_id: this.state.ts_id, 
@@ -193,15 +193,15 @@ class AddEditForm extends Component {
     }
   }
 
-  render() {
-    console.log(this.state);
-    
+  render() {  
     const status = this.props.status.map(st => {
       return (
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
       )
     })
-    
+
+    const customers = this.props.customers
+
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <Card>
@@ -231,8 +231,8 @@ class AddEditForm extends Component {
                     isDisabled={this.state.isDisabled}
                     onChange={this.handleChange}
                     placeholder="Seleccione un cliente"
-                    key={this.props.customers}
-                    options={this.props.customers}
+                    key={customers}
+                    options={customers}
                   />
                   </FormGroup>
                 </Col>

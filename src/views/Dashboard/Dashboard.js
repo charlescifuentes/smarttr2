@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Col, Row, Jumbotron, Card, CardHeader, CardBody, ListGroup, ListGroupItem, Badge } from 'reactstrap';
+import { Col, Row, Card, CardHeader, CardBody } from 'reactstrap';
 import TsByStatus from './TsByStatus'
 import LatestTs from './LatestTs'
-import axios from 'axios'
+import LatestCustomers from './LatestCustomers'
+import API from '../../API'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -10,17 +11,18 @@ class Dashboard extends Component {
     this.state = {
       latestTs: [],
       tsByStatus: [],
-      test: 'hola'
+      latestCustomers: []
     };
   }
 
   componentDidMount() {
     this.getLatestTs()
     this.getTsByStatus()
+    this.getLatestCustomers()
   }
 
   getLatestTs() {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/latest')
+    API.get('ts/latest')
       .then(res => {
         const latestTs = res.data
         this.setState({ latestTs })
@@ -28,10 +30,18 @@ class Dashboard extends Component {
   }
 
   getTsByStatus() {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/ts/bystatus')
+    API.get('ts/bystatus')
       .then(res => {
         const tsByStatus = res.data
         this.setState({ tsByStatus })
+      })
+  }
+
+  getLatestCustomers() {
+    API.get('customers/latest')
+      .then(res => {
+        const latestCustomers = res.data
+        this.setState({ latestCustomers })
       })
   }
 
@@ -40,6 +50,7 @@ class Dashboard extends Component {
   render() {
     const latestTs = this.state.latestTs 
     const tsByStatus = this.state.tsByStatus  
+    const latestCustomers = this.state.latestCustomers
     
     return (
       <div className="animated fadeIn">
@@ -50,10 +61,10 @@ class Dashboard extends Component {
                 <i className="fa fa-align-justify"></i><strong>ORDENES POR ESTADO</strong>
               </CardHeader>
               <CardBody>
-                {tsByStatus ? (
-                  <TsByStatus tsByStatus={this.state.tsByStatus} />
+                {Array.isArray(tsByStatus) ? (
+                  <TsByStatus tsByStatus={tsByStatus} />
                 ) : (
-                  <p>Sin datos</p>
+                  <p>{tsByStatus}</p>
                 )}
               </CardBody>
             </Card>
@@ -64,12 +75,11 @@ class Dashboard extends Component {
                 <i className="fa fa-align-justify"></i><strong>CLIENTES RECIENTES</strong>
               </CardHeader>
               <CardBody>
-                <ListGroup>
-                  <ListGroupItem className="justify-content-between">Cras justo odio <Badge className="float-right" pill>14</Badge></ListGroupItem>
-                  <ListGroupItem className="justify-content-between">Dapibus ac facilisis in <Badge className="float-right" pill>2</Badge></ListGroupItem>
-                  <ListGroupItem className="justify-content-between">Morbi leo risus <Badge className="float-right" pill
-                                                                                            color="warning">1</Badge></ListGroupItem>
-                </ListGroup>
+                {Array.isArray(latestCustomers) ? (
+                  <LatestCustomers latestCustomers={latestCustomers} />
+                ) : (
+                  <p>{latestCustomers}</p>
+                )}
               </CardBody>
             </Card>
           </Col>
@@ -78,23 +88,18 @@ class Dashboard extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>ÚLTIMAS RECIENTES</strong>
+                <i className="fa fa-align-justify"></i><strong>ÚLTIMAS ORDENES DE SERVICIO</strong>
               </CardHeader>
               <CardBody>
-                {latestTs ? (
-                  <LatestTs latestTs={this.state.latestTs} />
+                {Array.isArray(latestTs) ? (
+                  <LatestTs latestTs={latestTs} />
                 ) : (
-                  <p>Sin datos</p>
+                  <p>{latestTs}</p>
                 )}
               </CardBody>
             </Card>
           </Col>
         </Row>
-        <Jumbotron>
-          <h1 className="display-3">SMART TR</h1>
-          <p className="lead">Sistema administrativo para Taller de Relojes</p>
-          <hr className="my-2" />
-        </Jumbotron>
       </div>
     );
   }

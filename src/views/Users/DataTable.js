@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap'
 import ModalForm from './ModalForm'
-import axios from 'axios'
+import API from '../../API'
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 class DataTable extends Component {
 
   deleteItem = id => {
     let confirmDelete = window.confirm('Desea borrar este item?')
     if(confirmDelete){
-      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/users/' + id)
+      API.delete('users/' + id)
         .then(res => {
           console.log(res.data);
           this.props.deleteItemFromState(id)
@@ -21,6 +22,7 @@ class DataTable extends Component {
   }
 
   render() {
+    const { SearchBar } = Search;
     const items = this.props.items;
 
     const columns = [
@@ -60,16 +62,29 @@ class DataTable extends Component {
 
     return (
       <div>
-        <BootstrapTable 
-          keyField='user_id' 
-          data={ items } 
-          columns={ columns } 
-          pagination={ paginationFactory() }
-          bootstrap4 
-          striped
-          bordered={false}
-          wrapperClasses="table-responsive"
-        />
+        <ToolkitProvider
+          keyField="user_id"
+          data={ items }
+          columns={ columns }
+          search
+        >
+          {
+            props => (
+              <div>
+                <SearchBar { ...props.searchProps } />
+                <hr />
+                <BootstrapTable
+                  { ...props.baseProps }
+                  pagination={ paginationFactory() }
+                  bootstrap4 
+                  striped
+                  bordered={false}
+                  wrapperClasses="table-responsive"
+                />
+              </div>
+            )
+          }
+        </ToolkitProvider>
       </div>
     )
   }

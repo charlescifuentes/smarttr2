@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 import AddEditForm from './AddEditForm'
-import axios from 'axios'
+import API from '../../API'
 
 class ModalForm extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class ModalForm extends Component {
   }
 
   getCustomers = () => {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/select')
+    API.get('customers/select')
       .then(res => {
         const customers = res.data
         this.setState({ customers })
@@ -28,7 +28,7 @@ class ModalForm extends Component {
   }
 
   getStatus = () => {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/status')
+    API.get('status')
       .then(res => {
         const status = res.data
         this.setState({ status })

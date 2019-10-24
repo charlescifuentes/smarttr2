@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import axios from 'axios'
+import API from '../../API'
 
 class AddEditForm extends Component {
   state = {
@@ -21,7 +21,7 @@ class AddEditForm extends Component {
   }
 
   getRol = () => {
-    axios.get('http://colombiaweb.co/smarttr/apirest/public/api/v1/roles/' + this.state.rol_id)
+    API.get('roles/' + this.state.rol_id)
         .then(res => {
           const rol = res.data
           this.setState({ rol_name: rol })
@@ -42,7 +42,7 @@ class AddEditForm extends Component {
       status: this.state.user_status
     };
     
-    axios.post('http://colombiaweb.co/smarttr/apirest/public/api/v1/users', item)
+    API.post('users', item)
     .then(res => {
       this.setState({ user_id: res.data })
       this.props.addItemToState(this.state)
@@ -63,7 +63,7 @@ class AddEditForm extends Component {
       status: this.state.user_status
     };
 
-    axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/users/${this.state.user_id}`, item )
+    API.put(`users/${this.state.user_id}`, item )
       .then(res => {
         this.props.updateState(this.state)
         this.props.toggle()

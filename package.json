@@ -1,10 +1,10 @@
 {
   "name": "@coreui/coreui-free-react-admin-template",
-  "version": "2.6.0",
+  "version": "1.0.0",
   "description": "CoreUI React Open Source Bootstrap 4 Admin Template",
-  "author": "Łukasz Holeczek",
-  "homepage": "http://colombiaweb.co/smarttr/frontend/",
-  "copyright": "Copyright 2017-2019 creativeLabs Łukasz Holeczek",
+  "author": "Charles Cifuentes",
+  "homepage": "http://ventaderelojes.com.co/smarttr/front/",
+  "copyright": "Copyright 2019 Colombia Web",
   "license": "MIT",
   "private": true,
   "repository": {
@@ -31,6 +31,7 @@
     "react-app-polyfill": "^1.0.4",
     "react-bootstrap-table-next": "^3.2.1",
     "react-bootstrap-table2-paginator": "^2.1.0",
+    "react-bootstrap-table2-toolkit": "^2.1.0",
     "react-chartjs-2": "^2.8.0",
     "react-confirm-alert": "^2.4.1",
     "react-csv": "^1.1.1",

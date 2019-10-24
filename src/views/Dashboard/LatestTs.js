@@ -9,7 +9,7 @@ class LatestTs extends Component {
         <tr key={item.ts_id}>
           <td>{item.ts_id}</td>
           <td>{item.ts_date_start}</td>
-          <td>{item.name}</td>
+          <td>{item.customer_name}</td>
           <td>{item.ts_watch_brand}</td>
           <td>{item.ts_store_sender}</td>
           <td>{item.status_name}</td>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap'
 import ModalForm from './ModalForm'
-import axios from 'axios'
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import API from '../../API'
 
 
 class DataTable extends Component {
@@ -13,7 +14,7 @@ class DataTable extends Component {
   deleteItem = id => {
     let confirmDelete = window.confirm('Desea borrar este item?')
     if(confirmDelete){
-      axios.delete('http://colombiaweb.co/smarttr/apirest/public/api/v1/customers/' + id)
+      API.delete('customers/' + id)
         .then(res => {
           console.log(res.data);
           this.props.deleteItemFromState(id)
@@ -22,6 +23,7 @@ class DataTable extends Component {
   }
 
   render() {
+    const { SearchBar } = Search;
     const items = this.props.items;
 
     const columns = [
@@ -35,7 +37,7 @@ class DataTable extends Component {
         dataField: 'customer_lastname',
         text: 'Apellidos'
       }, {
-        dataField: 'df2',
+        dataField: 'actions',
         isDummyField: true,
         text: 'Acciones',
         formatter: (cellContent, row) => {
@@ -71,31 +73,29 @@ class DataTable extends Component {
 
     return (
       <div>
-        <BootstrapTable 
-          keyField='customer_id' 
-          data={ items } 
-          columns={ columns } 
-          pagination={ paginationFactory() }
-          bootstrap4 
-          striped
-          bordered={false}
-          wrapperClasses="table-responsive"
-        />
-      {/*<Table responsive hover>
-        <thead>
-          <tr>
-            <th>NIT</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Teléfono</th>
-            <th>Ciudad</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items}
-        </tbody>
-      </Table>*/}
+        <ToolkitProvider
+          keyField="customer_id"
+          data={ items }
+          columns={ columns }
+          search
+        >
+        {
+          props => (
+            <div>
+              <SearchBar { ...props.searchProps } />
+              <hr />
+              <BootstrapTable
+                { ...props.baseProps }
+                pagination={ paginationFactory() }
+                bootstrap4 
+                striped
+                bordered={false}
+                wrapperClasses="table-responsive"
+              />
+            </div>
+          )
+        }
+        </ToolkitProvider>
       </div>
     )
   }

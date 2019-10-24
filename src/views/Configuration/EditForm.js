@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
-import axios from 'axios'
+import API from '../../API'
 
 class EditForm extends Component {
   state = {
@@ -28,7 +28,7 @@ class EditForm extends Component {
       companyemail: this.state.company_email
     };
 
-    axios.put(`http://colombiaweb.co/smarttr/apirest/public/api/v1/config/${this.state.config_id}`, item )
+    API.put(`config/${this.state.config_id}`, item )
       .then(res => {
         console.log(res.data);
         this.toggle();
