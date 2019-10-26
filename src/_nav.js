@@ -59,11 +59,7 @@ export default {
       name: 'Cerrar Sesión',
       url: '/logout',
       icon: 'icon-logout',
-      attributes: {
-        onClick: () => {
-          sessionStorage.clear();
-        }
-      }
+      attributes: { onClick: () => { alert('Cerrar Sesión') } }
     },
   ],
 };

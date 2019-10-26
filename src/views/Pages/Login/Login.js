@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Alert } from 'reactstrap';
-import Axios from 'axios';
 import API from '../../../API'
 import logo from '../../../assets/img/logo_watch.png'
 
@@ -24,7 +23,7 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     }
-    Axios.post(API + 'users/login', item)
+    API.post('users/login', item)
     .then(res => {
       let data = res.data
 
