@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-  baseURL: "http://ventaderelojes.com.co/smarttr/back/public/api/v1/",
+  baseURL: "http://colombiaweb.co/smarttr/back/public/api/v1/",
 });

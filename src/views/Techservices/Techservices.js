@@ -11,6 +11,7 @@ class Techservices extends Component {
   }
 
   getItems(){
+    console.log(API + 'ts')
     API.get('ts')
       .then(res => {
         const items = res.data

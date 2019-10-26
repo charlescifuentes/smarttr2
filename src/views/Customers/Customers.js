@@ -13,9 +13,13 @@ class Customers extends Component {
   getItems(){
     API.get('customers')
       .then(res => {
+        console.log(res);
         const items = res.data;
         this.setState({ items });
       })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   addItemToState = (item) => {
@@ -47,6 +51,8 @@ class Customers extends Component {
   }
 
   render() {
+    console.log(this.state.items);
+    
     const { items } = this.state
     return (
       <div className="animated fadeIn">
