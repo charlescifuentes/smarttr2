@@ -13,7 +13,7 @@ class AddEditForm extends Component {
     user_email : '',
     rol_id : '',
     rol_name: '', 
-    user_status : ''            
+    user_status : '1'            
   }
 
   onChange = e => {

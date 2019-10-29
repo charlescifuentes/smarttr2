@@ -12,7 +12,7 @@ class AddEditForm extends Component {
     customer_address : '',
     customer_email : '',
     customer_city : '',
-    customer_status : ''
+    customer_status : '1'
   }
 
   onChange = e => {

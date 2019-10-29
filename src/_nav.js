@@ -35,9 +35,9 @@ export default {
       icon: 'icon-user',
     },
     {
-      name: 'Roles de usuario',
-      url: '/roles',
-      icon: 'icon-user-unfollow',
+      name: 'Talleres',
+      url: '/workshops',
+      icon: 'icon-briefcase',
     },
     {
       name: 'Reportes',

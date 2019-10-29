@@ -4,17 +4,17 @@ import ModalForm from './ModalForm'
 import DataTable from './DataTable'
 import API from '../../API'
 
-class Techservices extends Component {
+class Workshops extends Component {
 
   state = {
     items: []
   }
 
   getItems(){
-    API.get('ts')
+    API.get('workshops')
       .then(res => {
-        const items = res.data
-        this.setState({ items })
+        const items = res.data;
+        this.setState({ items });
       })
   }
 
@@ -25,7 +25,7 @@ class Techservices extends Component {
   }
 
   updateState = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.ts_id === item.ts_id)
+    const itemIndex = this.state.items.findIndex(data => data.ws_id === item.ws_id)
     const newArray = [
     // destructure all items from beginning to the indexed item
       ...this.state.items.slice(0, itemIndex),
@@ -35,6 +35,11 @@ class Techservices extends Component {
       ...this.state.items.slice(itemIndex + 1)
     ]
     this.setState({ items: newArray })
+  }
+
+  deleteItemFromState = (id) => {
+    const updatedItems = this.state.items.filter(item => item.ws_id !== id)
+    this.setState({ items: updatedItems })
   }
 
   componentDidMount(){
@@ -49,11 +54,11 @@ class Techservices extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> SERVICIO TÉCNICO
+                <i className="fa fa-align-justify"></i> TALLERES DE REPARACIÓN
               </CardHeader>
               <CardBody>
                 {Array.isArray(items) ? (
-                  <DataTable items={items} updateState={this.updateState} />
+                  <DataTable items={items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
                 ) : (
                   <p>{items}</p>
                 )}
@@ -69,4 +74,4 @@ class Techservices extends Component {
   }
 }
 
-export default Techservices
+export default Workshops

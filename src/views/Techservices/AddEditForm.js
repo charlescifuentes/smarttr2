@@ -16,7 +16,8 @@ class AddEditForm extends Component {
     user_name: '',
     ts_watch_brand: '',
     ts_watch_model: '',
-    ts_store_sender: '',
+    workshop_id: '',
+    ws_name: '',
     ts_issue_desc: '',
     ts_diagnosis: '',
     ts_observation: '',
@@ -105,7 +106,7 @@ class AddEditForm extends Component {
       user_id: session.user_id,
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
-      ts_store_sender: this.state.ts_store_sender,
+      workshop_id: this.state.workshop_id,
       ts_issue_desc: this.state.ts_issue_desc,
       ts_diagnosis: this.state.ts_diagnosis,
       ts_observation: this.state.ts_observation,
@@ -123,7 +124,7 @@ class AddEditForm extends Component {
         user_id: this.state.user_id,
         ts_watch_brand: this.state.ts_watch_brand,
         ts_watch_model: this.state.ts_watch_model,
-        ts_store_sender: this.state.ts_store_sender,
+        workshop_id: this.state.workshop_id,
         ts_issue_desc: this.state.ts_issue_desc,
         ts_diagnosis: this.state.ts_diagnosis,
         ts_observation: this.state.ts_observation,
@@ -152,7 +153,7 @@ class AddEditForm extends Component {
       user_id: session.user_id,
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
-      ts_store_sender: this.state.ts_store_sender,
+      workshop_id: this.state.workshop_id,
       ts_issue_desc: this.state.ts_issue_desc,
       ts_diagnosis: this.state.ts_diagnosis,
       ts_observation: this.state.ts_observation,
@@ -170,7 +171,7 @@ class AddEditForm extends Component {
           user_id: this.state.user_id,
           ts_watch_brand: this.state.ts_watch_brand,
           ts_watch_model: this.state.ts_watch_model,
-          ts_store_sender: this.state.ts_store_sender,
+          workshop_id: this.state.workshop_id,
           ts_issue_desc: this.state.ts_issue_desc,
           ts_diagnosis: this.state.ts_diagnosis,
           ts_observation: this.state.ts_observation,
@@ -188,8 +189,8 @@ class AddEditForm extends Component {
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name, selectedOption: { value: customer_id, label: customer_name }, isDisabled: true })
+      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, workshop_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name } = this.props.item
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, workshop_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name, selectedOption: { value: customer_id, label: customer_name }, isDisabled: true })
     }
   }
 
@@ -262,8 +263,9 @@ class AddEditForm extends Component {
                 </Col>
                 <Col md={4}>
                   <FormGroup>
-                    <Label for="ts_store_sender">Taller</Label>
-                    <Input type="text" name="ts_store_sender" id="ts_store_sender" onChange={this.onChange} value={this.state.ts_store_sender === null ? '' : this.state.ts_store_sender} />
+                    <Label for="workshop">Taller</Label>
+                    <Input type="select" name="workshop" id="workshop" onChange={this.onChange} value={this.state.workshop_id === null ? '' : this.state.workshop_id} >
+                    </Input>
                   </FormGroup>
                 </Col>
               </Row>

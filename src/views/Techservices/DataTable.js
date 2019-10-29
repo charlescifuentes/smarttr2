@@ -26,7 +26,7 @@ class DataTable extends Component {
         dataField: 'ts_watch_brand',
         text: 'Marca'
       }, {
-        dataField: 'ts_store_sender',
+        dataField: 'ws_name',
         text: 'Taller'
       }, {
         dataField: 'status_name',
