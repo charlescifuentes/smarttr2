@@ -16,7 +16,7 @@ class AddEditForm extends Component {
     user_name: '',
     ts_watch_brand: '',
     ts_watch_model: '',
-    workshop_id: '',
+    ws_id: '',
     ws_name: '',
     ts_issue_desc: '',
     ts_diagnosis: '',
@@ -56,6 +56,14 @@ class AddEditForm extends Component {
         .then(res => {
           const status = res.data
           this.setState({ status_name: status })
+        })
+  }
+
+  getWorkshop = () => {
+    API.get('workshops/' + this.state.ws_id)
+        .then(res => {
+          const workshop = res.data[0].ws_name
+          this.setState({ ws_name: workshop })
         })
   }
 
@@ -99,6 +107,7 @@ class AddEditForm extends Component {
     const session = JSON.parse(sessionStorage.getItem("userData"));
     this.getCustomer()
     this.getStatus()
+    this.getWorkshop()
     this.getCurrentUser()
     const item = {
       ts_date_start: this.state.ts_date_start,
@@ -106,14 +115,13 @@ class AddEditForm extends Component {
       user_id: session.user_id,
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
-      workshop_id: this.state.workshop_id,
+      workshop_id: this.state.ws_id,
       ts_issue_desc: this.state.ts_issue_desc,
       ts_diagnosis: this.state.ts_diagnosis,
       ts_observation: this.state.ts_observation,
       ts_date_end: this.state.ts_date_end,
       ts_status: this.state.ts_status 
     };
-    console.log(item);
     
     API.post('ts', item)
     .then(res => {
@@ -124,16 +132,16 @@ class AddEditForm extends Component {
         user_id: this.state.user_id,
         ts_watch_brand: this.state.ts_watch_brand,
         ts_watch_model: this.state.ts_watch_model,
-        workshop_id: this.state.workshop_id,
+        ws_id: this.state.ws_id,
         ts_issue_desc: this.state.ts_issue_desc,
         ts_diagnosis: this.state.ts_diagnosis,
         ts_observation: this.state.ts_observation,
         ts_date_end: this.state.ts_date_end,
         ts_status: this.state.ts_status,
         customer_name: this.state.customer_name,
-        status_name: this.state.status_name
+        status_name: this.state.status_name,
+        ws_name: this.state.ws_name
       };
-      console.log(res.data);
       this.setState({ ts_id: res.data })
       this.props.addItemToState(newItem)
       this.props.toggle()
@@ -146,6 +154,7 @@ class AddEditForm extends Component {
     const session = JSON.parse(sessionStorage.getItem("userData"));
     this.getCustomer()
     this.getStatus()
+    this.getWorkshop()
     this.getCurrentUser()
     const item = {
       ts_date_start: this.state.ts_date_start,
@@ -153,15 +162,13 @@ class AddEditForm extends Component {
       user_id: session.user_id,
       ts_watch_brand: this.state.ts_watch_brand,
       ts_watch_model: this.state.ts_watch_model,
-      workshop_id: this.state.workshop_id,
+      workshop_id: this.state.ws_id,
       ts_issue_desc: this.state.ts_issue_desc,
       ts_diagnosis: this.state.ts_diagnosis,
       ts_observation: this.state.ts_observation,
       ts_date_end: this.state.ts_date_end,
       ts_status: this.state.ts_status
-    };
-    console.log(item);
-    
+    };    
     API.put(`ts/${this.state.ts_id}`, item)
       .then(res => {
         const newItem = {
@@ -171,14 +178,15 @@ class AddEditForm extends Component {
           user_id: this.state.user_id,
           ts_watch_brand: this.state.ts_watch_brand,
           ts_watch_model: this.state.ts_watch_model,
-          workshop_id: this.state.workshop_id,
+          ws_id: this.state.ws_id,
           ts_issue_desc: this.state.ts_issue_desc,
           ts_diagnosis: this.state.ts_diagnosis,
           ts_observation: this.state.ts_observation,
           ts_date_end: this.state.ts_date_end,
           ts_status: this.state.ts_status,
           customer_name: this.state.customer_name,
-          status_name: this.state.status_name
+          status_name: this.state.status_name,
+          ws_name: this.state.ws_name
         };
         this.props.updateState(newItem)
         this.props.toggle()
@@ -189,15 +197,21 @@ class AddEditForm extends Component {
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, workshop_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, workshop_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name, selectedOption: { value: customer_id, label: customer_name }, isDisabled: true })
+      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ws_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name } = this.props.item
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ws_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name, selectedOption: { value: customer_id, label: customer_name }, isDisabled: true })
     }
   }
 
-  render() {  
+  render() {
     const status = this.props.status.map(st => {
       return (
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
+      )
+    })
+
+    const workshops = this.props.workshops.map(ws => {
+      return (
+      <option key={ws.ws_id} value={ws.ws_id}>{ws.ws_name}</option>
       )
     })
 
@@ -263,9 +277,11 @@ class AddEditForm extends Component {
                 </Col>
                 <Col md={4}>
                   <FormGroup>
-                    <Label for="workshop">Taller</Label>
-                    <Input type="select" name="workshop" id="workshop" onChange={this.onChange} value={this.state.workshop_id === null ? '' : this.state.workshop_id} >
-                    </Input>
+                    <Label for="ws_id">Taller</Label>
+                    <Input type="select" name="ws_id" id="ws_id" onChange={this.onChange}>
+                    <option value={this.state.ws_id}>{this.state.ws_name}</option>
+                    {workshops}
+                  </Input>
                   </FormGroup>
                 </Col>
               </Row>

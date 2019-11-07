@@ -57,9 +57,15 @@ export default {
     },
     {
       name: 'Cerrar Sesión',
-      url: '/logout',
+      url: '#',
       icon: 'icon-logout',
-      attributes: { onClick: () => { alert('Cerrar Sesión') } }
+      attributes: { 
+        onClick: e => { 
+          e.preventDefault()
+          e.stopPropagation()
+          e.alert('hola')
+        },
+      }
     },
   ],
 };

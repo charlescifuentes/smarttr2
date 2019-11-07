@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Row, Card, CardHeader, CardBody } from 'reactstrap';
 import TsByStatus from './TsByStatus'
+import TsByWorkshops from './TsByWorkshops'
 import LatestTs from './LatestTs'
-import LatestCustomers from './LatestCustomers'
 import API from '../../API'
 
 class Dashboard extends Component {
@@ -11,14 +11,14 @@ class Dashboard extends Component {
     this.state = {
       latestTs: [],
       tsByStatus: [],
-      latestCustomers: []
+      tsByWorkshops: []
     };
   }
 
   componentDidMount() {
     this.getLatestTs()
     this.getTsByStatus()
-    this.getLatestCustomers()
+    this.getTsByWorkshops();
   }
 
   getLatestTs() {
@@ -37,11 +37,11 @@ class Dashboard extends Component {
       })
   }
 
-  getLatestCustomers() {
-    API.get('customers/latest')
+  getTsByWorkshops() {
+    API.get('ts/byworkshops')
       .then(res => {
-        const latestCustomers = res.data
-        this.setState({ latestCustomers })
+        const tsByWorkshops = res.data
+        this.setState({ tsByWorkshops })
       })
   }
 
@@ -49,8 +49,8 @@ class Dashboard extends Component {
 
   render() {
     const latestTs = this.state.latestTs 
-    const tsByStatus = this.state.tsByStatus  
-    const latestCustomers = this.state.latestCustomers
+    const tsByStatus = this.state.tsByStatus
+    const tsByWorkshops = this.state.tsByWorkshops
     
     return (
       <div className="animated fadeIn">
@@ -72,13 +72,13 @@ class Dashboard extends Component {
           <Col sm="12" xl="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>CLIENTES RECIENTES</strong>
+                <i className="fa fa-align-justify"></i><strong>ORDENES POR TALLER</strong>
               </CardHeader>
               <CardBody>
-                {Array.isArray(latestCustomers) ? (
-                  <LatestCustomers latestCustomers={latestCustomers} />
+                {Array.isArray(tsByWorkshops) ? (
+                  <TsByWorkshops tsByWorkshops={tsByWorkshops} />
                 ) : (
-                  <p>{latestCustomers}</p>
+                  <p>{tsByWorkshops}</p>
                 )}
               </CardBody>
             </Card>

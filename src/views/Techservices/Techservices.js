@@ -41,7 +41,7 @@ class Techservices extends Component {
     this.getItems()
   }
 
-  render() {
+  render() {    
     const { items } = this.state
     return (
       <div className="animated fadeIn">

@@ -9,7 +9,8 @@ class ModalForm extends Component {
     this.state = {
       modal: false,
       customers: [],
-      status: []
+      status: [],
+      workshops: []
     }
   } 
 
@@ -35,6 +36,14 @@ class ModalForm extends Component {
       })
   }
 
+  getWorkshops = () => {
+    API.get('workshops')
+    .then(res => {
+      const workshops = res.data
+      this.setState({ workshops })
+    })
+  }
+
   render() {
     const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>
 
@@ -50,6 +59,7 @@ class ModalForm extends Component {
                   this.toggle();
                   this.getCustomers();
                   this.getStatus();
+                  this.getWorkshops();
                 }}
                 style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
@@ -61,6 +71,7 @@ class ModalForm extends Component {
                   this.toggle();
                   this.getCustomers();
                   this.getStatus();
+                  this.getWorkshops();
                 }}
                 style={{float: "left"}}>{label}
                 </Button>
@@ -80,6 +91,7 @@ class ModalForm extends Component {
               item={this.props.item}
               customers={this.state.customers}
               status={this.state.status}
+              workshops={this.state.workshops}
               getCustomers={this.getCustomers}
             />
           </ModalBody>
