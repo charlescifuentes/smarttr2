@@ -48,6 +48,8 @@ class Dashboard extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
+    console.log(this.state);
+    
     const latestTs = this.state.latestTs 
     const tsByStatus = this.state.tsByStatus
     const tsByWorkshops = this.state.tsByWorkshops
