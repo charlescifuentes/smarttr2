@@ -34,7 +34,7 @@ class Invoice extends Component {
     }
 
     render() {
-        const { ts_id, ts_date_start, ts_watch_brand, ts_watch_model, ts_store_sender, ts_issue_desc, ts_diagnosis, ts_observation, status_name, ts_date_end, user_name, customer } = this.props.location.state.items
+        const { ts_id, ts_date_start, ts_watch_brand, ts_watch_model, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, status_name, ts_date_end, user_name, customer, ts_total, ts_payment, ts_balance } = this.props.location.state.items
 
         const company = this.state.company.map((item) =>
             <div key={item.config_id}>
@@ -73,7 +73,7 @@ class Invoice extends Component {
                             <CardBody>
                                 <Row>
                                     <Col xs="12" sm="6" md="6">
-                                        <h1>CLIENTE</h1>
+                                        <h3>CLIENTE</h3>
                                         <div>Nombres: {customer.customer_firstname + " " + customer.customer_lastname}</div>
                                         <div>Documento: {customer.customer_nit}</div>
                                         <div>Dirección: {customer.customer_address}</div>
@@ -81,7 +81,7 @@ class Invoice extends Component {
                                         <div>Ciudad: {customer.customer_city}</div>
                                     </Col>
                                     <Col xs="12" sm="6" md="6" className="text-right">
-                                        <h2>ORDEN DE SERVICIO # {ts_id}</h2>
+                                        <h3>ORDEN DE SERVICIO # {ts_id}</h3>
                                         <div>Fecha: {ts_date_start}</div>
                                         <small>Atendido por: {user_name}</small>
                                     </Col>
@@ -107,7 +107,7 @@ class Invoice extends Component {
                                         <Col md={4}>
                                         <FormGroup>
                                             <Label for="ts_store_sender">Taller</Label>
-                                            <Input type="text" name="ts_store_sender" id="ts_store_sender" value={ts_store_sender} readOnly />
+                                            <Input type="text" name="ts_store_sender" id="ts_store_sender" value={ws_name} readOnly />
                                         </FormGroup>
                                     </Col>
                                 </Row>
@@ -147,8 +147,29 @@ class Invoice extends Component {
                                         </FormGroup>
                                     </Col>
                                 </Row>
+                                <Row form className="d-flex align-items-center">
+                                    <Col md={4}>
+                                        <FormGroup>
+                                            <Label for="ts_total">Valor</Label>
+                                            <Input type="ts_total" name="ts_total" id="ts_total" value={ts_total} readOnly/>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={4}>
+                                        <FormGroup>
+                                            <Label for="ts_payment">Abono</Label>
+                                            <Input type="ts_payment" name="ts_payment" id="ts_payment" value={ts_payment} readOnly />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={4}>
+                                        <FormGroup>
+                                            <Label for="ts_balance">Saldo</Label>
+                                            <Input type="ts_balance" name="ts_balance" id="ts_balance" value={ts_balance} readOnly/>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
                             </CardBody>
                         </Card>
+                        <div className="text-center"><p>"Plazo para reclamar el artículo reparado 2 Meses"</p></div>
                     </div>
                 </Container>
             </div>

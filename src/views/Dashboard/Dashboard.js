@@ -50,9 +50,7 @@ class Dashboard extends Component {
   render() {
     console.log(this.state);
     
-    const latestTs = this.state.latestTs 
-    const tsByStatus = this.state.tsByStatus
-    const tsByWorkshops = this.state.tsByWorkshops
+    const { latestTs, tsByStatus, tsByWorkshops } = this.state 
     
     return (
       <div className="animated fadeIn">

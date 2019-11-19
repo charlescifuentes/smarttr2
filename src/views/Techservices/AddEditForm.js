@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Row, Col, Card, CardHeader, CardBody, CardFooter } from 'reactstrap';
 import API from '../../API'
 import Select from 'react-select'
 import CustomerAdd from './CustomerAdd';
@@ -23,6 +23,9 @@ class AddEditForm extends Component {
     ts_observation: '',
     ts_date_end: '',
     ts_status: '',
+    ts_total: 0,
+    ts_payment: 0,
+    ts_balance: 0,
     customer_name: '',
     status_name: '',
     selectedOption: null,
@@ -32,6 +35,13 @@ class AddEditForm extends Component {
 
   onChange = e => {
     this.setState({[e.target.name]: e.target.value})
+  }
+
+  getBalance = () => {
+    let total = this.state.ts_total
+    let payment = this.state.ts_payment 
+    let balance = total - payment
+    this.setState({ts_balance: balance})
   }
 
   handleChange = selectedOption => {
@@ -120,7 +130,10 @@ class AddEditForm extends Component {
       ts_diagnosis: this.state.ts_diagnosis,
       ts_observation: this.state.ts_observation,
       ts_date_end: this.state.ts_date_end,
-      ts_status: this.state.ts_status 
+      ts_status: this.state.ts_status,
+      ts_total: this.state.ts_total,
+      ts_payment: this.state.ts_payment,
+      ts_balance: this.state.ts_balance 
     };
     
     API.post('ts', item)
@@ -138,6 +151,9 @@ class AddEditForm extends Component {
         ts_observation: this.state.ts_observation,
         ts_date_end: this.state.ts_date_end,
         ts_status: this.state.ts_status,
+        ts_total: this.state.ts_total,
+        ts_payment: this.state.ts_payment,
+        ts_balance: this.state.ts_balance,
         customer_name: this.state.customer_name,
         status_name: this.state.status_name,
         ws_name: this.state.ws_name
@@ -167,7 +183,10 @@ class AddEditForm extends Component {
       ts_diagnosis: this.state.ts_diagnosis,
       ts_observation: this.state.ts_observation,
       ts_date_end: this.state.ts_date_end,
-      ts_status: this.state.ts_status
+      ts_status: this.state.ts_status,
+      ts_total: this.state.ts_total,
+      ts_payment: this.state.ts_payment,
+      ts_balance: this.state.ts_balance 
     };    
     API.put(`ts/${this.state.ts_id}`, item)
       .then(res => {
@@ -184,6 +203,9 @@ class AddEditForm extends Component {
           ts_observation: this.state.ts_observation,
           ts_date_end: this.state.ts_date_end,
           ts_status: this.state.ts_status,
+          ts_total: this.state.ts_total,
+          ts_payment: this.state.ts_payment,
+          ts_balance: this.state.ts_balance, 
           customer_name: this.state.customer_name,
           status_name: this.state.status_name,
           ws_name: this.state.ws_name
@@ -197,12 +219,14 @@ class AddEditForm extends Component {
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ws_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name } = this.props.item
-      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ws_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, customer_name, status_name, selectedOption: { value: customer_id, label: customer_name }, isDisabled: true })
+      const { ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ws_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, ts_total, ts_payment, ts_balance, customer_name, status_name } = this.props.item
+      this.setState({ ts_id, ts_date_start, customer_id, user_id, ts_watch_brand, ts_watch_model, ws_id, ws_name, ts_issue_desc, ts_diagnosis, ts_observation, ts_date_end, ts_status, ts_total, ts_payment, ts_balance, customer_name, status_name, selectedOption: { value: customer_id, label: customer_name }, isDisabled: true })
     }
   }
 
   render() {
+    console.log(this.state);
+    
     const status = this.props.status.map(st => {
       return (
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
@@ -323,11 +347,29 @@ class AddEditForm extends Component {
                   <Input type="date" name="ts_date_end" id="ts_date_end" onChange={this.onChange} value={this.state.ts_date_end === null ? '' : this.state.ts_date_end} />
                 </FormGroup>
               </Col>
+            </Row>
+            <Row form className="d-flex align-items-center">
               <Col md={4}>
-                <Button color="primary float-right">Guardar</Button>
+                  <FormGroup>
+                      <Label for="ts_total">Valor</Label>
+                      <Input type="ts_total" name="ts_total" id="ts_total" onChange={this.onChange} onBlur={this.getBalance} value={this.state.ts_total === null ? '' : this.state.ts_total} />
+                  </FormGroup>
+              </Col>
+              <Col md={4}>
+                  <FormGroup>
+                      <Label for="ts_payment">Abono</Label>
+                      <Input type="ts_payment" name="ts_payment" id="ts_payment" onChange={this.onChange} onBlur={this.getBalance} value={this.state.ts_payment === null ? '' : this.state.ts_payment} />
+                  </FormGroup>
+              </Col>
+              <Col md={4}>
+                  <FormGroup>
+                      <Label for="ts_balance">Saldo</Label>
+                      <Input type="ts_balance" name="ts_balance" id="ts_balance" onChange={this.onChange} value={this.state.ts_balance === null ? '' : this.state.ts_balance} readOnly />
+                  </FormGroup>
               </Col>
             </Row>
           </CardBody>
+          <CardFooter><Button color="primary float-right">Guardar</Button></CardFooter>
         </Card>
       </Form>
     );

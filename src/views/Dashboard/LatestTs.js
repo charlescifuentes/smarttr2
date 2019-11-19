@@ -13,6 +13,7 @@ class LatestTs extends Component {
           <td>{item.ts_watch_brand}</td>
           <td>{item.ws_name}</td>
           <td>{item.status_name}</td>
+          <td>{item.ts_total}</td>
         </tr>
       )
     })
@@ -27,6 +28,7 @@ class LatestTs extends Component {
             <th>Marca</th>
             <th>Taller</th>
             <th>Estado</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>

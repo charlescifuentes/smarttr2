@@ -57,7 +57,6 @@ class AddEditForm extends Component {
 
     API.put(`customers/${this.state.customer_id}`, item )
       .then(res => {
-        console.log(res.data);
         this.props.updateState(this.state)
         this.props.toggle()
       })

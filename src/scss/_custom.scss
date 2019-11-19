@@ -19,6 +19,15 @@ table th, table td { white-space: nowrap; }
     .form-control {
         font-size: 1.2rem !important;
     }
+
+    .card-header {
+        padding: 0.25rem 1.00rem;
+        
+    }
+
+    h3 {
+        margin-bottom: 0.1rem;
+    }
 }
 
 .react-bootstrap-table table {
@@ -27,4 +36,8 @@ table th, table td { white-space: nowrap; }
 
 .close {
     color: white
+}
+
+.main .container-fluid {
+    padding: 10px;
 }
