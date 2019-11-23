@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Alert } from 'reactstrap'
 import API from '../../API'
 
 class CustomerAdd extends Component {
@@ -15,7 +15,9 @@ class CustomerAdd extends Component {
         customer_email : '',
         customer_city : '',
         customer_status : '',
-        modal: false
+        modal: false,
+        checkNit: '',
+        isDisabled: false 
       }
     }
 
@@ -23,9 +25,26 @@ class CustomerAdd extends Component {
       this.setState({[e.target.name]: e.target.value})
     }
 
+    checkNit = e => {
+      const nit = e.target.value
+      if (nit !== "") {
+        API.get(`customers/checknit/${nit}`)
+        .then(response => {
+          const checkNit = response.data
+  
+          if (checkNit === 1) {
+            this.setState({ checkNit: checkNit, isDisabled: true })
+          } else {
+            this.setState({ checkNit: checkNit, isDisabled: false })
+          }
+        })
+      } else {
+          this.setState({ checkNit: '', isDisabled: false })
+      }
+    }
+
     submitFormAdd = e => {
       e.preventDefault()
-  
       const item = {
         customer_nit: this.state.customer_nit,
         customer_firstname: this.state.customer_firstname,
@@ -39,8 +58,9 @@ class CustomerAdd extends Component {
       
       API.post('customers', item)
       .then(res => {
+        console.log(res.data);
         const newItem = {
-          customer_id: res.data, 
+          customer_id: res.data,
           customer_firstname: this.state.customer_firstname,
           customer_lastname: this.state.customer_lastname,
         }
@@ -56,6 +76,8 @@ class CustomerAdd extends Component {
     }
 
     render() {
+      const { checkNit } = this.state
+      const nitAlert = <Alert color="danger">Este NIT ya existe</Alert>
         return (
           <div>
             <Button color="info" onClick={this.props.onEdit}><i className="fa fa-pencil"> Editar</i></Button>
@@ -71,7 +93,8 @@ class CustomerAdd extends Component {
                 </FormGroup>
                 <FormGroup>
                   <Label for="customer_nit">NIT</Label>
-                  <Input type="text" name="customer_nit" id="customer_nit" onChange={this.onChange} value={this.state.customer_nit} />
+                  { checkNit === 1 && nitAlert }
+                  <Input type="text" name="customer_nit" id="customer_nit" onChange={this.onChange} onBlur={this.checkNit} value={this.state.customer_nit} />
                 </FormGroup>
                 <FormGroup>
                   <Label for="customer_firstname">Nombres</Label>
@@ -104,7 +127,7 @@ class CustomerAdd extends Component {
                     <option value="2">Inactivo</option>
                   </Input>
                 </FormGroup>
-                <Button color="primary" onClick={this.submitFormAdd}>Enviar</Button>
+                <Button color="primary" onClick={this.submitFormAdd} disabled={this.state.isDisabled}>Enviar</Button>
               </Form>
               </ModalBody>
             </Modal>

@@ -37,7 +37,7 @@ class AddEditForm extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  getBalance = () => {
+  setBalance = () => {
     let total = this.state.ts_total
     let payment = this.state.ts_payment 
     let balance = total - payment
@@ -138,6 +138,7 @@ class AddEditForm extends Component {
     
     API.post('ts', item)
     .then(res => {
+      console.log(res.data);
       const newItem = {
         ts_id: res.data, 
         ts_date_start: this.state.ts_date_start,
@@ -190,6 +191,7 @@ class AddEditForm extends Component {
     };    
     API.put(`ts/${this.state.ts_id}`, item)
       .then(res => {
+        console.log(res.data);
         const newItem = {
           ts_id: this.state.ts_id, 
           ts_date_start: this.state.ts_date_start,
@@ -225,8 +227,6 @@ class AddEditForm extends Component {
   }
 
   render() {
-    console.log(this.state);
-    
     const status = this.props.status.map(st => {
       return (
         <option key={st.status_id} value={st.status_id}>{st.status_name}</option>
@@ -352,13 +352,13 @@ class AddEditForm extends Component {
               <Col md={4}>
                   <FormGroup>
                       <Label for="ts_total">Valor</Label>
-                      <Input type="ts_total" name="ts_total" id="ts_total" onChange={this.onChange} onBlur={this.getBalance} value={this.state.ts_total === null ? '' : this.state.ts_total} />
+                      <Input type="ts_total" name="ts_total" id="ts_total" onChange={this.onChange} onBlur={this.setBalance} value={this.state.ts_total === null ? '' : this.state.ts_total} />
                   </FormGroup>
               </Col>
               <Col md={4}>
                   <FormGroup>
                       <Label for="ts_payment">Abono</Label>
-                      <Input type="ts_payment" name="ts_payment" id="ts_payment" onChange={this.onChange} onBlur={this.getBalance} value={this.state.ts_payment === null ? '' : this.state.ts_payment} />
+                      <Input type="ts_payment" name="ts_payment" id="ts_payment" onChange={this.onChange} onBlur={this.setBalance} value={this.state.ts_payment === null ? '' : this.state.ts_payment} />
                   </FormGroup>
               </Col>
               <Col md={4}>

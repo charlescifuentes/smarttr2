@@ -15,9 +15,15 @@ class DataTable extends Component {
     let confirmDelete = window.confirm('Desea borrar este item?')
     if(confirmDelete){
       API.delete('customers/' + id)
-        .then(res => {
-          console.log(res.data);
-          this.props.deleteItemFromState(id)
+        .then(response => {
+          if (response.data === "1") {
+            console.log("Cliente eliminado")
+            this.props.deleteItemFromState(id)
+          } else if (response.data === "2") {
+              console.log("No se pudo eliminar el cliente")
+            } else {
+              alert(response.data)
+              }
         })
     }
   }

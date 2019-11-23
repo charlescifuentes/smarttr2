@@ -12,13 +12,10 @@ class Customers extends Component {
 
   getItems(){
     API.get('customers')
-      .then(res => {
-        const items = res.data;
+      .then(response => {
+        const items = response.data;
         this.setState({ items });
       })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   addItemToState = (item) => {

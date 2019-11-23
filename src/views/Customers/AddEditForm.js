@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import API from '../../API'
 
 class AddEditForm extends Component {
@@ -8,15 +8,43 @@ class AddEditForm extends Component {
     customer_nit: '',
     customer_firstname : '',
     customer_lastname : '',
-    customer_phone : '',
+    customer_phone: '',
     customer_address : '',
     customer_email : '',
     customer_city : '',
-    customer_status : '1'
+    customer_status : '1',
+    checkNit: '',
+    isDisabled: false 
   }
 
   onChange = e => {
     this.setState({[e.target.name]: e.target.value})
+  }
+
+  checkNit = e => {
+    const nit = e.target.value
+    let currentNit = ''
+
+    if (this.props.item) {
+      currentNit = this.props.item.customer_nit
+    } else {
+      currentNit = ''
+    }
+
+    if (nit !== "" && nit !== currentNit) {
+      API.get(`customers/checknit/${nit}`)
+      .then(response => {
+        const checkNit = response.data
+
+        if (checkNit === 1) {
+          this.setState({ checkNit: checkNit, isDisabled: true })
+        } else {
+          this.setState({ checkNit: checkNit, isDisabled: false })
+        }
+      })
+    } else {
+        this.setState({ checkNit: '', isDisabled: false })
+    }
   }
 
   submitFormAdd = e => {
@@ -43,7 +71,6 @@ class AddEditForm extends Component {
 
   submitFormEdit = e => {
     e.preventDefault()
-
     const item = {
       customer_nit: this.state.customer_nit,
       customer_firstname: this.state.customer_firstname,
@@ -71,6 +98,9 @@ class AddEditForm extends Component {
   }
 
   render() {
+    const { checkNit } = this.state
+    const nitAlert = <Alert color="danger">Este NIT ya existe</Alert>
+    
     return (
       <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
         <FormGroup>
@@ -79,7 +109,8 @@ class AddEditForm extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="customer_nit">NIT</Label>
-          <Input type="text" name="customer_nit" id="customer_nit" onChange={this.onChange} value={this.state.customer_nit === null ? '' : this.state.customer_nit} />
+          { checkNit === 1 && nitAlert }
+          <Input type="text" name="customer_nit" id="customer_nit" onChange={this.onChange} onBlur={this.checkNit} value={this.state.customer_nit === null ? '' : this.state.customer_nit} />
         </FormGroup>
         <FormGroup>
           <Label for="customer_firstname">Nombres</Label>
@@ -112,7 +143,7 @@ class AddEditForm extends Component {
             <option value="2">Inactivo</option>
           </Input>
         </FormGroup>
-        <Button color="primary">Enviar</Button>
+        <Button color="primary" disabled={this.state.isDisabled}>Enviar</Button>
       </Form>
     );
   }
