@@ -4,6 +4,9 @@ import { Table } from 'reactstrap'
 class LatestTs extends Component {
 
   render() {
+    const options = { style: 'currency', currency: 'COP', minimumFractionDigits: '0' }
+    const numberFormat = new Intl.NumberFormat('es-CO', options);
+
     const latestTs = this.props.latestTs.map(item => {
       return (
         <tr key={item.ts_id}>
@@ -13,7 +16,7 @@ class LatestTs extends Component {
           <td>{item.ts_watch_brand}</td>
           <td>{item.ws_name}</td>
           <td>{item.status_name}</td>
-          <td>{item.ts_total}</td>
+          <td>{numberFormat.format(item.ts_total)}</td>
         </tr>
       )
     })

@@ -28,8 +28,9 @@ class Invoice extends Component {
     async getCompanyInfo() { 
         await API.get('config')
             .then(res => {
-            const company = res.data;
-            this.setState({ company });
+                console.log(res.data);
+                const company = res.data;
+                this.setState({ company });
             })
     }
 

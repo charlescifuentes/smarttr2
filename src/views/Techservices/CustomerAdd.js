@@ -30,6 +30,7 @@ class CustomerAdd extends Component {
       if (nit !== "") {
         API.get(`customers/checknit/${nit}`)
         .then(response => {
+          console.log(response.data);
           const checkNit = response.data
   
           if (checkNit === 1) {

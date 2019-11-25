@@ -34,6 +34,7 @@ class AddEditForm extends Component {
     if (nit !== "" && nit !== currentNit) {
       API.get(`customers/checknit/${nit}`)
       .then(response => {
+        console.log(response.data);
         const checkNit = response.data
 
         if (checkNit === 1) {
@@ -63,6 +64,7 @@ class AddEditForm extends Component {
     
     API.post('customers', item)
     .then(res => {
+      console.log(res.data);
       this.setState({ customer_id: res.data })
       this.props.addItemToState(this.state)
       this.props.toggle()
@@ -84,6 +86,7 @@ class AddEditForm extends Component {
 
     API.put(`customers/${this.state.customer_id}`, item )
       .then(res => {
+        console.log(res.data);
         this.props.updateState(this.state)
         this.props.toggle()
       })

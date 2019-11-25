@@ -56,6 +56,7 @@ class AddEditForm extends Component {
   getCustomer = () => {
     API.get('customers/' + this.state.customer_id)
         .then(res => {
+          console.log(res.data);
           const customer = res.data
           this.setState({ customer_name: customer.customer_firstname +' '+ customer.customer_lastname, customer: customer })
         })
@@ -64,6 +65,7 @@ class AddEditForm extends Component {
   getStatus = () => {
     API.get('status/' + this.state.ts_status)
         .then(res => {
+          console.log(res.data)
           const status = res.data
           this.setState({ status_name: status })
         })
@@ -72,6 +74,7 @@ class AddEditForm extends Component {
   getWorkshop = () => {
     API.get('workshops/' + this.state.ws_id)
         .then(res => {
+          console.log(res.data);
           const workshop = res.data[0].ws_name
           this.setState({ ws_name: workshop })
         })
