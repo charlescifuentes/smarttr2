@@ -44,8 +44,8 @@ export default {
       icon: 'icon-chart',
       children: [
         {
-          name: 'Servicio Técnico',
-          url: '/reports/techservices',
+          name: 'Ordenes de Servicio',
+          url: '/tsreport',
           icon: 'icon-chart',
         },
       ],
@@ -54,18 +54,6 @@ export default {
       name: 'Configuración',
       url: '/config',
       icon: 'icon-wrench',
-    },
-    {
-      name: 'Cerrar Sesión',
-      url: '#',
-      icon: 'icon-logout',
-      attributes: { 
-        onClick: e => { 
-          e.preventDefault()
-          e.stopPropagation()
-          e.alert('hola')
-        },
-      }
     },
   ],
 };
