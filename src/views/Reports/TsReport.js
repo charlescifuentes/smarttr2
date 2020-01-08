@@ -12,7 +12,7 @@ const TsReport = () => {
     const [showTable, setShowTable] = useState(false)
 
     const getTSReportByDates = async (sDate, eDate) => {
-        const result = await API.post('customers')
+        const result = await API.get(`reports/${sDate}/${eDate}`)
         setTsData(result.data)
         console.log(result.data)
         setShowTable(true)
@@ -35,7 +35,14 @@ const TsReport = () => {
                 {showTable &&
                     <Row>
                         <Col>
-                            <TsReportTable tsData ={tsData} />
+                            <Card>
+                                <CardHeader>
+                                    <i className="fa fa-align-justify"></i> TABLA DE ORDENES DE SERVICIO
+                                </CardHeader>
+                                <CardBody>
+                                    <TsReportTable tsData ={tsData} />
+                                </CardBody>
+                            </Card>
                         </Col>
                     </Row>
                 }
