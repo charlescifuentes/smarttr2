@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Input, Form, Label, FormGroup, Button } from 'reactstrap';
 
-const TsForm = props => {
+const TsReportForm = props => {
     const [data, setData] = useState(props.dates)
 
     useEffect(() => {
@@ -15,6 +15,7 @@ const TsForm = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
+        props.getTSReportByDates(data.sDate, data.eDate)
         alert(`the form is submmited with the data: ${data.sDate} and ${data.eDate}`);
     }
 
@@ -33,4 +34,4 @@ const TsForm = props => {
     )
 }
 
-export default TsForm
+export default TsReportForm

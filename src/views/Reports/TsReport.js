@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import TsForm from './TsForm'
+import TsReportForm from './TsReportForm'
+import TsReportTable from './TsReportTable'
 import API from '../../API'
 import { Col, Card, Row, CardHeader, CardBody } from 'reactstrap';
 
@@ -7,22 +8,37 @@ const TsReport = () => {
     const initialFormState = {sDate: '', eDate: ''}
 
     const [data, setData] = useState(initialFormState)
+    const [tsData, setTsData] = useState([])  
+    const [showTable, setShowTable] = useState(false)
+
+    const getTSReportByDates = async (sDate, eDate) => {
+        const result = await API.post('customers')
+        setTsData(result.data)
+        console.log(result.data)
+        setShowTable(true)
+    }
     
     return (
-        <div className="animated fadeIn d-flex justify-content-center">
-                <Row>
-                    <Col>
+        <div className="animated fadeIn h-100">
+                <Row className="align-items-center h-100">
+                    <Col md="4" className="mx-auto">
                         <Card>
                             <CardHeader>
                                 <i className="fa fa-align-justify"></i> REPORTE DE ORDENES DE SERVICIO
                             </CardHeader>
                             <CardBody>
-                                <TsForm dates={data} />
+                                <TsReportForm dates={data} getTSReportByDates={getTSReportByDates} />
                             </CardBody>
                         </Card>
                     </Col>
                 </Row>
-                <p>{data.date_start}</p>
+                {showTable &&
+                    <Row>
+                        <Col>
+                            <TsReportTable tsData ={tsData} />
+                        </Col>
+                    </Row>
+                }
         </div>
     );
 }
