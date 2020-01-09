@@ -27,7 +27,7 @@ const TsReportForm = props => {
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label for="eDate" sm={4}>Fecha desde</Label>
+                <Label for="eDate" sm={4}>Fecha hasta</Label>
                 <Col sm={8}>
                     <Input type="date" name="eDate" id="eDate" value={data.eDate} onChange={handleChange} required></Input>
                 </Col>
