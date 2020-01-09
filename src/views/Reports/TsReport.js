@@ -14,7 +14,7 @@ const TsReport = () => {
     const getTSReportByDates = async (sDate, eDate) => {
         const result = await API.get(`reports/${sDate}/${eDate}`)
         setTsData(result.data)
-        console.log(result.data)
+        setData({ sDate: sDate, eDate: eDate })
         setShowTable(true)
     }
     
@@ -37,7 +37,7 @@ const TsReport = () => {
                         <Col>
                             <Card>
                                 <CardHeader>
-                                    <i className="fa fa-align-justify"></i> TABLA DE ORDENES DE SERVICIO
+                                    <i className="fa fa-align-justify"></i> ORDENES DE SERVICIO DEL {data.sDate} al {data.eDate} 
                                 </CardHeader>
                                 <CardBody>
                                     <TsReportTable tsData ={tsData} />

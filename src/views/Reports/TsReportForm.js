@@ -32,7 +32,7 @@ const TsReportForm = props => {
                     <Input type="date" name="eDate" id="eDate" value={data.eDate} onChange={handleChange} required></Input>
                 </Col>
             </FormGroup>
-            <Button color="primary" type="submit">Submit</Button>
+            <Button color="primary" type="submit">Enviar</Button>
         </Form>
     )
 }

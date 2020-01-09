@@ -26,7 +26,11 @@ const TsReportView = (props) => {
                 <ListGroupItem><b>Taller:</b> {ts.ws_name}</ListGroupItem>
                 <ListGroupItem><b>Problema:</b> {ts.ts_issue_desc}</ListGroupItem>
                 <ListGroupItem><b>Diagnóstico:</b> {ts.ts_diagnosis}</ListGroupItem>
-                <ListGroupItem><b>Observaciones:</b> {ts.ts_observation}</ListGroupItem>
+                <ListGroupItem><b>Fecha de entrega:</b> {ts.ts_date_end}</ListGroupItem>
+                <ListGroupItem><b>Estado:</b> {ts.status_name}</ListGroupItem>
+                <ListGroupItem><b>Valor:</b> {ts.ts_total}</ListGroupItem>
+                <ListGroupItem><b>Abono:</b> {ts.ts_payment}</ListGroupItem>
+                <ListGroupItem><b>Saldo:</b> {ts.ts_balance}</ListGroupItem>
             </ListGroup>
         </ModalBody>
         <ModalFooter>
