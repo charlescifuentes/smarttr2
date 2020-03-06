@@ -6,6 +6,6 @@ Web application developed for manage all the workflow for the reparations, sales
 - The Frontend was developed with React.js (Html5, Css3, JavaScript), responsive web design with Bootstrap 4
 
 See the demo here => http://colombiaweb.co/smarttr/front/
-User: charles
-Password: 12345
+- User: charles
+- Password: 12345
 
