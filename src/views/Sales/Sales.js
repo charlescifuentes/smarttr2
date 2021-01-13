@@ -16,7 +16,7 @@ const Sales = () => {
                         <i className="fa fa-align-justify"></i> VENTAS
                     </CardHeader>
                     <CardBody>
-                        <p>This is the sales area</p>
+                        <p>This is the sales area.</p>
                     </CardBody>
                     <CardFooter>
                     </CardFooter>
