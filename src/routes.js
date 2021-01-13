@@ -8,6 +8,7 @@ const Workshops = React.lazy(() => import('./views/Workshops'));
 const Config = React.lazy(() => import('./views/Configuration'));
 const Roles = React.lazy(() => import('./views/Roles'));
 const Techservices = React.lazy(() => import('./views/Techservices'));
+const Sales = React.lazy(() => import('./views/Sales'));
 const TsReport = React.lazy(() => import('./views/Reports/TsReport'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -21,6 +22,7 @@ const routes = [
   { path: '/config', name: 'Status', component: Config },
   { path: '/roles', name: 'Roles', component: Roles },
   { path: '/techservices', name: 'Techservices', component: Techservices },
+  { path: '/sales', name: 'Sales', component: Sales },
   { path: '/tsreport', name: 'Techservices Report', component: TsReport },
 ];
 

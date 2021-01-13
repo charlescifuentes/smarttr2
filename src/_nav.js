@@ -40,6 +40,11 @@ export default {
       icon: 'icon-briefcase',
     },
     {
+      name: 'Ventas',
+      url: '/sales',
+      icon: 'icon-graph',
+    },
+    {
       name: 'Reportes',
       icon: 'icon-chart',
       children: [
